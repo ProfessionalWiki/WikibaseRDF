@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jeroen De Dauw"
+		]
+	},
+	"wikibase-rdf-name": "{{notranslate}}",
+	"wikibase-rdf-description": "{{Desc|name=Wikibase RDF|url=https://github.com/ProfessionalWiki/WikibaseRDF}}"
+}

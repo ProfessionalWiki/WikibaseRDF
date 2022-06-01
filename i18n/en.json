@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jeroen De Dauw"
+		]
+	},
+	"wikibase-rdf-name": "Wikibase RDF",
+	"wikibase-rdf-description": "Wikibase extension that allows defining RDF mappings for Wikibase Entities"
+}

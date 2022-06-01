@@ -1,0 +1,16 @@
+parameters:
+	level: 9
+	paths:
+		- src
+	scanDirectories:
+		- ../../includes
+		- ../../tests/phpunit
+		- ../../vendor
+		- ../../extensions/Wikibase
+#	excludePaths:
+#		analyse:
+#			- src/AutomatedValuesFactory.php
+#	ignoreErrors:
+#		- '#.+ no value type specified in iterable type .+#'
+#		- '#Constant [a-zA-Z0-9\\_]+ not found#'
+

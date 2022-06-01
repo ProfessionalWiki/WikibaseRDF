@@ -1,0 +1,31 @@
+{
+	"name": "professional-wiki/wikibase-rdf",
+	"type": "mediawiki-extension",
+	"description": "Wikibase extension that allows defining RDF mappings for Wikibase Entities",
+	"keywords": [
+		"MediaWiki",
+		"Wikibase",
+		"RDF"
+	],
+	"homepage": "https://github.com/ProfessionalWiki/WikibaseRDF",
+	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "Professional.Wiki",
+			"email": "info@Professional.Wiki",
+			"homepage": "https://Professional.Wiki"
+		}
+	],
+	"require": {
+		"php": ">=8.0",
+		"composer/installers": "^2|^1.0.1"
+	},
+	"require-dev": {
+		"vimeo/psalm": "^4.22.0",
+		"phpstan/phpstan": "^1.4.8",
+		"mediawiki/mediawiki-codesniffer": "^39.0.0"
+	},
+	"extra": {
+		"installer-name": "WikibaseRDF"
+	}
+}

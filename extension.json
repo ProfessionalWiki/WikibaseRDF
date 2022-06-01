@@ -1,0 +1,59 @@
+{
+	"name": "Wikibase RDF",
+	"type": "wikibase",
+
+	"version": "1.0.0",
+
+	"author": [
+		"[https://Professional.Wiki/ Professional.Wiki]",
+		"[https://www.EntropyWins.wtf/mediawiki Jeroen De Dauw]"
+	],
+
+	"license-name": "GPL-2.0-or-later",
+
+	"url": "https://github.com/ProfessionalWiki/WikibaseRDF",
+
+	"descriptionmsg": "automated-values-description",
+
+	"requires": {
+		"MediaWiki": ">= 1.37.0",
+		"extensions": {
+			"WikibaseRepository": "*"
+		}
+	},
+
+	"MessagesDirs": {
+		"WikibaseRDF": [
+			"i18n"
+		]
+	},
+
+	"AutoloadNamespaces": {
+		"ProfessionalWiki\\WikibaseRDF\\": "src/",
+		"ProfessionalWiki\\WikibaseRDF\\Tests\\": "tests/"
+	},
+
+	"Hooks": {
+	},
+
+	"config": {
+	},
+
+	"ResourceFileModulePaths": {
+		"localBasePath": "resources",
+		"remoteExtPath": "AutomatedValues/resources"
+	},
+
+	"ResourceModules": {
+		"ext.wikibase.rdf": {
+			"dependencies": [
+			],
+			"scripts": [
+			],
+			"styles": [
+			]
+		}
+	},
+
+	"manifest_version": 2
+}
