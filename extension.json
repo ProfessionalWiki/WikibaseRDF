@@ -2,7 +2,7 @@
 	"name": "Wikibase RDF",
 	"type": "wikibase",
 
-	"version": "1.0.0",
+	"version": "1.0.0-alpha",
 
 	"author": [
 		"[https://Professional.Wiki/ Professional.Wiki]",
@@ -13,7 +13,7 @@
 
 	"url": "https://github.com/ProfessionalWiki/WikibaseRDF",
 
-	"descriptionmsg": "automated-values-description",
+	"descriptionmsg": "wbrdf-description",
 
 	"requires": {
 		"MediaWiki": ">= 1.37.0",
@@ -41,7 +41,7 @@
 
 	"ResourceFileModulePaths": {
 		"localBasePath": "resources",
-		"remoteExtPath": "AutomatedValues/resources"
+		"remoteExtPath": "WikibaseRDF/resources"
 	},
 
 	"ResourceModules": {
