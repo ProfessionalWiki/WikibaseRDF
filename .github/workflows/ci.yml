@@ -12,9 +12,9 @@ jobs:
       matrix:
         include:
           - mw: 'REL1_37'
-            php: 8.0
+            php: '8.0'
           - mw: 'REL1_37'
-            php: 8.1
+            php: '8.1'
 
     runs-on: ubuntu-latest
 
@@ -66,15 +66,15 @@ jobs:
 
       - name: Run PHPUnit
         run: php tests/phpunit/phpunit.php -c extensions/WikibaseRDF/
-        if: matrix.php != 8.1
+        if: matrix.php != '8.0'
 
       - name: Run PHPUnit with code coverage
         run: php tests/phpunit/phpunit.php -c extensions/WikibaseRDF/ --coverage-clover coverage.xml
-        if: matrix.php == 8.1
+        if: matrix.php == '8.0'
 
       - name: Upload code coverage
         run: bash <(curl -s https://codecov.io/bash)
-        if: matrix.php == 8.1 && github.ref == 'refs/heads/master'
+        if: matrix.php == '8.0' && github.ref == 'refs/heads/master'
 
 
 

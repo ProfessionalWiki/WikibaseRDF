@@ -19,9 +19,7 @@ echo '$wgShowExceptionDetails = true;' >> LocalSettings.php
 echo '$wgShowDBErrorBacktrace = true;' >> LocalSettings.php
 echo '$wgDevelopmentWarnings = true;' >> LocalSettings.php
 
-echo '$wgEnableWikibaseRepo = true;' >> LocalSettings.php
-echo '$wgEnableWikibaseClient = false;' >> LocalSettings.php
-echo 'require_once __DIR__ . "/extensions/Wikibase/repo/Wikibase.php";' >> LocalSettings.php
+echo "wfLoadExtension( 'WikibaseRepository', __DIR__ . '/extensions/Wikibase/extension-repo.json' );" >> LocalSettings.php
 echo 'require_once __DIR__ . "/extensions/Wikibase/repo/ExampleSettings.php";' >> LocalSettings.php
 
 echo 'wfLoadExtension( "'$EXTENSION_NAME'" );' >> LocalSettings.php
