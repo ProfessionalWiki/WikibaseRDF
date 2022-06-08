@@ -55,5 +55,32 @@
 		}
 	},
 
+	"RestRoutes": [
+		{
+			"path": "/wikibase-rdf/v0/get/{entity-id}",
+			"method": "GET",
+			"factory": "ProfessionalWiki\\WikibaseRDF\\Rest\\Handler\\GetAllMapping::factory"
+		},
+		{
+			"path": "/wikibase-rdf/v0/get/{entity-id}/{predicate}",
+			"method": "GET",
+			"factory": "ProfessionalWiki\\WikibaseRDF\\Rest\\Handler\\GetMapping::factory"
+		},
+		{
+			"path": "/wikibase-rdf/v0/get-for/{entity-id}/{object}",
+			"method": "GET",
+			"factory": "ProfessionalWiki\\WikibaseRDF\\Rest\\Handler\\GetMappingFor::factory"
+		},
+		{
+			"path": "/wikibase-rdf/v0/save/{entity-id}/{predicate}/{object}",
+			"method": "PUT",
+			"factory": "ProfessionalWiki\\WikibaseRDF\\Rest\\Handler\\SaveMapping::factory"
+		},
+		{
+			"path": "/wikibase-rdf/v0/save-mappings/{entity-id}",
+			"method": "POST",
+			"factory": "ProfessionalWiki\\WikibaseRDF\\Rest\\Handler\\SaveMappings::factory"
+		}
+	],
 	"manifest_version": 2
 }
