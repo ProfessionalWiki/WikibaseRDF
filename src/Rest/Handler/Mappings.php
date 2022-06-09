@@ -11,18 +11,14 @@ use Wikimedia\ParamValidator\ParamValidator;
 
 class Mappings extends SimpleHandler {
 
-	private ?string $method = null;
-
 	public static function factory(): self {
 		$self = new self();
 
 		return $self;
 	}
 
-	public function setMethodFromRequest(): void {
-		$method = $this->getRequest()->getMethod();
-
-		$this->method = strtoupper( $method );
+	public function getMethod(): string {
+		return strtoupper( $this->getRequest()->getMethod() );
 	}
 
 	/**
@@ -42,15 +38,17 @@ class Mappings extends SimpleHandler {
 	 * @return array<mixed>
 	 */
 	public function run( string $entityId = null ): array {
-		$this->setMethodFromRequest();
-
-		if ( $this->method === "POST" ) {
-			return $this->updateMapping();
-		} elseif ( $this->method === "GET" ) {
-			return $this->getMapping();
+		$response = match ( $this->getMethod() ) {
+			"POST" => $this->updateMapping(),
+			"GET" => $this->getMapping(),
+			default => null
+		};
+		// Methods not mentioned in extension.json are rejected earlier when running the code, but
+		// under phpunit, they are not.
+		if ( $response === null ) {
+			throw new ResponseException( $this->getResponseFactory()->createHttpError( 405 ) );
 		}
-		$response = $this->getResponseFactory()->createHttpError( 405 );
-		throw new ResponseException( $response );
+		return $response;
 	}
 
 	/**
@@ -68,9 +66,7 @@ class Mappings extends SimpleHandler {
 	}
 
 	public function needsWriteAccess(): bool {
-		$this->setMethodFromRequest();
-
-		if ( $this->method === "POST" ) {
+		if ( $this->getMethod() === "POST" ) {
 			return true;
 		}
 		return false;
