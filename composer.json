@@ -18,8 +18,7 @@
 	],
 	"require": {
 		"php": ">=8.0",
-		"composer/installers": "^2|^1.0.1",
-		"wikibase/wikibase": "dev-REL1_37"
+		"composer/installers": "^2|^1.0.1"
 	},
 	"require-dev": {
 		"vimeo/psalm": "^4.22.0",
