@@ -25,6 +25,9 @@ class Mappings extends SimpleHandler {
 		$this->method = strtoupper( $method );
 	}
 
+	/**
+	 * @return array<string, array<string, string|bool>>
+	 */
 	public function getParamSettings(): array {
 		return [
 			'entity_id' => [
@@ -35,6 +38,9 @@ class Mappings extends SimpleHandler {
 		];
 	}
 
+	/**
+	 * @return array<mixed>
+	 */
 	public function run( string $entityId = null ): array {
 		$this->setMethodFromRequest();
 
@@ -48,10 +54,16 @@ class Mappings extends SimpleHandler {
 		throw new ResponseException( $response );
 	}
 
+	/**
+	 * @return array<mixed>
+	 */
 	public function updateMapping(): array {
 		return [];
 	}
 
+	/**
+	 * @return array<mixed>
+	 */
 	public function getMapping(): array {
 		return [];
 	}
