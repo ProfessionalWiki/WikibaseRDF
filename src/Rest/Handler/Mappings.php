@@ -66,9 +66,6 @@ class Mappings extends SimpleHandler {
 	}
 
 	public function needsWriteAccess(): bool {
-		if ( $this->getMethod() === "POST" ) {
-			return true;
-		}
-		return false;
+		return $this->getMethod() === "POST";
 	}
 }
