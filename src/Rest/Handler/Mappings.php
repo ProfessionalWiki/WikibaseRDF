@@ -49,8 +49,7 @@ class Mappings extends SimpleHandler {
 		} elseif ( $this->method === "GET" ) {
 			return $this->getMapping();
 		}
-		$response = new Response( "Invalid method: {$this->method}" );
-		$response->setStatus( 405 );
+		$response = $this->getResponseFactory()->createHttpError( 405 );
 		throw new ResponseException( $response );
 	}
 
