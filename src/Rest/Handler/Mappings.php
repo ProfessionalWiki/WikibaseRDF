@@ -40,7 +40,7 @@ class Mappings extends SimpleHandler {
 
 		if ( $this->method === "POST" ) {
 			return $this->updateMapping();
-		} else if ( $this->method === "GET" ) {
+		} elseif ( $this->method === "GET" ) {
 			return $this->getMapping();
 		}
 		$response = new Response( "Invalid method: {$this->method}" );

@@ -15,7 +15,7 @@ class MappingsTest extends MediaWikiIntegrationTestCase {
 	use HandlerTestTrait;
 
 	public function testWrongMethod(): void {
-        $this->expectException(ResponseException::class);
+		$this->expectException( ResponseException::class );
 		$response = $this->executeHandler(
 			Mappings::factory(),
 			new RequestData( [
