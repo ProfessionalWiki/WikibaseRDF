@@ -62,7 +62,7 @@
 			"factory": "ProfessionalWiki\\WikibaseRDF\\Rest\\Handler\\Mappings::factory"
 		},
 		{
-			"path": "/wikibase-rdf/v0/map/{entity-id}",
+			"path": "/wikibase-rdf/v0/map",
 			"method": "GET",
 			"factory": "ProfessionalWiki\\WikibaseRDF\\Rest\\Handler\\Mappings::factory"
 		}
