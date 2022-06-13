@@ -4,9 +4,16 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\Rest\Handler;
 
-use MediaWiki\Rest\Response;
 use MediaWiki\Rest\ResponseException;
+use MediaWiki\Rest\HttpException;
 use MediaWiki\Rest\SimpleHandler;
+use MediaWiki\Rest\Validator\BodyValidator;
+use ProfessionalWiki\WikibaseRDF\Application\Mapping;
+use ProfessionalWiki\WikibaseRDF\Application\MappingList;
+use ProfessionalWiki\WikibaseRDF\Persistence\InMemoryMappingRepository;
+use ProfessionalWiki\WikibaseRDF\Rest\Validator\Turtle;
+use Wikibase\DataModel\Entity\BasicEntityIdParser;
+use Wikibase\DataModel\Entity\EntityId;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class Mappings extends SimpleHandler {
@@ -29,17 +36,29 @@ class Mappings extends SimpleHandler {
 			'entity_id' => [
 				self::PARAM_SOURCE => 'path',
 				ParamValidator::PARAM_TYPE => 'string',
-				ParamValidator::PARAM_REQUIRED => true,
+				ParamValidator::PARAM_REQUIRED => false,
 			],
 		];
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function getBodyValidator( $contentType ): BodyValidator {
+		return new Turtle();
 	}
 
 	/**
 	 * @return array<mixed>
 	 */
 	public function run( string $entityId = null ): array {
+		$entity = null;
+		if ( $entityId ) {
+			$idProc = new BasicEntityIdParser();
+			$entity = $idProc->parse( $entityId );
+		}
 		$response = match ( $this->getMethod() ) {
-			"POST" => $this->updateMapping(),
+			"POST" => $this->updateMapping( $entity ),
 			"GET" => $this->getMapping(),
 			default => null
 		};
@@ -52,17 +71,30 @@ class Mappings extends SimpleHandler {
 	}
 
 	/**
-	 * @return array<mixed>
+	 * @return null|array<int, Mapping>
 	 */
-	public function updateMapping(): array {
-		return [];
+	public function updateMapping( ?EntityId $entity ): ?array {
+		if ( $entity === null ) {
+			return null;
+		}
+
+		$mapList = $this->getValidatedBody();
+		if ( !is_object( $mapList ) || ! $mapList instanceof MappingList ) {
+			throw new HttpException( "Expected MappingList object!" );
+		}
+
+		$repo = new InMemoryMappingRepository();
+		$repo->saveEntityMappings( $entity, $mapList );
+
+		return $mapList->asArray();
 	}
 
 	/**
 	 * @return array<mixed>
 	 */
 	public function getMapping(): array {
-		return [];
+		$repo = new InMemoryMappingRepository();
+		return $repo->getAllMappings();
 	}
 
 	public function needsWriteAccess(): bool {

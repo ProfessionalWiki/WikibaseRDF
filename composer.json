@@ -18,7 +18,8 @@
 	],
 	"require": {
 		"php": ">=8.0",
-		"composer/installers": "^2|^1.0.1"
+		"composer/installers": "^2|^1.0.1",
+		"pietercolpaert/hardf": "^0.3"
 	},
 	"require-dev": {
 		"vimeo/psalm": "^4.22.0",
