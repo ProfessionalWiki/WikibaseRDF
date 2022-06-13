@@ -38,7 +38,7 @@ class Turtle implements BodyValidator {
 	 */
 	protected function parse( string $contents ): array {
 		$ret = [];
-		foreach ( explode( "\r\n", $contents) as $lno => $line ) {
+		foreach ( explode( "\r\n", $contents ) as $lno => $line ) {
 			$bit = explode( " ", $line, 3 );
 			if ( count( $bit ) < 2 ) {
 				throw new HttpException( "Insufficent terms on line $lno, $contents", 422 );
@@ -49,7 +49,7 @@ class Turtle implements BodyValidator {
 	}
 
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	public function validateBody( RequestInterface $request ) {
 		$mapText = $request->getBody()->getContents();

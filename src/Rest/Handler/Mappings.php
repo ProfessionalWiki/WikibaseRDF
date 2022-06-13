@@ -42,7 +42,7 @@ class Mappings extends SimpleHandler {
 	}
 
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	public function getBodyValidator( $contentType ): BodyValidator {
 		return new Turtle();
@@ -79,7 +79,7 @@ class Mappings extends SimpleHandler {
 		}
 
 		$mapList = $this->getValidatedBody();
-		if ( !is_object( $mapList ) || ! $mapList instanceof MappingList ) {
+		if ( !is_object( $mapList ) || !$mapList instanceof MappingList ) {
 			throw new HttpException( "Expected MappingList object!" );
 		}
 
