@@ -24,7 +24,10 @@ class InMemoryMappingRepository implements MappingRepository {
 		foreach ( self::$mappingsById as $entity => $mapping ) {
 			$ret[$entity][] = $entity;
 			foreach ( $mapping->asArray() as $entry ) {
-				$ret[$entity][] = $entry->predicate . " " . $entry->object;
+				$ret[$entity][] = [
+					"predicate" => $entry->predicate,
+					"object" => $entry->object
+				];
 			}
 		}
 

@@ -59,12 +59,12 @@
 		{
 			"path": "/wikibase-rdf/v0/map/{entity-id}",
 			"method": "POST",
-			"factory": "ProfessionalWiki\\WikibaseRDF\\Rest\\Handler\\Mappings::factory"
+			"factory": "ProfessionalWiki\\WikibaseRDF\\Rest\\Handler\\UpdateMapping"
 		},
 		{
 			"path": "/wikibase-rdf/v0/map",
 			"method": "GET",
-			"factory": "ProfessionalWiki\\WikibaseRDF\\Rest\\Handler\\Mappings::factory"
+			"factory": "ProfessionalWiki\\WikibaseRDF\\Rest\\Handler\\GetMappings"
 		}
 	],
 	"manifest_version": 2
