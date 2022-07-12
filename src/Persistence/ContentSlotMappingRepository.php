@@ -17,8 +17,7 @@ class ContentSlotMappingRepository implements MappingRepository {
 	}
 
 	public function getMappingsFor( EntityId $entityId ): MappingList {
-		// TODO: likely inject slot name in WikiPageEntityContentRepository rather than interface parameter
-		$content = $this->contentRepository->getContent( $entityId, 'TodoSlot' );
+		$content = $this->contentRepository->getContent( $entityId );
 
 		if ( $content instanceof JsonContent ) {
 			return $this->newMappingListFromJson( $content->getText() );
@@ -29,19 +28,19 @@ class ContentSlotMappingRepository implements MappingRepository {
 
 	private function newMappingListFromJson( string $json ): MappingList {
 		// TODO
+		return new MappingList();
 	}
 
 	public function saveEntityMappings( EntityId $entityId, MappingList $mappings ): void {
-		// TODO: likely inject slot name in WikiPageEntityContentRepository rather than interface parameter
 		$this->contentRepository->setContent(
 			$entityId,
-			'TodoSlot',
 			$this->mappingListToContent( $mappings )
 		);
 	}
 
 	private function mappingListToContent( MappingList $mappings ): JsonContent {
 		// TODO
+		return new JsonContent( '{}' );
 	}
 
 }
