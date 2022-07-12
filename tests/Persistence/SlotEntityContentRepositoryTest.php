@@ -13,7 +13,7 @@ use Wikibase\Repo\WikibaseRepo;
  * @covers \ProfessionalWiki\WikibaseRDF\Persistence\SlotEntityContentRepository
  * @group Database
  */
-class WikiPageEntityContentRepositoryTest extends \MediaWikiIntegrationTestCase {
+class SlotEntityContentRepositoryTest extends \MediaWikiIntegrationTestCase {
 
 	private const SLOT_NAME = 'TestSlot';
 
