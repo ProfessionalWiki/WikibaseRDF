@@ -15,7 +15,7 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class SlotEntityContentRepositoryTest extends \MediaWikiIntegrationTestCase {
 
-	private const SLOT_NAME = 'TestSlot';
+	private const SLOT_NAME = 'testslot';
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -42,14 +42,17 @@ class SlotEntityContentRepositoryTest extends \MediaWikiIntegrationTestCase {
 		$this->createPersistedItem( new ItemId( 'Q100' ) ); // TODO: is this even needed?
 		$repo = $this->newRepo();
 
-		// TODO: why does this blow up? @see setUp is setting the value in the SlotRoleRegistry...
 		$repo->setContent(
 			new ItemId( 'Q100' ),
 			new \JsonContent( '{ "foo": 42 }' )
 		);
 
 		$this->assertEquals(
-			new \JsonContent( '{ "foo": 42 }' ),
+			new \JsonContent(
+'{
+    "foo": 42
+}'
+			),
 			$repo->getContent( new ItemId( 'Q100' ) )
 		);
 	}
