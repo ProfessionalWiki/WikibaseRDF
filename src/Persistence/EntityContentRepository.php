@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseRDF\Persistence;
 
 use Content;
+use Exception;
 use Wikibase\DataModel\Entity\EntityId;
 
 /**
@@ -14,6 +15,9 @@ interface EntityContentRepository {
 
 	public function getContent( EntityId $entityId ): ?Content;
 
+	/**
+	 * @throws Exception
+	 */
 	public function setContent( EntityId $entityId, Content $content ): void;
 
 }

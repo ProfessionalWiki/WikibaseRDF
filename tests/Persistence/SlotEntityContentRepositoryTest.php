@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\Tests\Persistence;
 
+use Exception;
 use ProfessionalWiki\WikibaseRDF\Persistence\SlotEntityContentRepository;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
@@ -21,6 +22,8 @@ class SlotEntityContentRepositoryTest extends \MediaWikiIntegrationTestCase {
 		parent::setUp();
 
 		$this->getServiceContainer()->getSlotRoleRegistry()->defineRoleWithModel( self::SLOT_NAME, CONTENT_MODEL_JSON );
+
+		$this->createPersistedItem( new ItemId( 'Q100' ) );
 	}
 
 	private function newRepo(): SlotEntityContentRepository {
@@ -32,14 +35,19 @@ class SlotEntityContentRepositoryTest extends \MediaWikiIntegrationTestCase {
 		);
 	}
 
-	public function testReturnsNullWhenNotFound(): void {
+	public function testReturnsNullWhenEntityNotFound(): void {
+		$this->assertNull(
+			$this->newRepo()->getContent( new ItemId( 'Q404' ) )
+		);
+	}
+
+	public function testReturnsNullWhenSlotNotFound(): void {
 		$this->assertNull(
 			$this->newRepo()->getContent( new ItemId( 'Q100' ) )
 		);
 	}
 
 	public function testSetAndGetRoundTrip(): void {
-		$this->createPersistedItem( new ItemId( 'Q100' ) ); // TODO: is this even needed?
 		$repo = $this->newRepo();
 
 		$repo->setContent(
@@ -62,6 +70,15 @@ class SlotEntityContentRepositoryTest extends \MediaWikiIntegrationTestCase {
 			new Item( $itemId ),
 			'',
 			self::getTestUser()->getUser()
+		);
+	}
+
+	public function testSettingSlotForNonExistingPageResultsInException(): void {
+		$this->expectException( Exception::class );
+
+		$this->newRepo()->setContent(
+			new ItemId( 'Q404' ),
+			new \JsonContent( '{ "foo": 42 }' )
 		);
 	}
 

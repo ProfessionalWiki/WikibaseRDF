@@ -9,6 +9,7 @@ use Content;
 use Exception;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Permissions\Authority;
+use MediaWiki\Revision\RevisionAccessException;
 use MediaWiki\Revision\RevisionRecord;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lib\Store\EntityTitleLookup;
@@ -25,9 +26,14 @@ class SlotEntityContentRepository implements EntityContentRepository {
 	}
 
 	public function getContent( EntityId $entityId ): ?Content {
-		return $this->getWikiPage( $entityId )
-			?->getRevisionRecord()
-			?->getContent( $this->slotName, RevisionRecord::FOR_PUBLIC, $this->authority );
+		$revision = $this->getWikiPage( $entityId )?->getRevisionRecord();
+
+		try {
+			return $revision?->getSlot( $this->slotName, RevisionRecord::FOR_PUBLIC, $this->authority )->getContent();
+		}
+		catch ( RevisionAccessException ) {
+			return null;
+		}
 	}
 
 	private function getWikiPage( EntityId $entityId ): ?WikiPage {
