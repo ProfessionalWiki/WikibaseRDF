@@ -27,5 +27,10 @@
 	},
 	"extra": {
 		"installer-name": "WikibaseRDF"
+	},
+	"config": {
+		"allow-plugins": {
+			"composer/installers": true
+		}
 	}
 }
