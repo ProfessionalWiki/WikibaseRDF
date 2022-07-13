@@ -16,3 +16,5 @@ stan:
 psalm:
 	../../vendor/bin/psalm --config=psalm.xml
 
+psalm-baseline:
+	../../vendor/bin/psalm --config=psalm.xml --set-baseline=psalm-baseline.xml

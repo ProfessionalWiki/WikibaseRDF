@@ -9,7 +9,7 @@ use Content;
 use Exception;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Permissions\Authority;
-use MediaWiki\Storage\RevisionRecord;
+use MediaWiki\Revision\RevisionRecord;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use WikiPage;
