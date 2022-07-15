@@ -15,12 +15,12 @@ class InMemoryMappingRepository implements MappingRepository {
 	 */
 	private array $mappingsById = [];
 
-	public function getMappingsFor( EntityId $entityId ): MappingList {
+	public function getMappings( EntityId $entityId ): MappingList {
 		return $this->mappingsById[$entityId->getSerialization()] ?? new MappingList();
 	}
 
-	public function saveEntityMappings( EntityId $entityId, MappingList $mappings ): void {
-		$this->mappingsById[$entityId->getSerialization()] = $mappings;
+	public function setMappings( EntityId $entityId, MappingList $mappingList ): void {
+		$this->mappingsById[$entityId->getSerialization()] = $mappingList;
 	}
 
 }

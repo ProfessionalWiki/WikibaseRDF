@@ -20,28 +20,28 @@ class InMemoryMappingRepositoryUnitTest extends TestCase {
 
 		$this->assertEquals(
 			new MappingList(),
-			$repo->getMappingsFor( new ItemId( 'Q2' ) )
+			$repo->getMappings( new ItemId( 'Q2' ) )
 		);
 	}
 
 	public function testPersistenceRoundTrip(): void {
 		$repo = new InMemoryMappingRepository();
 
-		$repo->saveEntityMappings(
+		$repo->setMappings(
 			new ItemId( 'Q1' ),
 			new MappingList( [
 				new Mapping( 'owl:sameAs', 'https://example.com/uri/1' )
 			] )
 		);
 
-		$repo->saveEntityMappings(
+		$repo->setMappings(
 			new ItemId( 'Q2' ),
 			new MappingList( [
 				new Mapping( 'owl:sameAs', 'https://example.com/uri/2' )
 			] )
 		);
 
-		$repo->saveEntityMappings(
+		$repo->setMappings(
 			new ItemId( 'Q3' ),
 			new MappingList( [
 				new Mapping( 'owl:sameAs', 'https://example.com/uri/3' )
@@ -52,7 +52,7 @@ class InMemoryMappingRepositoryUnitTest extends TestCase {
 			new MappingList( [
 				new Mapping( 'owl:sameAs', 'https://example.com/uri/2' )
 			] ),
-			$repo->getMappingsFor( new ItemId( 'Q2' ) )
+			$repo->getMappings( new ItemId( 'Q2' ) )
 		);
 	}
 

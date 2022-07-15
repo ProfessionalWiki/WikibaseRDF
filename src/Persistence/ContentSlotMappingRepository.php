@@ -16,7 +16,7 @@ class ContentSlotMappingRepository implements MappingRepository {
 	) {
 	}
 
-	public function getMappingsFor( EntityId $entityId ): MappingList {
+	public function getMappings( EntityId $entityId ): MappingList {
 		$content = $this->contentRepository->getContent( $entityId );
 
 		if ( $content instanceof JsonContent ) {
@@ -31,10 +31,10 @@ class ContentSlotMappingRepository implements MappingRepository {
 		return new MappingList();
 	}
 
-	public function saveEntityMappings( EntityId $entityId, MappingList $mappings ): void {
+	public function setMappings( EntityId $entityId, MappingList $mappingList ): void {
 		$this->contentRepository->setContent(
 			$entityId,
-			$this->mappingListToContent( $mappings )
+			$this->mappingListToContent( $mappingList )
 		);
 	}
 
