@@ -29,7 +29,7 @@ class SlotEntityContentRepository implements EntityContentRepository {
 		$revision = $this->getWikiPage( $entityId )?->getRevisionRecord();
 
 		try {
-			return $revision?->getSlot( $this->slotName, RevisionRecord::FOR_PUBLIC, $this->authority )->getContent();
+			return $revision?->getSlot( $this->slotName, RevisionRecord::FOR_PUBLIC, $this->authority )?->getContent();
 		}
 		catch ( RevisionAccessException ) {
 			return null;

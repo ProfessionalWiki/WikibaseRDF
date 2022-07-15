@@ -10,6 +10,9 @@ use Wikibase\DataModel\Entity\EntityId;
 
 class InMemoryEntityContentRepository implements EntityContentRepository {
 
+	/**
+	 * @var SplObjectStorage<EntityId, Content>
+	 */
 	private SplObjectStorage $contentList;
 
 	public function __construct() {
