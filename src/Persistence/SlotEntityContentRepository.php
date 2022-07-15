@@ -57,7 +57,7 @@ class SlotEntityContentRepository implements EntityContentRepository {
 		if ( $page !== null ) {
 			$updater = $page->newPageUpdater( $this->authority );
 			$updater->setContent( $this->slotName, $content );
-			$updater->saveRevision( CommentStoreComment::newUnsavedComment( 'TodoComment' ) ); // TODO
+			$updater->saveRevision( CommentStoreComment::newUnsavedComment( 'Updated entity mappings' ) ); // TODO
 		}
 	}
 
