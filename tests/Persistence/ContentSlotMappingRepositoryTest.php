@@ -7,6 +7,7 @@ namespace ProfessionalWiki\WikibaseRDF\Tests\Persistence;
 use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseRDF\Application\Mapping;
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;
+use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
 use ProfessionalWiki\WikibaseRDF\Persistence\ContentSlotMappingRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\InMemoryEntityContentRepository;
 use Wikibase\DataModel\Entity\ItemId;
@@ -26,7 +27,8 @@ class ContentSlotMappingRepositoryTest extends TestCase {
 
 	private function newRepo(): ContentSlotMappingRepository {
 		return new ContentSlotMappingRepository(
-			contentRepository: new InMemoryEntityContentRepository()
+			contentRepository: new InMemoryEntityContentRepository(),
+			serializer: new MappingListSerializer()
 		);
 	}
 

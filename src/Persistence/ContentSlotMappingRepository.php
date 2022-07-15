@@ -5,18 +5,16 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseRDF\Persistence;
 
 use JsonContent;
-use ProfessionalWiki\WikibaseRDF\Application\Mapping;
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
+use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
 use Wikibase\DataModel\Entity\EntityId;
 
 class ContentSlotMappingRepository implements MappingRepository {
 
-	private const PREDICATE_KEY = 'predicate';
-	private const OBJECT_KEY = 'object';
-
 	public function __construct(
-		private EntityContentRepository $contentRepository
+		private EntityContentRepository $contentRepository,
+		private MappingListSerializer $serializer
 	) {
 	}
 
@@ -24,35 +22,10 @@ class ContentSlotMappingRepository implements MappingRepository {
 		$content = $this->contentRepository->getContent( $entityId );
 
 		if ( $content instanceof JsonContent ) {
-			return $this->newMappingListFromJson( $content->getText() );
+			return $this->serializer->fromJson( $content->getText() );
 		}
 
 		return new MappingList();
-	}
-
-	private function newMappingListFromJson( string $json ): MappingList {
-		$array = json_decode( $json, true );
-
-		if ( is_array( $array ) ) {
-			return $this->mappingListFromArray( $array );
-		}
-
-		return new MappingList();
-	}
-
-	/**
-	 * @param array<int, array{predicate: string, object: string}> $mappings
-	 */
-	private function mappingListFromArray( array $mappings ): MappingList {
-		return new MappingList(
-			array_map(
-				fn( array $mapping ) => new Mapping(
-					predicate: $mapping[self::PREDICATE_KEY],
-					object: $mapping[self::OBJECT_KEY]
-				),
-				$mappings
-			)
-		);
 	}
 
 	public function setMappings( EntityId $entityId, MappingList $mappingList ): void {
@@ -63,20 +36,7 @@ class ContentSlotMappingRepository implements MappingRepository {
 	}
 
 	private function mappingListToContent( MappingList $mappingList ): JsonContent {
-		return new JsonContent( (string)json_encode( $this->mappingListToArray( $mappingList ) ) );
-	}
-
-	/**
-	 * @return array<int, array{predicate: string, object: string}>
-	 */
-	private function mappingListToArray( MappingList $mappings ): array {
-		return array_map(
-			fn( Mapping $mapping ) => [
-				self::PREDICATE_KEY => $mapping->predicate,
-				self::OBJECT_KEY => $mapping->object
-			],
-			$mappings->asArray()
-		);
+		return new JsonContent( $this->serializer->toJson( $mappingList ) );
 	}
 
 }
