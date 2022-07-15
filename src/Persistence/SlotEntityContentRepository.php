@@ -29,7 +29,7 @@ class SlotEntityContentRepository implements EntityContentRepository {
 		$revision = $this->getWikiPage( $entityId )?->getRevisionRecord();
 
 		try {
-			return $revision?->getSlot( $this->slotName, RevisionRecord::FOR_PUBLIC, $this->authority )->getContent();
+			return $revision?->getSlot( $this->slotName, RevisionRecord::FOR_PUBLIC, $this->authority )?->getContent();
 		}
 		catch ( RevisionAccessException ) {
 			return null;
@@ -57,7 +57,7 @@ class SlotEntityContentRepository implements EntityContentRepository {
 		if ( $page !== null ) {
 			$updater = $page->newPageUpdater( $this->authority );
 			$updater->setContent( $this->slotName, $content );
-			$updater->saveRevision( CommentStoreComment::newUnsavedComment( 'TodoComment' ) ); // TODO
+			$updater->saveRevision( CommentStoreComment::newUnsavedComment( 'Updated entity mappings' ) ); // TODO
 		}
 	}
 

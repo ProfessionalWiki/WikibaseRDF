@@ -8,8 +8,8 @@ use Wikibase\DataModel\Entity\EntityId;
 
 interface MappingRepository {
 
-	public function getMappingsFor( EntityId $entityId ): MappingList;
+	public function getMappings( EntityId $entityId ): MappingList;
 
-	public function saveEntityMappings( EntityId $entityId, MappingList $mappings ): void;
+	public function setMappings( EntityId $entityId, MappingList $mappingList ): void;
 
 }

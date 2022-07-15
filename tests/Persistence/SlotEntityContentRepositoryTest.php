@@ -26,6 +26,14 @@ class SlotEntityContentRepositoryTest extends \MediaWikiIntegrationTestCase {
 		$this->createPersistedItem( new ItemId( 'Q100' ) );
 	}
 
+	private function createPersistedItem( ItemId $itemId ): void {
+		WikibaseRepo::getEntityStore()->saveEntity(
+			new Item( $itemId ),
+			'',
+			self::getTestUser()->getUser()
+		);
+	}
+
 	private function newRepo(): SlotEntityContentRepository {
 		return new SlotEntityContentRepository(
 			self::getTestUser()->getUser(),
@@ -47,7 +55,7 @@ class SlotEntityContentRepositoryTest extends \MediaWikiIntegrationTestCase {
 		);
 	}
 
-	public function testSetAndGetRoundTrip(): void {
+	public function testCanSetContentWhenSlotDoesNotExistYet(): void {
 		$repo = $this->newRepo();
 
 		$repo->setContent(
@@ -65,20 +73,36 @@ class SlotEntityContentRepositoryTest extends \MediaWikiIntegrationTestCase {
 		);
 	}
 
-	private function createPersistedItem( ItemId $itemId ): void {
-		WikibaseRepo::getEntityStore()->saveEntity(
-			new Item( $itemId ),
-			'',
-			self::getTestUser()->getUser()
-		);
-	}
-
 	public function testSettingSlotForNonExistingPageResultsInException(): void {
 		$this->expectException( Exception::class );
 
 		$this->newRepo()->setContent(
 			new ItemId( 'Q404' ),
 			new \JsonContent( '{ "foo": 42 }' )
+		);
+	}
+
+	public function testSetContentForExistingSlotOverridesPreviousValues(): void {
+		$repo = $this->newRepo();
+
+		$repo->setContent(
+			new ItemId( 'Q100' ),
+			new \JsonContent( '{ "foo": 42, "bar": 9001, "baz": 1337 }' )
+		);
+
+		$repo->setContent(
+			new ItemId( 'Q100' ),
+			new \JsonContent( '{ "foo": 1, "bah": 2 }' )
+		);
+
+		$this->assertEquals(
+			new \JsonContent(
+				'{
+    "foo": 1,
+    "bah": 2
+}'
+			),
+			$repo->getContent( new ItemId( 'Q100' ) )
 		);
 	}
 

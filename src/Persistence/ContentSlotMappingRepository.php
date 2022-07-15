@@ -7,40 +7,36 @@ namespace ProfessionalWiki\WikibaseRDF\Persistence;
 use JsonContent;
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
+use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
 use Wikibase\DataModel\Entity\EntityId;
 
 class ContentSlotMappingRepository implements MappingRepository {
 
 	public function __construct(
-		private EntityContentRepository $contentRepository
+		private EntityContentRepository $contentRepository,
+		private MappingListSerializer $serializer
 	) {
 	}
 
-	public function getMappingsFor( EntityId $entityId ): MappingList {
+	public function getMappings( EntityId $entityId ): MappingList {
 		$content = $this->contentRepository->getContent( $entityId );
 
 		if ( $content instanceof JsonContent ) {
-			return $this->newMappingListFromJson( $content->getText() );
+			return $this->serializer->fromJson( $content->getText() );
 		}
 
 		return new MappingList();
 	}
 
-	private function newMappingListFromJson( string $json ): MappingList {
-		// TODO
-		return new MappingList();
-	}
-
-	public function saveEntityMappings( EntityId $entityId, MappingList $mappings ): void {
+	public function setMappings( EntityId $entityId, MappingList $mappingList ): void {
 		$this->contentRepository->setContent(
 			$entityId,
-			$this->mappingListToContent( $mappings )
+			$this->mappingListToContent( $mappingList )
 		);
 	}
 
-	private function mappingListToContent( MappingList $mappings ): JsonContent {
-		// TODO
-		return new JsonContent( '{}' );
+	private function mappingListToContent( MappingList $mappingList ): JsonContent {
+		return new JsonContent( $this->serializer->toJson( $mappingList ) );
 	}
 
 }

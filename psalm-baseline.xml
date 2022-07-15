@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.7.2@83a0325c0a95c0ab531d6b90c877068b464377b5">
-  <file src="src/Persistence/ContentSlotMappingRepository.php">
-    <UnusedParam occurrences="2">
-      <code>$json</code>
-      <code>$mappings</code>
-    </UnusedParam>
+  <file src="src/MappingListSerializer.php">
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$array</code>
+    </MixedArgumentTypeCoercion>
+    <MixedAssignment occurrences="1">
+      <code>$array</code>
+    </MixedAssignment>
   </file>
 </files>
