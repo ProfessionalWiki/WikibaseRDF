@@ -26,6 +26,14 @@ class SlotEntityContentRepositoryTest extends \MediaWikiIntegrationTestCase {
 		$this->createPersistedItem( new ItemId( 'Q100' ) );
 	}
 
+	private function createPersistedItem( ItemId $itemId ): void {
+		WikibaseRepo::getEntityStore()->saveEntity(
+			new Item( $itemId ),
+			'',
+			self::getTestUser()->getUser()
+		);
+	}
+
 	private function newRepo(): SlotEntityContentRepository {
 		return new SlotEntityContentRepository(
 			self::getTestUser()->getUser(),
@@ -62,14 +70,6 @@ class SlotEntityContentRepositoryTest extends \MediaWikiIntegrationTestCase {
 }'
 			),
 			$repo->getContent( new ItemId( 'Q100' ) )
-		);
-	}
-
-	private function createPersistedItem( ItemId $itemId ): void {
-		WikibaseRepo::getEntityStore()->saveEntity(
-			new Item( $itemId ),
-			'',
-			self::getTestUser()->getUser()
 		);
 	}
 
