@@ -55,7 +55,7 @@ class SlotEntityContentRepositoryTest extends \MediaWikiIntegrationTestCase {
 		);
 	}
 
-	public function testSetAndGetRoundTrip(): void {
+	public function testCanSetContentWhenSlotDoesNotExistYet(): void {
 		$repo = $this->newRepo();
 
 		$repo->setContent(
@@ -79,6 +79,30 @@ class SlotEntityContentRepositoryTest extends \MediaWikiIntegrationTestCase {
 		$this->newRepo()->setContent(
 			new ItemId( 'Q404' ),
 			new \JsonContent( '{ "foo": 42 }' )
+		);
+	}
+
+	public function testSetContentForExistingSlotOverridesPreviousValues(): void {
+		$repo = $this->newRepo();
+
+		$repo->setContent(
+			new ItemId( 'Q100' ),
+			new \JsonContent( '{ "foo": 42, "bar": 9001, "baz": 1337 }' )
+		);
+
+		$repo->setContent(
+			new ItemId( 'Q100' ),
+			new \JsonContent( '{ "foo": 1, "bah": 2 }' )
+		);
+
+		$this->assertEquals(
+			new \JsonContent(
+				'{
+    "foo": 1,
+    "bah": 2
+}'
+			),
+			$repo->getContent( new ItemId( 'Q100' ) )
 		);
 	}
 
