@@ -5,26 +5,21 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseRDF\Persistence;
 
 use Content;
-use SplObjectStorage;
 use Wikibase\DataModel\Entity\EntityId;
 
 class InMemoryEntityContentRepository implements EntityContentRepository {
 
 	/**
-	 * @var SplObjectStorage<EntityId, Content>
+	 * @var array<string, Content>
 	 */
-	private SplObjectStorage $contentList;
-
-	public function __construct() {
-		$this->contentList = new SplObjectStorage();
-	}
+	private array $contentList = [];
 
 	public function getContent( EntityId $entityId ): ?Content {
-		return $this->contentList->offsetExists( $entityId ) ? $this->contentList->offsetGet( $entityId ) : null;
+		return $this->contentList[$entityId->getSerialization()] ?? null;
 	}
 
 	public function setContent( EntityId $entityId, Content $content ): void {
-		$this->contentList->offsetSet( $entityId, $content );
+		$this->contentList[$entityId->getSerialization()] = $content;
 	}
 
 }
