@@ -40,6 +40,9 @@ class ContentSlotMappingRepository implements MappingRepository {
 		return new MappingList();
 	}
 
+	/**
+	 * @param array<int, array{predicate: string, object: string}> $mappings
+	 */
 	private function mappingListFromArray( array $mappings ): MappingList {
 		return new MappingList(
 			array_map(
@@ -60,9 +63,12 @@ class ContentSlotMappingRepository implements MappingRepository {
 	}
 
 	private function mappingListToContent( MappingList $mappingList ): JsonContent {
-		return new JsonContent( json_encode( $this->mappingListToArray( $mappingList ) ) );
+		return new JsonContent( (string)json_encode( $this->mappingListToArray( $mappingList ) ) );
 	}
 
+	/**
+	 * @return array<int, array{predicate: string, object: string}>
+	 */
 	private function mappingListToArray( MappingList $mappings ): array {
 		return array_map(
 			fn( Mapping $mapping ) => [
