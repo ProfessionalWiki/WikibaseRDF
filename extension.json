@@ -34,6 +34,7 @@
 	},
 
 	"Hooks": {
+		"BeforePageDisplay": "ProfessionalWiki\\WikibaseRDF\\Hooks::onBeforePageDisplay"
 	},
 
 	"config": {
@@ -47,8 +48,10 @@
 	"ResourceModules": {
 		"ext.wikibase.rdf": {
 			"dependencies": [
+				"wikibase.view.ControllerViewFactory"
 			],
 			"scripts": [
+				"ext.wikibase.rdf.js"
 			],
 			"styles": [
 			]
