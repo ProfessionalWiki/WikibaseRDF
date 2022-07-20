@@ -2,6 +2,8 @@
 
 declare( strict_types = 1 );
 
+namespace ProfessionalWiki\WikibaseRDF\Presentation\RDF;
+
 use ProfessionalWiki\WikibaseRDF\Application\Mapping;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
 use Wikibase\DataModel\Entity\EntityDocument;

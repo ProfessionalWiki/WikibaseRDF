@@ -34,7 +34,8 @@
 	},
 
 	"Hooks": {
-		"OutputPageParserOutput": "ProfessionalWiki\\WikibaseRDF\\Hooks::onOutputPageParserOutput"
+		"OutputPageParserOutput": "ProfessionalWiki\\WikibaseRDF\\Hooks::onOutputPageParserOutput",
+		"WikibaseRepoEntityTypes": "ProfessionalWiki\\WikibaseRDF\\Hooks::onWikibaseRepoEntityTypes"
 	},
 
 	"config": {
