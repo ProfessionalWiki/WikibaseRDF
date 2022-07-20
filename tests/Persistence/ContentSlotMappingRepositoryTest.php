@@ -38,29 +38,29 @@ class ContentSlotMappingRepositoryTest extends TestCase {
 		$repo->setMappings(
 			new ItemId( 'Q1' ),
 			new MappingList( [
-				new Mapping( 'q1-predicate-1', 'q1-object-1' ),
+				new Mapping( 'owl:q1-predicate-1', 'q1-object-1' ),
 			] )
 		);
 
 		$repo->setMappings(
 			new ItemId( 'Q2' ),
 			new MappingList( [
-				new Mapping( 'q2-predicate-1', 'q2-object-1' ),
-				new Mapping( 'q2-predicate-2', 'q2-object-2' ),
+				new Mapping( 'owl:q2-predicate-1', 'q2-object-1' ),
+				new Mapping( 'owl:q2-predicate-2', 'q2-object-2' ),
 			] )
 		);
 
 		$repo->setMappings(
 			new ItemId( 'Q3' ),
 			new MappingList( [
-				new Mapping( 'q3-predicate-1', 'q3-object-1' ),
+				new Mapping( 'owl:q3-predicate-1', 'q3-object-1' ),
 			] )
 		);
 
 		$this->assertEquals(
 			new MappingList( [
-				new Mapping( 'q2-predicate-1', 'q2-object-1' ),
-				new Mapping( 'q2-predicate-2', 'q2-object-2' ),
+				new Mapping( 'owl:q2-predicate-1', 'q2-object-1' ),
+				new Mapping( 'owl:q2-predicate-2', 'q2-object-2' ),
 			] ),
 			$repo->getMappings( new ItemId( 'Q2' ) )
 		);
