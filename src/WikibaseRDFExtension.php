@@ -24,6 +24,7 @@ class WikibaseRDFExtension {
 	private const SLOT_NAME = 'rdf';
 
 	public static function getInstance(): self {
+		/** @var ?WikibaseRDFExtension $instance */
 		static $instance = null;
 		$instance ??= new self();
 		return $instance;

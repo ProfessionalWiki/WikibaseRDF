@@ -13,7 +13,7 @@ use ProfessionalWiki\WikibaseRDF\Application\MappingList;
  */
 class StubMappingsPresenter implements MappingsPresenter {
 
-	private string $response;
+	private string $response = '';
 
 	public function showMappings( MappingList $mappingList ): void {
 		$mappingsHtml = '';
