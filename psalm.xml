@@ -36,5 +36,11 @@
 				<directory name="tests" />
 			</errorLevel>
 		</UndefinedClass>
+
+		<UndefinedFunction>
+			<errorLevel type="suppress">
+				<file name="src/Presentation/StubMappingsPresenter.php" />
+			</errorLevel>
+		</UndefinedFunction>
 	</issueHandlers>
 </psalm>
