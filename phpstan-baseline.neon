@@ -1,0 +1,11 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Constant WB_NS_ITEM not found\\.$#"
+			count: 1
+			path: src/Hooks.php
+
+		-
+			message: "#^Constant WB_NS_PROPERTY not found\\.$#"
+			count: 1
+			path: src/Hooks.php

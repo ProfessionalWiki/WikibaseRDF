@@ -34,7 +34,7 @@
 	},
 
 	"Hooks": {
-		"BeforePageDisplay": "ProfessionalWiki\\WikibaseRDF\\Hooks::onBeforePageDisplay"
+		"OutputPageParserOutput": "ProfessionalWiki\\WikibaseRDF\\Hooks::onOutputPageParserOutput"
 	},
 
 	"config": {
@@ -54,6 +54,10 @@
 				"ext.wikibase.rdf.js"
 			],
 			"styles": [
+				"ext.wikibase.rdf.less"
+			],
+			"messages": [
+				"wikibase-rdf-mappings-toggler"
 			]
 		}
 	},

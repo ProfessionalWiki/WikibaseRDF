@@ -1,0 +1,106 @@
+@import 'mediawiki.ui/variables';
+
+#wikibase-rdf {
+	float: left;
+	width: 100%;
+}
+
+#wikibase-rdf-mappings {
+	margin: 0 2em 2em 0;
+	max-width: 65em;
+	width: 100%;
+
+	background: #fff;
+	border: 1px solid #c8ccd1;
+}
+
+#wikibase-rdf-header {
+	display: flex;
+	width: 100%;
+}
+
+.wikibase-rdf-mappings-predicate-heading {
+	background-color: #eaecf0;
+	width: 15em;
+}
+
+.wikibase-rdf-mappings-object-heading {
+	background-color: #eaecf0;
+	flex-grow: 1;
+}
+
+.wikibase-rdf-mappings-actions-heading {
+	background-color: #eaecf0;
+	width: 18em;
+}
+
+.wikibase-rdf-row {
+	display: flex;
+	width: 100%;
+}
+
+.wikibase-rdf-predicate {
+	width: 15em;
+}
+
+.wikibase-rdf-predicate select {
+	width: 95%;
+}
+
+.wikibase-rdf-object {
+	flex-grow: 1;
+}
+
+.wikibase-rdf-object input {
+	width: 95%;
+}
+
+.wikibase-rdf-actions {
+	width: 18em;
+}
+
+#wikibase-rdf .icon {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 16px 16px;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;
+	opacity: 0.87;
+}
+
+// TODO: check if these urls work if the wiki is on a subpath
+.wikibase-rdf-action-edit .icon {
+	background-image: url( /extensions/Wikibase/view/resources/jquery/wikibase/toolbar/themes/default/images/icons/ooui/edit.png );
+	/* @embed */
+	background-image: linear-gradient( transparent, transparent ), url( /extensions/Wikibase/view/resources/jquery/wikibase/toolbar/themes/default/images/icons/ooui/edit.svg );
+}
+
+.wikibase-rdf-action-save .icon {
+	background-image: url( /extensions/Wikibase/view/resources/jquery/wikibase/toolbar/themes/default/images/icons/ooui/check.png );
+	/* @embed */
+	background-image: linear-gradient( transparent, transparent ), url( /extensions/Wikibase/view/resources/jquery/wikibase/toolbar/themes/default/images/icons/ooui/check.svg );
+}
+
+.wikibase-rdf-action-remove .icon {
+	background-image: url( /extensions/Wikibase/view/resources/jquery/wikibase/toolbar/themes/default/images/icons/ooui/trash.png );
+	/* @embed */
+	background-image: linear-gradient( transparent, transparent ), url( /extensions/Wikibase/view/resources/jquery/wikibase/toolbar/themes/default/images/icons/ooui/trash.svg );
+}
+
+.wikibase-rdf-action-cancel .icon {
+	background-image: url( /extensions/Wikibase/view/resources/jquery/wikibase/toolbar/themes/default/images/icons/ooui/close.png );
+	/* @embed */
+	background-image: linear-gradient( transparent, transparent ), url( /extensions/Wikibase/view/resources/jquery/wikibase/toolbar/themes/default/images/icons/ooui/close.svg );
+}
+
+.wikibase-rdf-action-add .icon {
+	background-image: url( /extensions/Wikibase/view/resources/jquery/wikibase/toolbar/themes/default/images/icons/ooui/add.png );
+	/* @embed */
+	background-image: linear-gradient( transparent, transparent ), url( /extensions/Wikibase/view/resources/jquery/wikibase/toolbar/themes/default/images/icons/ooui/add.svg );
+}
+
+.wikibase-rdf-footer {
+	background-color: #eaecf0;
+}

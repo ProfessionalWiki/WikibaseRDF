@@ -5,19 +5,13 @@
 $( function () {
 	'use strict';
 
-	var main = $( '.wikibase-entitytermsview' );
-	var mappingsContainer = $( '<div>' );
-	mappingsContainer.css( 'border', '1px solid red' );
-	main.append( mappingsContainer );
+	// Move Mappings before Statements section.
+	$( 'h2.wikibase-statements' ).before( $( '#wikibase-rdf' ) );
 
-	var stuff = $( '<div>' );
-	stuff.text( 'abc' );
-	mappingsContainer.append( stuff );
-
-	var toggler = $( '<a>' ).toggler( {
-		$subject: stuff,
-		visible: true
+	// TODO: toggler state needs to be remembered.
+	var toggler = $( '#wikibase-rdf-toggler' ).toggler( {
+		$subject: $( '#wikibase-rdf-mappings' ),
+		visible: false
 	} );
-	toggler.find( '.ui-toggler-label' ).text( 'mapping to other ontologies' );
-	mappingsContainer.prepend(toggler);
+	toggler.find( '.ui-toggler-label' ).text( mw.msg( 'wikibase-rdf-mappings-toggler' ) );
 } );
