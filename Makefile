@@ -13,6 +13,9 @@ phpcs:
 stan:
 	../../vendor/bin/phpstan analyse --configuration=phpstan.neon --memory-limit=2G
 
+stan-baseline:
+	../../vendor/bin/phpstan analyse --configuration=phpstan.neon --memory-limit=2G --generate-baseline
+
 psalm:
 	../../vendor/bin/psalm --config=psalm.xml
 

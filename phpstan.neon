@@ -1,3 +1,6 @@
+includes:
+	- phpstan-baseline.neon
+
 parameters:
 	level: 9
 	paths:
@@ -13,4 +16,3 @@ parameters:
 #	ignoreErrors:
 #		- '#.+ no value type specified in iterable type .+#'
 #		- '#Constant [a-zA-Z0-9\\_]+ not found#'
-

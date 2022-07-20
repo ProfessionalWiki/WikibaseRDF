@@ -34,6 +34,7 @@
 	},
 
 	"Hooks": {
+		"OutputPageParserOutput": "ProfessionalWiki\\WikibaseRDF\\Hooks::onOutputPageParserOutput"
 	},
 
 	"config": {
@@ -47,10 +48,16 @@
 	"ResourceModules": {
 		"ext.wikibase.rdf": {
 			"dependencies": [
+				"wikibase.view.ControllerViewFactory"
 			],
 			"scripts": [
+				"ext.wikibase.rdf.js"
 			],
 			"styles": [
+				"ext.wikibase.rdf.less"
+			],
+			"messages": [
+				"wikibase-rdf-mappings-toggler"
 			]
 		}
 	},

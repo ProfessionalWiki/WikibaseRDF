@@ -5,5 +5,14 @@
 		]
 	},
 	"wikibase-rdf-name": "Wikibase RDF",
-	"wikibase-rdf-description": "Wikibase extension that allows defining RDF mappings for Wikibase Entities"
+	"wikibase-rdf-description": "Wikibase extension that allows defining RDF mappings for Wikibase Entities",
+
+	"wikibase-rdf-mappings-toggler": "Mapping to other ontologies",
+	"wikibase-rdf-mappings-predicate-heading": "Relationship",
+	"wikibase-rdf-mappings-object-heading": "URL",
+	"wikibase-rdf-mappings-action-save": "save",
+	"wikibase-rdf-mappings-action-remove": "remove",
+	"wikibase-rdf-mappings-action-cancel": "cancel",
+	"wikibase-rdf-mappings-action-edit": "edit",
+	"wikibase-rdf-mappings-action-add": "add mapping"
 }
