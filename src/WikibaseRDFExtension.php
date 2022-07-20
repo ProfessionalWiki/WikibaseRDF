@@ -14,6 +14,7 @@ use ProfessionalWiki\WikibaseRDF\Persistence\StubMappingRepository;
 use ProfessionalWiki\WikibaseRDF\Presentation\MappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Presentation\RDF\MappingRdfBuilder;
 use ProfessionalWiki\WikibaseRDF\Presentation\StubMappingsPresenter;
+use RequestContext;
 use User;
 use Wikibase\Repo\WikibaseRepo;
 use Wikimedia\Purtle\RdfWriter;
@@ -68,7 +69,7 @@ class WikibaseRDFExtension {
 	public function newMappingRdfBuilder( RdfWriter $writer ): MappingRdfBuilder {
 		return new MappingRdfBuilder(
 			$writer,
-			$this->newMappingRepository( User::newFromSession() ) // TODO: user correct?
+			$this->newMappingRepository( RequestContext::getMain()->getUser() )
 		);
 	}
 
