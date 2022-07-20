@@ -22,12 +22,12 @@ use Wikimedia\Purtle\RdfWriter;
 /**
  * Top level factory for the WikibaseRDF extension
  */
-class WikibaseRDFExtension {
+class WikibaseRdfExtension {
 
 	private const SLOT_NAME = 'rdf';
 
 	public static function getInstance(): self {
-		/** @var ?WikibaseRDFExtension $instance */
+		/** @var ?WikibaseRdfExtension $instance */
 		static $instance = null;
 		$instance ??= new self();
 		return $instance;

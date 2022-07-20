@@ -22,8 +22,8 @@ class Hooks {
 			// TODO: load styles earlier because this causes the initial content to be unstyled
 			$out->addModules( 'ext.wikibase.rdf' );
 
-			$presenter = WikibaseRDFExtension::getInstance()->newStubMappingsPresenter();
-			$useCase = WikibaseRDFExtension::getInstance()->newShowMappingsUseCase( $presenter, $out->getUser() );
+			$presenter = WikibaseRdfExtension::getInstance()->newStubMappingsPresenter();
+			$useCase = WikibaseRdfExtension::getInstance()->newShowMappingsUseCase( $presenter, $out->getUser() );
 			// TODO: get actual ID
 			$useCase->showMappings( new ItemId( 'Q1' ) );
 
