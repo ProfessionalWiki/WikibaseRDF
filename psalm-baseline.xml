@@ -8,15 +8,4 @@
       <code>$array</code>
     </MixedAssignment>
   </file>
-  <file src="src/Presentation/StubMappingsPresenter.php">
-    <UndefinedFunction occurrences="7">
-      <code>wfMessage( 'wikibase-rdf-mappings-action-add' )</code>
-      <code>wfMessage( 'wikibase-rdf-mappings-action-cancel' )</code>
-      <code>wfMessage( 'wikibase-rdf-mappings-action-edit' )</code>
-      <code>wfMessage( 'wikibase-rdf-mappings-action-remove' )</code>
-      <code>wfMessage( 'wikibase-rdf-mappings-action-save' )</code>
-      <code>wfMessage( 'wikibase-rdf-mappings-object-heading' )</code>
-      <code>wfMessage( 'wikibase-rdf-mappings-predicate-heading' )</code>
-    </UndefinedFunction>
-  </file>
 </files>
