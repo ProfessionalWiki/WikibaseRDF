@@ -12,9 +12,12 @@ use ProfessionalWiki\WikibaseRDF\Persistence\EntityContentRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\SlotEntityContentRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\StubMappingRepository;
 use ProfessionalWiki\WikibaseRDF\Presentation\MappingsPresenter;
+use ProfessionalWiki\WikibaseRDF\Presentation\RDF\MappingRdfBuilder;
 use ProfessionalWiki\WikibaseRDF\Presentation\StubMappingsPresenter;
+use RequestContext;
 use User;
 use Wikibase\Repo\WikibaseRepo;
+use Wikimedia\Purtle\RdfWriter;
 
 /**
  * Top level factory for the WikibaseRDF extension
@@ -61,6 +64,13 @@ class WikibaseRDFExtension {
 
 	private function newMappingListSerializer(): MappingListSerializer {
 		return new MappingListSerializer();
+	}
+
+	public function newMappingRdfBuilder( RdfWriter $writer ): MappingRdfBuilder {
+		return new MappingRdfBuilder(
+			$writer,
+			$this->newMappingRepository( RequestContext::getMain()->getUser() )
+		);
 	}
 
 }
