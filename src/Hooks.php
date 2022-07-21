@@ -49,7 +49,7 @@ class Hooks {
 			RdfWriter $writer
 		): EntityRdfBuilder => new MultiEntityRdfBuilder(
 			$factoryFunction( ...func_get_args() ),
-			WikibaseRDFExtension::getInstance()->newMappingRdfBuilder( $writer )
+			WikibaseRdfExtension::getInstance()->newMappingRdfBuilder( $writer )
 		);
 	}
 
