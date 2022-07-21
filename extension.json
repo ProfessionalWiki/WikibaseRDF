@@ -34,9 +34,23 @@
 	},
 
 	"Hooks": {
+		"MediaWikiServices": "ProfessionalWiki\\WikibaseRDF\\Hooks::onMediaWikiServices",
 		"OutputPageParserOutput": "ProfessionalWiki\\WikibaseRDF\\Hooks::onOutputPageParserOutput",
 		"WikibaseRepoEntityTypes": "ProfessionalWiki\\WikibaseRDF\\Hooks::onWikibaseRepoEntityTypes"
 	},
+
+	"RestRoutes": [
+		{
+			"path": "/wikibase-rdf/v0/mappings/{entity_id}",
+			"method": [ "GET" ],
+			"factory": "ProfessionalWiki\\WikibaseRDF\\Presentation\\Rest\\GetMappingsApi::factory"
+		},
+		{
+			"path": "/wikibase-rdf/v0/mappings/{entity_id}",
+			"method": [ "PUT" ],
+			"factory": "ProfessionalWiki\\WikibaseRDF\\Presentation\\Rest\\SaveMappingsApi::factory"
+		}
+	],
 
 	"config": {
 	},
