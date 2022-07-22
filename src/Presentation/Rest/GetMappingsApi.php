@@ -8,23 +8,11 @@ use MediaWiki\Rest\SimpleHandler;
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
 use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
-use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
-use RequestContext;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class GetMappingsApi extends SimpleHandler {
-
-	public static function factory(): self {
-		return new self(
-			WikibaseRdfExtension::getInstance()->newEntityIdParser(),
-			WikibaseRdfExtension::getInstance()->newMappingRepository(
-				RequestContext::getMain()->getUser()
-			),
-			WikibaseRdfExtension::getInstance()->newMappingListSerializer()
-		);
-	}
 
 	public function __construct(
 		private EntityIdParser $entityIdParser,

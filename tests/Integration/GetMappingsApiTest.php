@@ -7,7 +7,7 @@ namespace ProfessionalWiki\WikibaseRDF\Tests\Integration;
 use MediaWiki\Rest\RequestData;
 use MediaWiki\Tests\Rest\Handler\HandlerTestTrait;
 use MediaWikiIntegrationTestCase;
-use ProfessionalWiki\WikibaseRDF\Presentation\Rest\GetMappingsApi;
+use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
 
 /**
  * @covers \ProfessionalWiki\WikibaseRDF\Presentation\Rest\GetMappingsApi
@@ -18,7 +18,7 @@ class GetMappingsApiTest extends MediaWikiIntegrationTestCase {
 
 	public function testHappyPath(): void {
 		$response = $this->executeHandler(
-			GetMappingsApi::factory(),
+			WikibaseRdfExtension::getMappingsApiFactory(),
 			new RequestData( [ 'pathParams' => [ 'entity_id' => 'Q1' ] ] )
 		);
 

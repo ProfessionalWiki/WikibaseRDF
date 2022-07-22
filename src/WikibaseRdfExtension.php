@@ -12,6 +12,8 @@ use ProfessionalWiki\WikibaseRDF\Persistence\EntityContentRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\SlotEntityContentRepository;
 use ProfessionalWiki\WikibaseRDF\Presentation\MappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Presentation\RDF\MappingRdfBuilder;
+use ProfessionalWiki\WikibaseRDF\Presentation\Rest\GetMappingsApi;
+use ProfessionalWiki\WikibaseRDF\Presentation\Rest\SaveMappingsApi;
 use ProfessionalWiki\WikibaseRDF\Presentation\StubMappingsPresenter;
 use RequestContext;
 use User;
@@ -74,6 +76,34 @@ class WikibaseRdfExtension {
 
 	public function newEntityIdParser(): EntityIdParser {
 		return new BasicEntityIdParser();
+	}
+
+	public static function getMappingsApiFactory(): GetMappingsApi {
+		return self::getInstance()->newGetMappingsApi();
+	}
+
+	private function newGetMappingsApi(): GetMappingsApi {
+		return new GetMappingsApi(
+			$this->newEntityIdParser(),
+			$this->newMappingRepository(
+				RequestContext::getMain()->getUser()
+			),
+			$this->newMappingListSerializer()
+		);
+	}
+
+	public static function saveMappingsApiFactory(): SaveMappingsApi {
+		return self::getInstance()->newSaveMappingsApi();
+	}
+
+	private function newSaveMappingsApi(): SaveMappingsApi {
+		return new SaveMappingsApi(
+			$this->newEntityIdParser(),
+			$this->newMappingRepository(
+				RequestContext::getMain()->getUser()
+			),
+			$this->newMappingListSerializer()
+		);
 	}
 
 }

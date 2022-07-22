@@ -43,12 +43,12 @@
 		{
 			"path": "/wikibase-rdf/v0/mappings/{entity_id}",
 			"method": [ "GET" ],
-			"factory": "ProfessionalWiki\\WikibaseRDF\\Presentation\\Rest\\GetMappingsApi::factory"
+			"factory": "ProfessionalWiki\\WikibaseRDF\\WikibaseRdfExtension::getMappingsApiFactory"
 		},
 		{
 			"path": "/wikibase-rdf/v0/mappings/{entity_id}",
 			"method": [ "PUT" ],
-			"factory": "ProfessionalWiki\\WikibaseRDF\\Presentation\\Rest\\SaveMappingsApi::factory"
+			"factory": "ProfessionalWiki\\WikibaseRDF\\WikibaseRdfExtension::saveMappingsApiFactory"
 		}
 	],
 
