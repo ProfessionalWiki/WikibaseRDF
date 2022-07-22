@@ -5,7 +5,9 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseRDF\Presentation\Rest;
 
 use MediaWiki\Rest\SimpleHandler;
+use ProfessionalWiki\WikibaseRDF\Application\MappingList;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
+use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
 use RequestContext;
 use Wikibase\DataModel\Entity\EntityId;
@@ -19,13 +21,15 @@ class GetMappingsApi extends SimpleHandler {
 			WikibaseRdfExtension::getInstance()->newEntityIdParser(),
 			WikibaseRdfExtension::getInstance()->newMappingRepository(
 				RequestContext::getMain()->getUser()
-			)
+			),
+			WikibaseRdfExtension::getInstance()->newMappingListSerializer()
 		);
 	}
 
 	public function __construct(
 		private EntityIdParser $entityIdParser,
-		private MappingRepository $mappingRepository
+		private MappingRepository $mappingRepository,
+		private MappingListSerializer $mappingListSerializer
 	) {
 	}
 
@@ -33,10 +37,8 @@ class GetMappingsApi extends SimpleHandler {
 	 * @return array<string, mixed>
 	 */
 	public function run( string $entityId ): array {
-		// TOOD: This currently involves some magic object to array conversion. Either create the Response manually
-		// using MappingListSerializer::toJson(), or else repeat the serialization to array logic.
 		return [
-			'mappings' => $this->mappingRepository->getMappings( $this->getEntityId( $entityId ) )->asArray()
+			'mappings' => $this->getMappingsArray( $this->getMappings( $entityId ) )
 		];
 	}
 
@@ -56,6 +58,17 @@ class GetMappingsApi extends SimpleHandler {
 
 	private function getEntityId( string $entityId ): EntityId {
 		return $this->entityIdParser->parse( $entityId );
+	}
+
+	private function getMappings( string $entityId ): MappingList {
+		return $this->mappingRepository->getMappings( $this->getEntityId( $entityId ) );
+	}
+
+	/**
+	 * @return array<int, array<string, string>>
+	 */
+	private function getMappingsArray( MappingList $mappings ): array {
+		return $this->mappingListSerializer->mappingListToArray( $mappings );
 	}
 
 }

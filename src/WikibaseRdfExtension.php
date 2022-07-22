@@ -10,7 +10,6 @@ use ProfessionalWiki\WikibaseRDF\Application\ShowMappingsUseCase;
 use ProfessionalWiki\WikibaseRDF\Persistence\ContentSlotMappingRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\EntityContentRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\SlotEntityContentRepository;
-use ProfessionalWiki\WikibaseRDF\Persistence\StubMappingRepository;
 use ProfessionalWiki\WikibaseRDF\Presentation\MappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Presentation\RDF\MappingRdfBuilder;
 use ProfessionalWiki\WikibaseRDF\Presentation\StubMappingsPresenter;
