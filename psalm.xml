@@ -19,6 +19,7 @@
 		<directory name="../../includes" />
 		<directory name="../../vendor/wikimedia" />
 		<directory name="../../vendor/data-values" />
+		<directory name="../../vendor/psr" />
 		<directory name="../../extensions/Wikibase" />
 	</extraFiles>
 
