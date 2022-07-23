@@ -114,7 +114,12 @@ curl "http://localhost:8484/rest.php/wikibase-rdf/v0/mappings/Q1"
 
 Initial release for Wikibase 1.37 with these features:
 
-* TODO
+* Ability to add mappings to Items and Properties via an on-page UI
+* Inclusion of mappings in the RDF output
+* Configurable relationships (predicates)
+* API endpoint to retrieve or update the mappings for an Entity
+* TranslateWiki integration
+* Support for PHP 8.0 and 8.1
 
 [Professional.Wiki]: https://professional.wiki
 [Wikibase]: https://wikibase.consulting/what-is-wikibase/
