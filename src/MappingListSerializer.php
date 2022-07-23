@@ -44,7 +44,7 @@ class MappingListSerializer {
 	/**
 	 * @return array<int, array{predicate: string, object: string}>
 	 */
-	private function mappingListToArray( MappingList $mappings ): array {
+	public function mappingListToArray( MappingList $mappings ): array {
 		return array_map(
 			fn( Mapping $mapping ) => [
 				self::PREDICATE_KEY => $mapping->predicate,

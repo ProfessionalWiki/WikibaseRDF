@@ -10,12 +10,15 @@ use ProfessionalWiki\WikibaseRDF\Application\ShowMappingsUseCase;
 use ProfessionalWiki\WikibaseRDF\Persistence\ContentSlotMappingRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\EntityContentRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\SlotEntityContentRepository;
-use ProfessionalWiki\WikibaseRDF\Persistence\StubMappingRepository;
 use ProfessionalWiki\WikibaseRDF\Presentation\MappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Presentation\RDF\MappingRdfBuilder;
+use ProfessionalWiki\WikibaseRDF\Presentation\Rest\GetMappingsApi;
+use ProfessionalWiki\WikibaseRDF\Presentation\Rest\SaveMappingsApi;
 use ProfessionalWiki\WikibaseRDF\Presentation\StubMappingsPresenter;
 use RequestContext;
 use User;
+use Wikibase\DataModel\Entity\BasicEntityIdParser;
+use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\Repo\WikibaseRepo;
 use Wikimedia\Purtle\RdfWriter;
 
@@ -24,7 +27,7 @@ use Wikimedia\Purtle\RdfWriter;
  */
 class WikibaseRdfExtension {
 
-	private const SLOT_NAME = 'rdf';
+	public const SLOT_NAME = 'wikibase-rdf';
 
 	public static function getInstance(): self {
 		/** @var ?WikibaseRdfExtension $instance */
@@ -54,15 +57,13 @@ class WikibaseRdfExtension {
 	}
 
 	public function newMappingRepository( User $user ): MappingRepository {
-		new ContentSlotMappingRepository(
+		return new ContentSlotMappingRepository(
 			contentRepository: $this->newEntityContentRepository( $user ),
 			serializer: $this->newMappingListSerializer()
 		);
-		// TODO: for stub UI testing
-		return new StubMappingRepository();
 	}
 
-	private function newMappingListSerializer(): MappingListSerializer {
+	public function newMappingListSerializer(): MappingListSerializer {
 		return new MappingListSerializer();
 	}
 
@@ -70,6 +71,38 @@ class WikibaseRdfExtension {
 		return new MappingRdfBuilder(
 			$writer,
 			$this->newMappingRepository( RequestContext::getMain()->getUser() )
+		);
+	}
+
+	public function newEntityIdParser(): EntityIdParser {
+		return new BasicEntityIdParser();
+	}
+
+	public static function getMappingsApiFactory(): GetMappingsApi {
+		return self::getInstance()->newGetMappingsApi();
+	}
+
+	private function newGetMappingsApi(): GetMappingsApi {
+		return new GetMappingsApi(
+			$this->newEntityIdParser(),
+			$this->newMappingRepository(
+				RequestContext::getMain()->getUser()
+			),
+			$this->newMappingListSerializer()
+		);
+	}
+
+	public static function saveMappingsApiFactory(): SaveMappingsApi {
+		return self::getInstance()->newSaveMappingsApi();
+	}
+
+	private function newSaveMappingsApi(): SaveMappingsApi {
+		return new SaveMappingsApi(
+			$this->newEntityIdParser(),
+			$this->newMappingRepository(
+				RequestContext::getMain()->getUser()
+			),
+			$this->newMappingListSerializer()
 		);
 	}
 
