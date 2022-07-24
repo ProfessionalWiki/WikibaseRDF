@@ -13,7 +13,7 @@
 
 	"url": "https://github.com/ProfessionalWiki/WikibaseRDF",
 
-	"descriptionmsg": "wbrdf-description",
+	"descriptionmsg": "wikibase-rdf-description",
 
 	"requires": {
 		"MediaWiki": ">= 1.37.0",
