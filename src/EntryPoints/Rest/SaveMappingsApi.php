@@ -29,6 +29,7 @@ class SaveMappingsApi extends SimpleHandler {
 	public function run( string $entityId ): array {
 		$body = $this->getRequest()->getBody()->getContents();
 		$mappings = $this->mappingListSerializer->fromJson( $body );
+		// TODO: validate predicates are allowed
 		$this->repository->setMappings( $this->getEntityId( $entityId ), $mappings );
 
 		// TOOD: Return setMappings status. And anything else?

@@ -15,6 +15,14 @@ class StubMappingsPresenter implements MappingsPresenter {
 
 	private string $response = '';
 
+	/**
+	 * @param string[] $allowedPredicates
+	 */
+	public function __construct(
+		private array $allowedPredicates
+	) {
+	}
+
 	public function showMappings( MappingList $mappingList ): void {
 		$mappingsHtml = '';
 
@@ -45,7 +53,7 @@ class StubMappingsPresenter implements MappingsPresenter {
 
 	private function createEditableRow( string $relationship, string $url ): string {
 		return '<div class="wikibase-rdf-row">'
-			. '<div class="wikibase-rdf-predicate"><select><option>' . $relationship . '</option></select></div>'
+			. '<div class="wikibase-rdf-predicate">' . $this->createPredicateSelect( $relationship ) . '</div>'
 			. '<div class="wikibase-rdf-object"><input value="' . $url . '"></div>'
 			. '<div class="wikibase-rdf-actions">'
 			. '<a href="#" class="wikibase-rdf-action-save"><span class="icon"></span>' . wfMessage( 'wikibase-rdf-mappings-action-save' ) . '</a> '
@@ -53,6 +61,20 @@ class StubMappingsPresenter implements MappingsPresenter {
 			. '<a href="#" class="wikibase-rdf-action-cancel"><span class="icon"></span>' . wfMessage( 'wikibase-rdf-mappings-action-cancel' ) . '</a>'
 			. '</div>'
 			. '</div>';
+	}
+
+	private function createPredicateSelect( string $selected ): string {
+		$html = '<select>';
+		foreach ( $this->allowedPredicates as $predicate ) {
+			// TOOD: selection will be handled by JS
+			$html .= '<option' . ( $predicate == $selected ? ' selected' : '' ) . '>' . $predicate . '</option>';
+		}
+		// TODO: handle removed/changed allowed predicates
+		if ( !in_array( $selected, $this->allowedPredicates ) ) {
+			$html .= '<option selected>' . $selected . '</option>';
+		}
+		$html .= '</select>';
+		return $html;
 	}
 
 	private function createRow( string $relationship, string $url ): string {
