@@ -2,20 +2,21 @@
 
 declare( strict_types = 1 );
 
-namespace ProfessionalWiki\WikibaseRDF;
+namespace ProfessionalWiki\WikibaseRDF\EntryPoints;
 
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRoleRegistry;
 use OutputPage;
 use ParserOutput;
 use ProfessionalWiki\WikibaseRDF\Presentation\RDF\MultiEntityRdfBuilder;
+use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lib\EntityTypeDefinitions;
 use Wikibase\Repo\Rdf\EntityRdfBuilder;
 use Wikibase\Repo\Rdf\RdfVocabulary;
 use Wikimedia\Purtle\RdfWriter;
 
-class Hooks {
+class MediaWikiHooks {
 
 	public static function onMediaWikiServices( MediaWikiServices $services ): void {
 		$services->addServiceManipulator(

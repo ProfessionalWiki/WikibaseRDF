@@ -3,9 +3,9 @@ parameters:
 		-
 			message: "#^Constant WB_NS_ITEM not found\\.$#"
 			count: 1
-			path: src/Hooks.php
+			path: src/EntryPoints/MediaWikiHooks.php
 
 		-
 			message: "#^Constant WB_NS_PROPERTY not found\\.$#"
 			count: 1
-			path: src/Hooks.php
+			path: src/EntryPoints/MediaWikiHooks.php

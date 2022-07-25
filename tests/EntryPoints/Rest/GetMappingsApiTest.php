@@ -10,7 +10,7 @@ use MediaWikiIntegrationTestCase;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
 
 /**
- * @covers \ProfessionalWiki\WikibaseRDF\Presentation\Rest\GetMappingsApi
+ * @covers \ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\GetMappingsApi
  * @covers \ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension
  */
 class GetMappingsApiTest extends MediaWikiIntegrationTestCase {

@@ -13,7 +13,7 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
- * @covers \ProfessionalWiki\WikibaseRDF\Presentation\Rest\SaveMappingsApi
+ * @covers \ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\SaveMappingsApi
  * @covers \ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension
  * @group Database
  */
