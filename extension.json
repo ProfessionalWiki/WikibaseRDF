@@ -34,9 +34,9 @@
 	},
 
 	"Hooks": {
-		"MediaWikiServices": "ProfessionalWiki\\WikibaseRDF\\Hooks::onMediaWikiServices",
-		"OutputPageParserOutput": "ProfessionalWiki\\WikibaseRDF\\Hooks::onOutputPageParserOutput",
-		"WikibaseRepoEntityTypes": "ProfessionalWiki\\WikibaseRDF\\Hooks::onWikibaseRepoEntityTypes"
+		"MediaWikiServices": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onMediaWikiServices",
+		"OutputPageParserOutput": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onOutputPageParserOutput",
+		"WikibaseRepoEntityTypes": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onWikibaseRepoEntityTypes"
 	},
 
 	"RestRoutes": [
