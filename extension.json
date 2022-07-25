@@ -53,6 +53,10 @@
 	],
 
 	"config": {
+		"WikibaseRdfPredicates": {
+			"description": "List of allowed predicates.",
+			"value": []
+		}
 	},
 
 	"ResourceFileModulePaths": {

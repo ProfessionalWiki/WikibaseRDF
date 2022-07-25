@@ -10,8 +10,18 @@ use ProfessionalWiki\WikibaseRDF\Presentation\StubMappingsPresenter;
  */
 class StubMappingsPresenterTest extends TestCase {
 
+	/**
+	 * @return string[]
+	 */
+	private function getAllowedPredicates(): array {
+		return [
+			'owl:sameAs',
+			'skos:exactMatch',
+		];
+	}
+
 	public function testMappingValuesAreDisplayed(): void {
-		$presenter = new StubMappingsPresenter();
+		$presenter = new StubMappingsPresenter( $this->getAllowedPredicates() );
 		$mapping1 = new Mapping( 'owl:sameAs', 'http://www.w3.org/2000/01/rdf-schema#subClassOf' );
 		$mapping2 = new Mapping( 'skos:exactMatch', 'http://www.example.com/foo' );
 

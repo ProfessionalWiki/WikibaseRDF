@@ -56,7 +56,16 @@ You can verify the extension was enabled successfully by opening your wikis Spec
 
 Configuration can be changed via [LocalSettings.php].
 
-TODO
+### Allowed predicates
+
+```php
+$wgWikibaseRdfPredicates = [
+	'owl:sameAs',
+	'owl:SymmetricProperty',
+	'rdfs:subClassOf',
+	'rdfs:subPropertyOf',
+];
+```
 
 ## Development
 

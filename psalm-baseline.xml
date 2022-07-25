@@ -8,4 +8,10 @@
       <code>$array</code>
     </MixedAssignment>
   </file>
+  <file src="src/WikibaseRdfExtension.php">
+    <MixedReturnTypeCoercion occurrences="2">
+      <code>(array)MediaWikiServices::getInstance()-&gt;getMainConfig()-&gt;get( 'WikibaseRdfPredicates' )</code>
+      <code>string[]</code>
+    </MixedReturnTypeCoercion>
+  </file>
 </files>

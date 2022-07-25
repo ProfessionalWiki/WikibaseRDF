@@ -37,7 +37,7 @@ class WikibaseRdfExtension {
 	}
 
 	public function newStubMappingsPresenter(): StubMappingsPresenter {
-		return new StubMappingsPresenter();
+		return new StubMappingsPresenter( self::getAllowedPredicates() );
 	}
 
 	public function newShowMappingsUseCase( MappingsPresenter $presenter, User $user ): ShowMappingsUseCase {
@@ -104,6 +104,13 @@ class WikibaseRdfExtension {
 			),
 			$this->newMappingListSerializer()
 		);
+	}
+
+	/**
+	 * @return string[]
+	 */
+	private static function getAllowedPredicates(): array {
+		return (array)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseRdfPredicates' );
 	}
 
 }
