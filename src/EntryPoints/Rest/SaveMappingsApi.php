@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace ProfessionalWiki\WikibaseRDF\Presentation\Rest;
+namespace ProfessionalWiki\WikibaseRDF\EntryPoints\Rest;
 
 use MediaWiki\Rest\HttpException;
 use MediaWiki\Rest\SimpleHandler;
