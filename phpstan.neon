@@ -10,9 +10,10 @@ parameters:
 		- ../../tests/phpunit
 		- ../../vendor
 		- ../../extensions/Wikibase
-#	excludePaths:
-#		analyse:
-#			- src/AutomatedValuesFactory.php
+	excludePaths:
+		analyse:
+			# TOOD: temporarily ignore this:
+			- src/EntryPoints/Rest/GetAllMappingsApi.php
 #	ignoreErrors:
 #		- '#.+ no value type specified in iterable type .+#'
 #		- '#Constant [a-zA-Z0-9\\_]+ not found#'

@@ -10,6 +10,7 @@ use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsUseCase;
 use ProfessionalWiki\WikibaseRDF\Application\ShowMappingsUseCase;
+use ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\GetAllMappingsApi;
 use ProfessionalWiki\WikibaseRDF\Persistence\ContentSlotMappingRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\EntityContentRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\SlotEntityContentRepository;
@@ -105,6 +106,14 @@ class WikibaseRdfExtension {
 			$this->newEntityIdParser(),
 			$this->newMappingListSerializer()
 		);
+	}
+
+	public static function getAllMappingsApiFactory(): GetAllMappingsApi {
+		return self::getInstance()->newGetAllMappingsApi();
+	}
+
+	private function newGetAllMappingsApi(): GetAllMappingsApi {
+		return new GetAllMappingsApi();
 	}
 
 	/**
