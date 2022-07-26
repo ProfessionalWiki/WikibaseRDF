@@ -29,9 +29,9 @@ class GetAllMappingsApi extends SimpleHandler {
 				'text.old_id',
 			] )
 			->from( 'text' )
-			->join( 'page', conds: 'text.old_id=page.page_latest' )
 			->join( 'slots', conds: 'text.old_id=slots.slot_content_id' )
 			->join( 'slot_roles', conds: 'slots.slot_role_id=slot_roles.role_id' )
+			->join( 'page', conds: 'slots.slot_revision_id=page.page_latest' )
 			->where( [ 'slot_roles.role_name' => WikibaseRdfExtension::SLOT_NAME ] )
 			->caller( __METHOD__ )
 			->fetchResultSet();
@@ -44,7 +44,7 @@ class GetAllMappingsApi extends SimpleHandler {
 			$mappings[$row->page_title] ??= [];
 			$mappings[$row->page_title][] = (array)json_decode( $row->old_text, true )
 				// TODO: debug fields
-				+ [ 'page_id' => $row->page_id, 'revision' => $row->old_id ];
+				+ [ 'page_id' => $row->page_id, 'text_id' => $row->old_id ];
 		}
 
 		return [
