@@ -10,10 +10,13 @@ use OutputPage;
 use ParserOutput;
 use ProfessionalWiki\WikibaseRDF\Presentation\RDF\MultiEntityRdfBuilder;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
+use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Entity\EntityIdParsingException;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lib\EntityTypeDefinitions;
 use Wikibase\Repo\Rdf\EntityRdfBuilder;
 use Wikibase\Repo\Rdf\RdfVocabulary;
+use Wikibase\Repo\WikibaseRepo;
 use Wikimedia\Purtle\RdfWriter;
 
 class MediaWikiHooks {
@@ -32,18 +35,41 @@ class MediaWikiHooks {
 	}
 
 	// TODO: is this the best hook?
-	public static function onOutputPageParserOutput( OutputPage $out, ParserOutput $parserOutput ): void {
-		if ( $out->getTitle()?->inNamespaces( WB_NS_ITEM, WB_NS_PROPERTY ) ) {
-			// TODO: load styles earlier because this causes the initial content to be unstyled
-			$out->addModules( 'ext.wikibase.rdf' );
+	public static function onOutputPageParserOutput( OutputPage $page, ParserOutput $parserOutput ): void {
+		$entityId = self::getEntityIdForOutputPage( $page );
 
-			$presenter = WikibaseRdfExtension::getInstance()->newStubMappingsPresenter();
-			$useCase = WikibaseRdfExtension::getInstance()->newShowMappingsUseCase( $presenter, $out->getUser() );
-			// TODO: get actual ID
-			$useCase->showMappings( new ItemId( 'Q1' ) );
-
-			$out->addHTML( $presenter->getHtml() );
+		if ( $entityId !== null ) {
+			self::addMappingUi( $page, $entityId );
 		}
+	}
+
+	private static function getEntityIdForOutputPage( OutputPage $page ): ?EntityId {
+		$title = $page->getTitle();
+
+		if ( $title === null
+			|| !$title->inNamespaces( WB_NS_ITEM, WB_NS_PROPERTY )
+			|| !$title->exists() ) {
+			return null;
+		}
+
+		try {
+			return WikibaseRepo::getEntityIdParser()->parse( $title->getText() );
+		}
+		catch ( EntityIdParsingException ) {
+			return null;
+		}
+	}
+
+	private static function addMappingUi( OutputPage $page, EntityId $entityId ): void {
+		// TODO: load styles earlier because this causes the initial content to be unstyled
+		$page->addModules( 'ext.wikibase.rdf' );
+
+		$presenter = WikibaseRdfExtension::getInstance()->newStubMappingsPresenter();
+
+		$useCase = WikibaseRdfExtension::getInstance()->newShowMappingsUseCase( $presenter, $page->getUser() );
+		$useCase->showMappings( $entityId );
+
+		$page->addHTML( $presenter->getHtml() );
 	}
 
 	/**
