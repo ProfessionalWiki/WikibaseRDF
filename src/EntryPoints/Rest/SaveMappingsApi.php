@@ -5,11 +5,12 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseRDF\EntryPoints\Rest;
 
 use MediaWiki\Rest\HttpException;
+use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
 use MediaWiki\Rest\Validator\BodyValidator;
 use MediaWiki\Rest\Validator\JsonBodyValidator;
-use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
 use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
+use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikimedia\ParamValidator\ParamValidator;
@@ -18,24 +19,19 @@ class SaveMappingsApi extends SimpleHandler {
 
 	public function __construct(
 		private EntityIdParser $entityIdParser,
-		private MappingRepository $repository,
 		private MappingListSerializer $mappingListSerializer
 	) {
 	}
 
-	/**
-	 * @return array<string, mixed>
-	 */
-	public function run( string $entityId ): array {
+	public function run( string $entityId ): Response {
 		$body = $this->getRequest()->getBody()->getContents();
 		$mappings = $this->mappingListSerializer->fromJson( $body );
-		// TODO: validate predicates are allowed
-		$this->repository->setMappings( $this->getEntityId( $entityId ), $mappings );
 
-		// TOOD: Return setMappings status. And anything else?
-		return [
-			'mappings' => $mappings->asArray(),
-		];
+		$presenter = WikibaseRdfExtension::getInstance()->newRestSaveMappingsPresenter( $this->getResponseFactory() );
+		$useCase = WikibaseRdfExtension::getInstance()->newSaveMappingsUseCase( $presenter );
+		$useCase->saveMappings( $this->getEntityId( $entityId ), $mappings );
+
+		return $presenter->getResponse();
 	}
 
 	/**
