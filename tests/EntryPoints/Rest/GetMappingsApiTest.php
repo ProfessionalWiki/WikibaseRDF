@@ -22,6 +22,7 @@ class GetMappingsApiTest extends MediaWikiIntegrationTestCase {
 			new RequestData( [ 'pathParams' => [ 'entity_id' => 'Q1' ] ] )
 		);
 
+		$this->assertSame( 200, $response->getStatusCode() );
 		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
 
 		$data = json_decode( $response->getBody()->getContents(), true );
