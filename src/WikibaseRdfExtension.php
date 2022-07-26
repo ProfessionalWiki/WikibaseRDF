@@ -5,7 +5,10 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseRDF;
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Rest\ResponseFactory;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
+use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsPresenter;
+use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsUseCase;
 use ProfessionalWiki\WikibaseRDF\Application\ShowMappingsUseCase;
 use ProfessionalWiki\WikibaseRDF\Persistence\ContentSlotMappingRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\EntityContentRepository;
@@ -14,6 +17,7 @@ use ProfessionalWiki\WikibaseRDF\Presentation\MappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Presentation\RDF\MappingRdfBuilder;
 use ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\GetMappingsApi;
 use ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\SaveMappingsApi;
+use ProfessionalWiki\WikibaseRDF\Presentation\RestSaveMappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Presentation\StubMappingsPresenter;
 use RequestContext;
 use User;
@@ -99,9 +103,6 @@ class WikibaseRdfExtension {
 	private function newSaveMappingsApi(): SaveMappingsApi {
 		return new SaveMappingsApi(
 			$this->newEntityIdParser(),
-			$this->newMappingRepository(
-				RequestContext::getMain()->getUser()
-			),
 			$this->newMappingListSerializer()
 		);
 	}
@@ -111,6 +112,21 @@ class WikibaseRdfExtension {
 	 */
 	private static function getAllowedPredicates(): array {
 		return (array)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseRdfPredicates' );
+	}
+
+	public function newSaveMappingsUseCase( SaveMappingsPresenter $presenter ): SaveMappingsUseCase {
+		return new SaveMappingsUseCase(
+			$presenter,
+			$this->newMappingRepository( RequestContext::getMain()->getUser() ),
+			self::getAllowedPredicates()
+		);
+	}
+
+	public function newRestSaveMappingsPresenter( ResponseFactory $responseFactory ): RestSaveMappingsPresenter {
+		return new RestSaveMappingsPresenter(
+			$responseFactory,
+			$this->newMappingListSerializer()
+		);
 	}
 
 }

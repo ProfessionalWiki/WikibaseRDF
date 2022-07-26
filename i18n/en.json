@@ -14,5 +14,8 @@
 	"wikibase-rdf-mappings-action-remove": "remove",
 	"wikibase-rdf-mappings-action-cancel": "cancel",
 	"wikibase-rdf-mappings-action-edit": "edit",
-	"wikibase-rdf-mappings-action-add": "add mapping"
+	"wikibase-rdf-mappings-action-add": "add mapping",
+
+	"wikibase-rdf-save-mappings-invalid-mappings": "Cannot save invalid mappings",
+	"wikibase-rdf-save-mappings-save-failed": "Save failed"
 }

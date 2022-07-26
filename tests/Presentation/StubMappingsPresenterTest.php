@@ -1,5 +1,9 @@
 <?php
 
+declare( strict_types = 1 );
+
+namespace ProfessionalWiki\WikibaseRDF\Tests\Presentation;
+
 use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseRDF\Application\Mapping;
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;

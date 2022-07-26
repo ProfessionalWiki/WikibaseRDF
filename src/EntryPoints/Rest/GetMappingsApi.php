@@ -32,6 +32,13 @@ class GetMappingsApi extends SimpleHandler {
 
 	/**
 	 * @inheritDoc
+	 */
+	public function needsWriteAccess() {
+		return false;
+	}
+
+	/**
+	 * @inheritDoc
 	 * @return array<string, array<string, mixed>>
 	 */
 	public function getParamSettings(): array {

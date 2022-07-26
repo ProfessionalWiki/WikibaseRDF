@@ -14,6 +14,7 @@ use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @covers \ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\SaveMappingsApi
+ * @covers \ProfessionalWiki\WikibaseRDF\Presentation\RestSaveMappingsPresenter
  * @covers \ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension
  * @group Database
  */
@@ -24,6 +25,8 @@ class SaveMappingsApiTest extends MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
+
+		$this->setMwGlobals( 'wgWikibaseRdfPredicates', [ 'owl:sameAs' ] );
 
 		$this->getServiceContainer()->getSlotRoleRegistry()->defineRoleWithModel( self::SLOT_NAME, CONTENT_MODEL_JSON );
 
@@ -42,35 +45,62 @@ class SaveMappingsApiTest extends MediaWikiIntegrationTestCase {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'POST',
+				'method' => 'PUT',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->getBody()
+				'bodyContents' => $this->createValidBody()
 			] )
 		);
 
+		$this->assertSame( 204, $response->getStatusCode() );
+	}
+
+	public function testInvalidMappings(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'POST',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createInvalidBody()
+			] )
+		);
+
+		$this->assertSame( 400, $response->getStatusCode() );
 		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
 
 		$data = json_decode( $response->getBody()->getContents(), true );
 		$this->assertIsArray( $data );
 
-		$this->assertArrayHasKey( 'mappings', $data );
-		$this->assertIsArray( $data['mappings'] );
-
+		$this->assertArrayHasKey( 'invalidMappings', $data );
 		$this->assertSame(
 			[
-				[ 'predicate' => 'owl:sameAs', 'object' => 'http://www.w3.org/2000/01/rdf-schema#subClassOf' ],
-				[ 'predicate' => 'owl:sameAs', 'object' => 'owl:subClassOf' ],
-				[ 'predicate' => 'foo:bar', 'object' => 'http://example.com' ],
+				[ 'predicate' => 'foo:bar', 'object' => 'http://example.com' ]
 			],
-			$data['mappings']
+			$data['invalidMappings']
+		);
+
+		// TODO: setup language codes in test and/or do we need to test this?
+		$this->assertStringContainsString(
+			'wikibase-rdf-save-mappings-invalid-mappings',
+			$data['messageTranslations']['']
 		);
 	}
 
-	private function getBody(): string {
+	public function testSaveFailed(): void {
+		// TODO: use ThrowingMappingRepository
+	}
+
+	private function createValidBody(): string {
 		return '[
 			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
-			{"predicate": "owl:sameAs", "object": "owl:subClassOf"},
+			{"predicate": "owl:sameAs", "object": "owl:subClassOf"}
+		]';
+	}
+
+	private function createInvalidBody(): string {
+		return '[
+			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
 			{"predicate": "foo:bar", "object": "http://example.com"}
 		]';
 	}
