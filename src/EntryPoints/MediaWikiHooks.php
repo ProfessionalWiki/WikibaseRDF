@@ -22,8 +22,13 @@ class MediaWikiHooks {
 		$services->addServiceManipulator(
 			'SlotRoleRegistry',
 			static function ( SlotRoleRegistry $registry ) {
-				$registry->defineRoleWithModel( WikibaseRdfExtension::SLOT_NAME, CONTENT_MODEL_JSON );
-			} );
+				$registry->defineRoleWithModel(
+					WikibaseRdfExtension::SLOT_NAME,
+					CONTENT_MODEL_JSON,
+					[ 'display' => 'none' ]
+				);
+			}
+		);
 	}
 
 	// TODO: is this the best hook?
