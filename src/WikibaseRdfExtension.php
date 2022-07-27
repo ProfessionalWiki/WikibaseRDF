@@ -6,13 +6,16 @@ namespace ProfessionalWiki\WikibaseRDF;
 
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Rest\ResponseFactory;
+use ProfessionalWiki\WikibaseRDF\Application\AllMappingsLookup;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsUseCase;
 use ProfessionalWiki\WikibaseRDF\Application\ShowMappingsUseCase;
+use ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\GetAllMappingsApi;
 use ProfessionalWiki\WikibaseRDF\Persistence\ContentSlotMappingRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\EntityContentRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\SlotEntityContentRepository;
+use ProfessionalWiki\WikibaseRDF\Persistence\SqlAllMappingsLookup;
 use ProfessionalWiki\WikibaseRDF\Presentation\MappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Presentation\RDF\MappingRdfBuilder;
 use ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\GetMappingsApi;
@@ -25,6 +28,7 @@ use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\Repo\WikibaseRepo;
 use Wikimedia\Purtle\RdfWriter;
+use Wikimedia\Rdbms\ILoadBalancer;
 
 /**
  * Top level factory for the WikibaseRDF extension
@@ -102,6 +106,26 @@ class WikibaseRdfExtension {
 
 	private function newSaveMappingsApi(): SaveMappingsApi {
 		return new SaveMappingsApi(
+			$this->newEntityIdParser(),
+			$this->newMappingListSerializer()
+		);
+	}
+
+	public static function getAllMappingsApiFactory(): GetAllMappingsApi {
+		return self::getInstance()->newGetAllMappingsApi();
+	}
+
+	private function newGetAllMappingsApi(): GetAllMappingsApi {
+		return new GetAllMappingsApi(
+			$this->newAllMappingsLookup(),
+			$this->newMappingListSerializer()
+		);
+	}
+
+	private function newAllMappingsLookup(): AllMappingsLookup {
+		return new SqlAllMappingsLookup(
+			MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnectionRef( ILoadBalancer::DB_REPLICA ),
+			self::SLOT_NAME,
 			$this->newEntityIdParser(),
 			$this->newMappingListSerializer()
 		);

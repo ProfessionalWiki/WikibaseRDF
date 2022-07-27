@@ -7,7 +7,7 @@ namespace ProfessionalWiki\WikibaseRDF\Application;
 interface AllMappingsLookup {
 
 	/**
-	 * @return MappingList[]
+	 * @return EntityMappingList[]
 	 */
 	public function getAllMappings(): array;
 
