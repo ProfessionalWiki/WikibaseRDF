@@ -2,9 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace ProfessionalWiki\WikibaseRDF\Application\GetAllMappings;
-
-use ProfessionalWiki\WikibaseRDF\Application\EntityMappingList;
+namespace ProfessionalWiki\WikibaseRDF\Application;
 
 interface AllMappingsLookup {
 

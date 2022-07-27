@@ -4,13 +4,10 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\EntryPoints\Rest;
 
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Rest\SimpleHandler;
+use ProfessionalWiki\WikibaseRDF\Application\AllMappingsLookup;
 use ProfessionalWiki\WikibaseRDF\Application\EntityMappingList;
-use ProfessionalWiki\WikibaseRDF\Application\GetAllMappings\AllMappingsLookup;
 use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
-use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
-use stdClass;
 
 class GetAllMappingsApi extends SimpleHandler {
 

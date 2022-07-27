@@ -2,8 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace ProfessionalWiki\WikibaseRDF\Application\GetAllMappings;
+namespace ProfessionalWiki\WikibaseRDF\Persistence;
 
+use ProfessionalWiki\WikibaseRDF\Application\AllMappingsLookup;
 use ProfessionalWiki\WikibaseRDF\Application\EntityMappingList;
 use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
 use Wikibase\DataModel\Entity\EntityIdParser;
