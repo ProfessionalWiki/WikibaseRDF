@@ -17,6 +17,7 @@
 
 	<extraFiles>
 		<directory name="../../includes" />
+		<directory name="../../tests/phpunit" />
 		<directory name="../../vendor/wikimedia" />
 		<directory name="../../vendor/data-values" />
 		<directory name="../../vendor/psr" />
@@ -44,6 +45,24 @@
 				<directory name="tests" />
 			</errorLevel>
 		</UndefinedClass>
+
+		<MixedArrayAccess>
+			<errorLevel type="suppress">
+				<directory name="tests" />
+			</errorLevel>
+		</MixedArrayAccess>
+
+		<MixedArgument>
+			<errorLevel type="suppress">
+				<directory name="tests" />
+			</errorLevel>
+		</MixedArgument>
+
+		<PossiblyNullArgument>
+			<errorLevel type="suppress">
+				<directory name="tests" />
+			</errorLevel>
+		</PossiblyNullArgument>
 
 		<UndefinedFunction>
 			<errorLevel type="suppress">
