@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\Tests;
 
+use Article;
 use ProfessionalWiki\WikibaseRDF\Application\Mapping;
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
@@ -25,10 +26,21 @@ class MappingUiLoadingTest extends \MediaWikiIntegrationTestCase {
 			] )
 		);
 
-		// Causes error in Wikibase Repo hook
-//		Article::newFromTitle( \Title::newFromText( 'Item:Q90019001' ), \RequestContext::getMain() )->view();
+		$html = $this->getPageHtml( 'Item:Q90019001' );
+		$this->assertStringContainsString( 'wikibase-rdf', $html );
+		$this->assertStringContainsString( 'wiki:hosting', $html );
+		$this->assertStringContainsString( 'https://pro.wiki', $html );
+	}
 
-		// TODO: find a way to get at the rendered HTML, so we can assert the right strings are there
+	private function getPageHtml( string $pageTitle ): string {
+		$title = \Title::newFromText( $pageTitle );
+
+		$article = new Article( $title, 0 );
+		$article->getContext()->getOutput()->setTitle( $title );
+
+		$article->view();
+
+		return $article->getContext()->getOutput()->getHTML();
 	}
 
 	private function createItemWithMappings( ItemId $itemId, MappingList $mappingList ): void {
@@ -43,8 +55,16 @@ class MappingUiLoadingTest extends \MediaWikiIntegrationTestCase {
 		WikibaseRdfExtension::getInstance()->newMappingRepository( $user )->setMappings( $itemId, $mappingList );
 	}
 
-	// TODO: test UI is NOT present for Q404
+	public function test404ItemHasNoEditingUI(): void {
+		$html = $this->getPageHtml( 'Item:Q404404404' );
+		$this->assertStringNotContainsString( 'wikibase-rdf', $html );
+	}
 
-	// TODO: test UI is not present for existing NormalPage
+	public function testExistingNonItemHasNoEditingUi(): void {
+		$this->editPage( 'MappingUiLoadingTest', 'Pink Fluffy Unicorns Dancing On Rainbows' );
+		$html = $this->getPageHtml( 'MappingUiLoadingTest' );
+		$this->assertStringContainsString( 'Pink Fluffy Unicorns Dancing On Rainbows', $html );
+		$this->assertStringNotContainsString( 'wikibase-rdf', $html );
+	}
 
 }
