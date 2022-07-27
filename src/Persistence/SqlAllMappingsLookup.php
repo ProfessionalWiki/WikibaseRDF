@@ -8,13 +8,13 @@ use ProfessionalWiki\WikibaseRDF\Application\AllMappingsLookup;
 use ProfessionalWiki\WikibaseRDF\Application\EntityMappingList;
 use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
 use Wikibase\DataModel\Entity\EntityIdParser;
-use Wikimedia\Rdbms\DBConnRef;
+use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Rdbms\IResultWrapper;
 
 class SqlAllMappingsLookup implements AllMappingsLookup {
 
 	public function __construct(
-		private DBConnRef $database,
+		private IDatabase $database,
 		private string $slotName,
 		private EntityIdParser $entityIdParser,
 		private MappingListSerializer $serializer
@@ -28,14 +28,14 @@ class SqlAllMappingsLookup implements AllMappingsLookup {
 	private function fetchResults(): IResultWrapper {
 		return $this->database->newSelectQueryBuilder()
 			->select( [
-				'text.old_text',
-				'page.page_title',
+				't.old_text',
+				'p.page_title',
 			] )
-			->from( 'text' )
-			->join( 'slots', conds: 'slots.slot_content_id=text.old_id' )
-			->join( 'slot_roles', conds: 'slot_roles.role_id=slots.slot_role_id' )
-			->join( 'page', conds: 'page.page_latest=slots.slot_revision_id' )
-			->where( [ 'slot_roles.role_name' => $this->slotName ] )
+			->from( 'text', 't' )
+			->join( 'slots', 's', 's.slot_content_id=t.old_id' )
+			->join( 'slot_roles', 'r', 'r.role_id=s.slot_role_id' )
+			->join( 'page', 'p', 'p.page_latest=s.slot_revision_id' )
+			->where( [ 'r.role_name' => $this->slotName ] )
 			->caller( __METHOD__ )
 			->fetchResultSet();
 	}
