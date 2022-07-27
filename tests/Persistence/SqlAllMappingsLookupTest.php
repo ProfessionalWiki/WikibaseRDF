@@ -171,6 +171,8 @@ class SqlAllMappingsLookupTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	public function testMappingsModified(): void {
+		$initialCount = count( $this->newSqlAllMappingsLookup()->getAllMappings() );
+
 		$this->setMappings(
 			new ItemId( 'Q99002' ),
 			new MappingList( [
@@ -187,6 +189,8 @@ class SqlAllMappingsLookupTest extends \MediaWikiIntegrationTestCase {
 		);
 
 		$allMappings = $this->newSqlAllMappingsLookup()->getAllMappings();
+
+		$this->assertCount( $initialCount, $allMappings );
 
 		$this->assertNull(
 			$this->getMappingsForEntityId( new ItemId( 'Q99001' ), $allMappings )
