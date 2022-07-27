@@ -171,7 +171,60 @@ class SqlAllMappingsLookupTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	public function testMappingsModified(): void {
-		// TODO - return the new mappings
+		$this->setMappings(
+			new ItemId( 'Q99002' ),
+			new MappingList( [
+				new Mapping( 'foo:foo', 'https://example.com/#foo2' ),
+				new Mapping( 'foo:baz', 'https://example.com/#baz2' )
+			] )
+		);
+		$this->setMappings(
+			new PropertyId( 'P99002' ),
+			new MappingList( [
+				new Mapping( 'foo:foo', 'https://example.com/#foo2' ),
+				new Mapping( 'foo:baz', 'https://example.com/#baz2' )
+			] )
+		);
+
+		$allMappings = $this->newSqlAllMappingsLookup()->getAllMappings();
+
+		$this->assertNull(
+			$this->getMappingsForEntityId( new ItemId( 'Q99001' ), $allMappings )
+		);
+		$this->assertEquals(
+			[
+				new Mapping( 'foo:foo', 'https://example.com/#foo2' ),
+				new Mapping( 'foo:baz', 'https://example.com/#baz2' )
+			],
+			$this->getMappingsForEntityId( new ItemId( 'Q99002' ), $allMappings )->asArray()
+		);
+		$this->assertEquals(
+			[
+				new Mapping( 'foo:foo', 'https://example.com/#foo1' ),
+				new Mapping( 'foo:bar', 'https://example.com/#bar1' ),
+				new Mapping( 'foo:baz', 'https://example.com/#baz1' )
+			],
+			$this->getMappingsForEntityId( new ItemId( 'Q99003' ), $allMappings )->asArray()
+		);
+
+		$this->assertNull(
+			$this->getMappingsForEntityId( new PropertyId( 'P99001' ), $allMappings )
+		);
+		$this->assertEquals(
+			[
+				new Mapping( 'foo:foo', 'https://example.com/#foo2' ),
+				new Mapping( 'foo:baz', 'https://example.com/#baz2' )
+			],
+			$this->getMappingsForEntityId( new PropertyId( 'P99002' ), $allMappings )->asArray()
+		);
+		$this->assertEquals(
+			[
+				new Mapping( 'foo:foo', 'https://example.com/#foo1' ),
+				new Mapping( 'foo:bar', 'https://example.com/#bar1' ),
+				new Mapping( 'foo:baz', 'https://example.com/#baz1' )
+			],
+			$this->getMappingsForEntityId( new PropertyId( 'P99003' ), $allMappings )->asArray()
+		);
 	}
 
 }
