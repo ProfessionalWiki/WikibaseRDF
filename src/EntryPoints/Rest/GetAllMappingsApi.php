@@ -6,51 +6,42 @@ namespace ProfessionalWiki\WikibaseRDF\EntryPoints\Rest;
 
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Rest\SimpleHandler;
+use ProfessionalWiki\WikibaseRDF\Application\EntityMappingList;
+use ProfessionalWiki\WikibaseRDF\Application\GetAllMappings\AllMappingsLookup;
+use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
 use stdClass;
 
 class GetAllMappingsApi extends SimpleHandler {
 
+	public function __construct(
+		private AllMappingsLookup $allMappingsLookup,
+		private MappingListSerializer $serializer
+	) {
+	}
+
 	/**
-	 * @psalm-suppress all
 	 * @return array<string, mixed>
 	 */
 	public function run(): array {
-		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
-		$dbr = $lb->getConnectionRef( DB_REPLICA );
-
-		$res = $dbr->newSelectQueryBuilder()
-			->select( [
-				// Actual fields
-				'text.old_text',
-				'page.page_title',
-				// TODO: debug fields
-				'page.page_id',
-				'text.old_id',
-			] )
-			->from( 'text' )
-			->join( 'slots', conds: 'text.old_id=slots.slot_content_id' )
-			->join( 'slot_roles', conds: 'slots.slot_role_id=slot_roles.role_id' )
-			->join( 'page', conds: 'slots.slot_revision_id=page.page_latest' )
-			->where( [ 'slot_roles.role_name' => WikibaseRdfExtension::SLOT_NAME ] )
-			->caller( __METHOD__ )
-			->fetchResultSet();
-
-		$rows = []; // TODO: debug
-		$mappings = [];
-		/** @var stdClass $row */
-		foreach ( $res as $row ) {
-			$rows[] = $row; // TODO: debug
-			$mappings[$row->page_title] ??= [];
-			$mappings[$row->page_title][] = (array)json_decode( $row->old_text, true )
-				// TODO: debug fields
-				+ [ 'page_id' => $row->page_id, 'text_id' => $row->old_id ];
-		}
+		$mappings = $this->allMappingsLookup->getAllMappings();
 
 		return [
-//			 'rows' => $rows, // TOOD: debug
-			'mappings' => $mappings,
+			'mappings' => $this->entityMappingsToArray( $mappings ),
 		];
+	}
+
+	/**
+	 * @param EntityMappingList[] $entityMappingsList
+	 *
+	 * @return array<string, array<int, array{predicate: string, object: string}>>
+	 */
+	private function entityMappingsToArray( array $entityMappingsList ): array {
+		$array = [];
+		foreach ( $entityMappingsList as $entityMappings ) {
+			$array[$entityMappings->entityId->getSerialization()] = $this->serializer->mappingListToArray( $entityMappings->mappingList );
+		}
+		return $array;
 	}
 
 }

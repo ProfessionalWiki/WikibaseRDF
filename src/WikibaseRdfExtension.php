@@ -6,6 +6,8 @@ namespace ProfessionalWiki\WikibaseRDF;
 
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Rest\ResponseFactory;
+use ProfessionalWiki\WikibaseRDF\Application\GetAllMappings\AllMappingsLookup;
+use ProfessionalWiki\WikibaseRDF\Application\GetAllMappings\SqlAllMappingsLookup;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsUseCase;
@@ -26,6 +28,7 @@ use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\Repo\WikibaseRepo;
 use Wikimedia\Purtle\RdfWriter;
+use Wikimedia\Rdbms\ILoadBalancer;
 
 /**
  * Top level factory for the WikibaseRDF extension
@@ -113,7 +116,19 @@ class WikibaseRdfExtension {
 	}
 
 	private function newGetAllMappingsApi(): GetAllMappingsApi {
-		return new GetAllMappingsApi();
+		return new GetAllMappingsApi(
+			$this->newAllMappingsLookup(),
+			$this->newMappingListSerializer()
+		);
+	}
+
+	private function newAllMappingsLookup(): AllMappingsLookup {
+		return new SqlAllMappingsLookup(
+			MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnectionRef( ILoadBalancer::DB_REPLICA ),
+			self::SLOT_NAME,
+			$this->newEntityIdParser(),
+			$this->newMappingListSerializer()
+		);
 	}
 
 	/**
