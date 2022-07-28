@@ -19,7 +19,7 @@ class SaveMappingsApi extends SimpleHandler {
 
 		$presenter = WikibaseRdfExtension::getInstance()->newRestSaveMappingsPresenter( $this->getResponseFactory() );
 		$useCase = WikibaseRdfExtension::getInstance()->newSaveMappingsUseCase( $presenter );
-		$useCase->saveMappings( $entityId, $body );
+		$useCase->saveMappings( $entityId, (array)json_decode( $body, true ) );
 
 		return $presenter->getResponse();
 	}

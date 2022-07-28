@@ -147,8 +147,7 @@ class WikibaseRdfExtension {
 
 	public function newRestSaveMappingsPresenter( ResponseFactory $responseFactory ): RestSaveMappingsPresenter {
 		return new RestSaveMappingsPresenter(
-			$responseFactory,
-			$this->newMappingListSerializer()
+			$responseFactory
 		);
 	}
 

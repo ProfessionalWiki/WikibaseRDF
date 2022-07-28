@@ -16,8 +16,7 @@ class RestSaveMappingsPresenter implements SaveMappingsPresenter {
 	private Response $response;
 
 	public function __construct(
-		private ResponseFactory $responseFactory,
-		private MappingListSerializer $mappingListSerializer
+		private ResponseFactory $responseFactory
 	) {
 	}
 
@@ -25,11 +24,11 @@ class RestSaveMappingsPresenter implements SaveMappingsPresenter {
 		$this->response = $this->responseFactory->createNoContent();
 	}
 
-	public function presentInvalidMappings( MappingList $mappings ): void {
+	public function presentInvalidMappings( array $mappings ): void {
 		$this->response = $this->responseFactory->createLocalizedHttpError(
 			400,
 			MessageValue::new( 'wikibase-rdf-save-mappings-invalid-mappings' ),
-			[ 'invalidMappings' => $this->mappingListSerializer->mappingListToArray( $mappings ) ]
+			[ 'invalidMappings' => $mappings ]
 		);
 	}
 

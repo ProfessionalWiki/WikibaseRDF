@@ -25,7 +25,7 @@ class MappingListSerializer {
 	/**
 	 * @param array<int, array{predicate: string, object: string}> $mappings
 	 */
-	private function mappingListFromArray( array $mappings ): MappingList {
+	public function mappingListFromArray( array $mappings ): MappingList {
 		return new MappingList(
 			array_map(
 				fn( array $mapping ) => new Mapping(

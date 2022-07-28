@@ -45,11 +45,13 @@ class SaveMappingsUseCaseTest extends TestCase {
 
 		$useCase->saveMappings(
 			'Q1',
-			'[{"predicate": "' . self::VALID_PREDICATE . '", "object": "' . self::VALID_OBJECT . '"}]'
+			[
+				[ 'predicate' => self::VALID_PREDICATE, 'object' => self::VALID_OBJECT ]
+			]
 		);
 
 		$this->assertTrue( $this->presenter->showedSuccess );
-		$this->assertNull( $this->presenter->invalidMappings );
+		$this->assertSame( [], $this->presenter->invalidMappings );
 		$this->assertFalse( $this->presenter->showedSaveFailed );
 	}
 
@@ -58,7 +60,9 @@ class SaveMappingsUseCaseTest extends TestCase {
 
 		$useCase->saveMappings(
 			'Q2',
-			'[{"predicate": "' . self::VALID_PREDICATE . '", "object": "' . self::VALID_OBJECT . '"}]'
+			[
+				[ 'predicate' => self::VALID_PREDICATE, 'object' => self::VALID_OBJECT ]
+			]
 		);
 
 		$mappings = $this->repository->getMappings( new ItemId( 'Q2' ) );
@@ -78,20 +82,20 @@ class SaveMappingsUseCaseTest extends TestCase {
 
 		$useCase->saveMappings(
 			'Q3',
-			'[
-				{"predicate": "' . self::VALID_PREDICATE . '", "object": "' . self::VALID_OBJECT . '"},
-				{"predicate": "' . self::INVALID_PREDICATE . '", "object": "' . self::VALID_OBJECT . '"}
-			]'
+			[
+				[ 'predicate' => self::VALID_PREDICATE, 'object' => self::VALID_OBJECT ],
+				[ 'predicate' => self::INVALID_PREDICATE, 'object' => self::VALID_OBJECT ],
+			]
 		);
 
 		$this->assertFalse( $this->presenter->showedSuccess );
 		$this->assertSame(
 			self::INVALID_PREDICATE,
-			$this->presenter->invalidMappings->asArray()[0]->predicate
+			$this->presenter->invalidMappings[0]['predicate']
 		);
 		$this->assertSame(
 			self::VALID_OBJECT,
-			$this->presenter->invalidMappings->asArray()[0]->object
+			$this->presenter->invalidMappings[0]['object']
 		);
 		$this->assertFalse( $this->presenter->showedSaveFailed );
 	}
@@ -107,11 +111,13 @@ class SaveMappingsUseCaseTest extends TestCase {
 
 		$useCase->saveMappings(
 			'Q4',
-			'[{"predicate": "' . self::VALID_PREDICATE . '", "object": "' . self::VALID_OBJECT . '"}]'
+			[
+				[ 'predicate' => self::VALID_PREDICATE, 'object' => self::VALID_OBJECT ]
+			]
 		);
 
 		$this->assertFalse( $this->presenter->showedSuccess );
-		$this->assertNull( $this->presenter->invalidMappings );
+		$this->assertSame( [], $this->presenter->invalidMappings );
 		$this->assertTrue( $this->presenter->showedSaveFailed );
 	}
 
@@ -126,7 +132,9 @@ class SaveMappingsUseCaseTest extends TestCase {
 
 		$useCase->saveMappings(
 			'NotId',
-			'[{"predicate": "' . self::VALID_PREDICATE . '", "object": "' . self::VALID_OBJECT . '"}]'
+			[
+				[ 'predicate' => self::VALID_PREDICATE, 'object' => self::VALID_OBJECT ]
+			]
 		);
 
 		$this->assertTrue( $this->presenter->showedInvalidEntityId );

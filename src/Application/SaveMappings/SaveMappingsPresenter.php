@@ -4,13 +4,14 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\Application\SaveMappings;
 
-use ProfessionalWiki\WikibaseRDF\Application\MappingList;
-
 interface SaveMappingsPresenter {
 
 	public function presentSuccess(): void;
 
-	public function presentInvalidMappings( MappingList $mappings ): void;
+	/**
+	 * @param array<int, array{predicate: string, object: string}> $mappings
+	 */
+	public function presentInvalidMappings( array $mappings ): void;
 
 	public function presentSaveFailed(): void;
 
