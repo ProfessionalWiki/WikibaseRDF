@@ -8,11 +8,10 @@ use ProfessionalWiki\WikibaseRDF\Application\EntityMappingList;
 use ProfessionalWiki\WikibaseRDF\Application\Mapping;
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;
 use ProfessionalWiki\WikibaseRDF\Persistence\SqlAllMappingsLookup;
+use ProfessionalWiki\WikibaseRDF\Tests\WikibaseRdfIntegrationTest;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
 use Wikibase\DataModel\Entity\EntityId;
-use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\DataModel\Entity\Property;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -20,14 +19,14 @@ use Wikibase\Repo\WikibaseRepo;
  * @covers \ProfessionalWiki\WikibaseRDF\Persistence\SqlAllMappingsLookup
  * @group Database
  */
-class SqlAllMappingsLookupTest extends \MediaWikiIntegrationTestCase {
+class SqlAllMappingsLookupTest extends WikibaseRdfIntegrationTest {
 
 	protected function setUp(): void {
 		parent::setUp();
 
 		$this->setAllowedPredicates( [ 'foo:foo', 'foo:bar', 'foo:baz' ] );
 
-		$this->createItemWithMappings( new ItemId( 'Q99001' ) );
+		$this->createItem( new ItemId( 'Q99001' ) );
 		$this->createItemWithMappings(
 			new ItemId( 'Q99002' ),
 			new MappingList( [
@@ -42,7 +41,7 @@ class SqlAllMappingsLookupTest extends \MediaWikiIntegrationTestCase {
 				new Mapping( 'foo:baz', 'https://example.com/#baz1' )
 			] )
 		);
-		$this->createPropertyWithMappings( new PropertyId( 'P99001' ) );
+		$this->createProperty( new PropertyId( 'P99001' ) );
 		$this->createPropertyWithMappings(
 			new PropertyId( 'P99002' ),
 			new MappingList( [
@@ -64,37 +63,6 @@ class SqlAllMappingsLookupTest extends \MediaWikiIntegrationTestCase {
 	 */
 	private function setAllowedPredicates( array $predicates ): void {
 		$this->setMwGlobals( 'wgWikibaseRdfPredicates', $predicates );
-	}
-
-	private function createItemWithMappings( ItemId $itemId, ?MappingList $mappingList = null ): void {
-		WikibaseRepo::getEntityStore()->saveEntity(
-			new Item( $itemId ),
-			'',
-			self::getTestSysop()->getUser()
-		);
-
-		if ( $mappingList != null ) {
-			$this->setMappings( $itemId, $mappingList );
-		}
-	}
-
-	private function createPropertyWithMappings( PropertyId $propertyId, ?MappingList $mappingList = null ): void {
-		WikibaseRepo::getEntityStore()->saveEntity(
-			new Property( $propertyId, null, 'testType' ),
-			'',
-			self::getTestSysop()->getUser()
-		);
-
-		if ( $mappingList != null ) {
-			$this->setMappings( $propertyId, $mappingList );
-		}
-	}
-
-	private function setMappings( EntityId $entityId, MappingList $mappingList ): void {
-		WikibaseRdfExtension::getInstance()->newMappingRepository( self::getTestSysop()->getUser() )->setMappings(
-			$entityId,
-			$mappingList
-		);
 	}
 
 	public function newSqlAllMappingsLookup(): SqlAllMappingsLookup {

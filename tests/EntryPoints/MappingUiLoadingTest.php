@@ -6,16 +6,13 @@ namespace ProfessionalWiki\WikibaseRDF\Tests;
 
 use ProfessionalWiki\WikibaseRDF\Application\Mapping;
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;
-use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
-use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @covers \ProfessionalWiki\WikibaseRDF\EntryPoints\MediaWikiHooks
  * @group Database
  */
-class MappingUiLoadingTest extends \MediaWikiIntegrationTestCase {
+class MappingUiLoadingTest extends WikibaseRdfIntegrationTest {
 
 	public function testExistingItemHasEditingUiWithItsMappings(): void {
 		$this->createItemWithMappings(
@@ -25,26 +22,22 @@ class MappingUiLoadingTest extends \MediaWikiIntegrationTestCase {
 			] )
 		);
 
-		// Causes error in Wikibase Repo hook
-//		Article::newFromTitle( \Title::newFromText( 'Item:Q90019001' ), \RequestContext::getMain() )->view();
-
-		// TODO: find a way to get at the rendered HTML, so we can assert the right strings are there
+		$html = $this->getPageHtml( 'Item:Q90019001' );
+		$this->assertStringContainsString( 'wikibase-rdf', $html );
+		$this->assertStringContainsString( 'wiki:hosting', $html );
+		$this->assertStringContainsString( 'https://pro.wiki', $html );
 	}
 
-	private function createItemWithMappings( ItemId $itemId, MappingList $mappingList ): void {
-		$user = self::getTestSysop()->getUser();
-
-		WikibaseRepo::getEntityStore()->saveEntity(
-			new Item( $itemId ),
-			'',
-			$user
-		);
-
-		WikibaseRdfExtension::getInstance()->newMappingRepository( $user )->setMappings( $itemId, $mappingList );
+	public function test404ItemHasNoEditingUI(): void {
+		$html = $this->getPageHtml( 'Item:Q404404404' );
+		$this->assertStringNotContainsString( 'wikibase-rdf', $html );
 	}
 
-	// TODO: test UI is NOT present for Q404
-
-	// TODO: test UI is not present for existing NormalPage
+	public function testExistingNonItemHasNoEditingUi(): void {
+		$this->editPage( 'MappingUiLoadingTest', 'Pink Fluffy Unicorns Dancing On Rainbows' );
+		$html = $this->getPageHtml( 'MappingUiLoadingTest' );
+		$this->assertStringContainsString( 'Pink Fluffy Unicorns Dancing On Rainbows', $html );
+		$this->assertStringNotContainsString( 'wikibase-rdf', $html );
+	}
 
 }

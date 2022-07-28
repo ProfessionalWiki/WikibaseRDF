@@ -21,14 +21,10 @@ use Wikibase\Repo\WikibaseRepo;
 class SaveMappingsApiTest extends MediaWikiIntegrationTestCase {
 	use HandlerTestTrait;
 
-	private const SLOT_NAME = 'testslot';
-
 	protected function setUp(): void {
 		parent::setUp();
 
 		$this->setMwGlobals( 'wgWikibaseRdfPredicates', [ 'owl:sameAs' ] );
-
-		$this->getServiceContainer()->getSlotRoleRegistry()->defineRoleWithModel( self::SLOT_NAME, CONTENT_MODEL_JSON );
 
 		$this->createPersistedItem( new ItemId( 'Q1' ) );
 	}
