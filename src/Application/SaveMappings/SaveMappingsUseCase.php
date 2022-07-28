@@ -4,11 +4,14 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\Application\SaveMappings;
 
+use InvalidArgumentException;
 use ProfessionalWiki\WikibaseRDF\Application\Mapping;
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
+use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
 use Throwable;
-use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Entity\EntityIdParser;
+use Wikibase\DataModel\Entity\EntityIdParsingException;
 
 class SaveMappingsUseCase {
 
@@ -18,11 +21,30 @@ class SaveMappingsUseCase {
 	public function __construct(
 		private SaveMappingsPresenter $presenter,
 		private MappingRepository $repository,
-		private array $allowedPredicates
+		private array $allowedPredicates,
+		private EntityIdParser $entityIdParser,
+		private MappingListSerializer $mappingListSerializer
 	) {
 	}
 
-	public function saveMappings( EntityId $entityId, MappingList $mappings ): void {
+	public function saveMappings( string $entityIdValue, string $mappingsJson ): void {
+		try {
+			$entityId = $this->entityIdParser->parse( $entityIdValue );
+		} catch ( EntityIdParsingException ) {
+			// TODO: $this->presenter->presentInvalidEntityId()
+			return;
+		}
+
+		// TODO: check if $entityId exists
+
+		try {
+			$mappings = $this->mappingListSerializer->fromJson( $mappingsJson );
+		} catch ( InvalidArgumentException ) {
+			// TODO: present invalid predicates where the Mapping constructor fails
+			return;
+		}
+
+		// TODO: "invalid" is too generic here. We have malformed predicates, disallowed predicates and invalid objects.
 		$invalidMappings = $this->getInvalidMappings( $mappings );
 		if ( $invalidMappings->asArray() !== [] ) {
 			$this->presenter->presentInvalidMappings( $invalidMappings );

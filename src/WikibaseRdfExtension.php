@@ -105,10 +105,7 @@ class WikibaseRdfExtension {
 	}
 
 	private function newSaveMappingsApi(): SaveMappingsApi {
-		return new SaveMappingsApi(
-			$this->newEntityIdParser(),
-			$this->newMappingListSerializer()
-		);
+		return new SaveMappingsApi();
 	}
 
 	public static function getAllMappingsApiFactory(): GetAllMappingsApi {
@@ -142,7 +139,9 @@ class WikibaseRdfExtension {
 		return new SaveMappingsUseCase(
 			$presenter,
 			$this->newMappingRepository( RequestContext::getMain()->getUser() ),
-			self::getAllowedPredicates()
+			self::getAllowedPredicates(),
+			$this->newEntityIdParser(),
+			$this->newMappingListSerializer()
 		);
 	}
 
