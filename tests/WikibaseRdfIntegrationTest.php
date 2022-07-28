@@ -59,4 +59,11 @@ class WikibaseRdfIntegrationTest extends MediaWikiIntegrationTestCase {
 		WikibaseRdfExtension::getInstance()->newMappingRepository( $user )->setMappings( $entityId, $mappingList );
 	}
 
+	/**
+	 * @param string[] $predicates
+	 */
+	protected function setAllowedPredicates( array $predicates ): void {
+		$this->setMwGlobals( 'wgWikibaseRdfPredicates', $predicates );
+	}
+
 }

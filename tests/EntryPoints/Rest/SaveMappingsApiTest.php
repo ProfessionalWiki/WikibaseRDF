@@ -6,11 +6,9 @@ namespace ProfessionalWiki\WikibaseRDF\Tests\Integration;
 
 use MediaWiki\Rest\RequestData;
 use MediaWiki\Tests\Rest\Handler\HandlerTestTrait;
-use MediaWikiIntegrationTestCase;
+use ProfessionalWiki\WikibaseRDF\Tests\WikibaseRdfIntegrationTest;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
-use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @covers \ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\SaveMappingsApi
@@ -18,23 +16,15 @@ use Wikibase\Repo\WikibaseRepo;
  * @covers \ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension
  * @group Database
  */
-class SaveMappingsApiTest extends MediaWikiIntegrationTestCase {
+class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	use HandlerTestTrait;
 
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->setMwGlobals( 'wgWikibaseRdfPredicates', [ 'owl:sameAs' ] );
+		$this->setAllowedPredicates( [ 'owl:sameAs' ] );
 
-		$this->createPersistedItem( new ItemId( 'Q1' ) );
-	}
-
-	private function createPersistedItem( ItemId $itemId ): void {
-		WikibaseRepo::getEntityStore()->saveEntity(
-			new Item( $itemId ),
-			'',
-			self::getTestUser()->getUser()
-		);
+		$this->createItem( new ItemId( 'Q1' ) );
 	}
 
 	public function testHappyPath(): void {
@@ -85,6 +75,54 @@ class SaveMappingsApiTest extends MediaWikiIntegrationTestCase {
 
 	public function testSaveFailed(): void {
 		// TODO: use ThrowingMappingRepository
+	}
+
+	public function testInvalidEntityId(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'NotId' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createValidBody()
+			] )
+		);
+
+		$this->assertSame( 400, $response->getStatusCode() );
+		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
+
+		$data = json_decode( $response->getBody()->getContents(), true );
+		$this->assertIsArray( $data );
+
+		// TODO: setup language codes in test and/or do we need to test this?
+		$this->assertStringContainsString(
+			'wikibase-rdf-entity-id-invalid',
+			$data['messageTranslations']['']
+		);
+	}
+
+	public function testMissingEntityId(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'Q1000000000' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createValidBody()
+			] )
+		);
+
+		$this->assertSame( 404, $response->getStatusCode() );
+		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
+
+		$data = json_decode( $response->getBody()->getContents(), true );
+		$this->assertIsArray( $data );
+
+		// TODO: setup language codes in test and/or do we need to test this?
+		$this->assertStringContainsString(
+			'wikibase-rdf-entity-id-not-found',
+			$data['messageTranslations']['']
+		);
 	}
 
 	private function createValidBody(): string {

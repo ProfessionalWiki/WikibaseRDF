@@ -17,5 +17,7 @@
 	"wikibase-rdf-mappings-action-add": "add mapping",
 
 	"wikibase-rdf-save-mappings-invalid-mappings": "Cannot save invalid mappings",
-	"wikibase-rdf-save-mappings-save-failed": "Save failed"
+	"wikibase-rdf-save-mappings-save-failed": "Save failed",
+	"wikibase-rdf-entity-id-not-found": "The entity you specified doesn't exist",
+	"wikibase-rdf-entity-id-invalid": "The entity ID you specified is invalid"
 }

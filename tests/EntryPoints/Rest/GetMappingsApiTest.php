@@ -32,4 +32,42 @@ class GetMappingsApiTest extends MediaWikiIntegrationTestCase {
 		$this->assertIsArray( $data['mappings'] );
 	}
 
+	public function testInvalidEntityId(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::getMappingsApiFactory(),
+			new RequestData( [ 'pathParams' => [ 'entity_id' => 'NotId' ] ] )
+		);
+
+		$this->assertSame( 400, $response->getStatusCode() );
+		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
+
+		$data = json_decode( $response->getBody()->getContents(), true );
+		$this->assertIsArray( $data );
+
+		// TODO: setup language codes in test and/or do we need to test this?
+		$this->assertStringContainsString(
+			'wikibase-rdf-entity-id-invalid',
+			$data['messageTranslations']['']
+		);
+	}
+
+	public function testMissingEntityId(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::getMappingsApiFactory(),
+			new RequestData( [ 'pathParams' => [ 'entity_id' => 'Q1000000000' ] ] )
+		);
+
+		$this->assertSame( 404, $response->getStatusCode() );
+		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
+
+		$data = json_decode( $response->getBody()->getContents(), true );
+		$this->assertIsArray( $data );
+
+		// TODO: setup language codes in test and/or do we need to test this?
+		$this->assertStringContainsString(
+			'wikibase-rdf-entity-id-not-found',
+			$data['messageTranslations']['']
+		);
+	}
+
 }
