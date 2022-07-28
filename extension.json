@@ -71,9 +71,6 @@
 
 	"ResourceModules": {
 		"ext.wikibase.rdf": {
-			"dependencies": [
-				"wikibase.view.ControllerViewFactory"
-			],
 			"scripts": [
 				"ext.wikibase.rdf.js"
 			],
