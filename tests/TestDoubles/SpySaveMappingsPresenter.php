@@ -12,6 +12,7 @@ class SpySaveMappingsPresenter implements SaveMappingsPresenter {
 	public bool $showedSuccess = false;
 	public ?MappingList $invalidMappings = null;
 	public bool $showedSaveFailed = false;
+	public bool $showedInvalidEntityId = false;
 
 	public function presentSuccess(): void {
 		$this->showedSuccess = true;
@@ -23,6 +24,10 @@ class SpySaveMappingsPresenter implements SaveMappingsPresenter {
 
 	public function presentSaveFailed(): void {
 		$this->showedSaveFailed = true;
+	}
+
+	public function presentInvalidEntityId(): void {
+		$this->showedInvalidEntityId = true;
 	}
 
 }

@@ -40,6 +40,13 @@ class RestSaveMappingsPresenter implements SaveMappingsPresenter {
 		);
 	}
 
+	public function presentInvalidEntityId(): void {
+		$this->response = $this->responseFactory->createLocalizedHttpError(
+			400,
+			MessageValue::new( 'wikibase-rdf-entity-id-invalid' ),
+		);
+	}
+
 	public function getResponse(): Response {
 		return $this->response;
 	}

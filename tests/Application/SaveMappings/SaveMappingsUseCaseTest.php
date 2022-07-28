@@ -40,10 +40,6 @@ class SaveMappingsUseCaseTest extends TestCase {
 		);
 	}
 
-	private function newItemId(): ItemId {
-		return new ItemId( 'Q1' );
-	}
-
 	public function testShouldShowSuccess(): void {
 		$useCase = $this->newUseCase();
 
@@ -117,6 +113,23 @@ class SaveMappingsUseCaseTest extends TestCase {
 		$this->assertFalse( $this->presenter->showedSuccess );
 		$this->assertNull( $this->presenter->invalidMappings );
 		$this->assertTrue( $this->presenter->showedSaveFailed );
+	}
+
+	public function testShouldShowInvalidEntityId(): void {
+		$useCase = new SaveMappingsUseCase(
+			$this->presenter,
+			new ThrowingMappingRepository(),
+			[ self::VALID_PREDICATE ],
+			new BasicEntityIdParser(),
+			new MappingListSerializer()
+		);
+
+		$useCase->saveMappings(
+			'NotId',
+			'[{"predicate": "' . self::VALID_PREDICATE . '", "object": "' . self::VALID_OBJECT . '"}]'
+		);
+
+		$this->assertTrue( $this->presenter->showedInvalidEntityId );
 	}
 
 }

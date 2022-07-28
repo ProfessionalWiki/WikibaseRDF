@@ -31,16 +31,15 @@ class SaveMappingsUseCase {
 		try {
 			$entityId = $this->entityIdParser->parse( $entityIdValue );
 		} catch ( EntityIdParsingException ) {
-			// TODO: $this->presenter->presentInvalidEntityId()
+			$this->presenter->presentInvalidEntityId();
 			return;
 		}
-
-		// TODO: check if $entityId exists
 
 		try {
 			$mappings = $this->mappingListSerializer->fromJson( $mappingsJson );
 		} catch ( InvalidArgumentException ) {
-			// TODO: present invalid predicates where the Mapping constructor fails
+			// TODO: get the actual invalid items
+			$this->presenter->presentInvalidMappings( new MappingList() );
 			return;
 		}
 

@@ -14,4 +14,6 @@ interface SaveMappingsPresenter {
 
 	public function presentSaveFailed(): void;
 
+	public function presentInvalidEntityId(): void;
+
 }
