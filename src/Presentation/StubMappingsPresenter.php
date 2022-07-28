@@ -27,18 +27,16 @@ class StubMappingsPresenter implements MappingsPresenter {
 		$mappingsHtml = '';
 
 		foreach ( $mappingList->asArray() as $index => $mapping ) {
-			// TODO: make first row editable in the stub UI
-			if ( $index === 0 ) {
-				$mappingsHtml .= $this->createEditableRow( $mapping->predicate, $mapping->object );
-			} else {
-				$mappingsHtml .= $this->createRow( $mapping->predicate, $mapping->object );
-			}
+			$mappingsHtml .= $this->createRow( $mapping->predicate, $mapping->object );
 		}
 
 		$this->response = '<div id="wikibase-rdf">'
 			. '<div id="wikibase-rdf-toggler"></div>'
 			. '<div class id="wikibase-rdf-mappings">'
-			. $this->createHeader() . $mappingsHtml . $this->createFooter()
+			. $this->createEditTemplate()
+			. $this->createHeader()
+			. $mappingsHtml
+			. $this->createFooter()
 			. '</div>'
 			. '</div>';
 	}
@@ -51,10 +49,10 @@ class StubMappingsPresenter implements MappingsPresenter {
 			. '</div>';
 	}
 
-	private function createEditableRow( string $relationship, string $url ): string {
-		return '<div class="wikibase-rdf-row">'
-			. '<div class="wikibase-rdf-predicate">' . $this->createPredicateSelect( $relationship ) . '</div>'
-			. '<div class="wikibase-rdf-object"><input value="' . $url . '"></div>'
+	private function createEditTemplate(): string {
+		return '<div class="wikibase-rdf-row wikibase-rdf-row-editing">'
+			. '<div class="wikibase-rdf-predicate">' . $this->createPredicateSelect() . '</div>'
+			. '<div class="wikibase-rdf-object"><input name="wikibase-rdf-object" value="xxx" /></div>'
 			. '<div class="wikibase-rdf-actions">'
 			. '<a href="#" class="wikibase-rdf-action-save"><span class="icon"></span>' . wfMessage( 'wikibase-rdf-mappings-action-save' ) . '</a> '
 			. '<a href="#" class="wikibase-rdf-action-remove"><span class="icon"></span>' . wfMessage( 'wikibase-rdf-mappings-action-remove' ) . '</a> '
@@ -63,15 +61,10 @@ class StubMappingsPresenter implements MappingsPresenter {
 			. '</div>';
 	}
 
-	private function createPredicateSelect( string $selected ): string {
-		$html = '<select>';
+	private function createPredicateSelect(): string {
+		$html = '<select name="wikibase-rdf-predicate">';
 		foreach ( $this->allowedPredicates as $predicate ) {
-			// TOOD: selection will be handled by JS
-			$html .= '<option' . ( $predicate == $selected ? ' selected' : '' ) . '>' . $predicate . '</option>';
-		}
-		// TODO: handle removed/changed allowed predicates
-		if ( !in_array( $selected, $this->allowedPredicates ) ) {
-			$html .= '<option selected>' . $selected . '</option>';
+			$html .= '<option value="' . $predicate . '">' . $predicate . '</option>';
 		}
 		$html .= '</select>';
 		return $html;
@@ -79,8 +72,8 @@ class StubMappingsPresenter implements MappingsPresenter {
 
 	private function createRow( string $relationship, string $url ): string {
 		return '<div class="wikibase-rdf-row">'
-			. '<div class="wikibase-rdf-predicate">' . $relationship . '</div>'
-			. '<div class="wikibase-rdf-object">' . $url . '</div>'
+			. '<div class="wikibase-rdf-predicate" data="' . $relationship . '">' . $relationship . '</div>'
+			. '<div class="wikibase-rdf-object" data="' . $url .'">' . $url . '</div>'
 			. '<div class="wikibase-rdf-actions">' . $this->createEditButton() . '</div>'
 			. '</div>';
 	}
