@@ -15,11 +15,9 @@ use Wikimedia\ParamValidator\ParamValidator;
 class SaveMappingsApi extends SimpleHandler {
 
 	public function run( string $entityId ): Response {
-		$body = $this->getRequest()->getBody()->getContents();
-
 		$presenter = WikibaseRdfExtension::getInstance()->newRestSaveMappingsPresenter( $this->getResponseFactory() );
 		$useCase = WikibaseRdfExtension::getInstance()->newSaveMappingsUseCase( $presenter );
-		$useCase->saveMappings( $entityId, (array)json_decode( $body, true ) );
+		$useCase->saveMappings( $entityId, (array)$this->getValidatedBody() );
 
 		return $presenter->getResponse();
 	}
