@@ -21,7 +21,7 @@
 		<directory name="../../vendor/wikimedia" />
 		<directory name="../../vendor/data-values" />
 		<directory name="../../vendor/psr" />
-		<directory name="../../vendor/phpunit" />
+		<directory name="../../vendor/phpunit/phpunit" />
 		<directory name="../../extensions/Wikibase" />
 	</extraFiles>
 
