@@ -26,15 +26,21 @@ class MappingListSerializer {
 	 * @param array<int, array{predicate: string, object: string}> $mappings
 	 */
 	private function mappingListFromArray( array $mappings ): MappingList {
-		return new MappingList(
-			array_map(
-				fn( array $mapping ) => new Mapping(
-					predicate: $mapping[self::PREDICATE_KEY],
-					object: $mapping[self::OBJECT_KEY]
-				),
-				$mappings
-			)
-		);
+		try {
+			return new MappingList(
+				array_map(
+					fn( array $mapping ) => new Mapping(
+						predicate: $mapping[self::PREDICATE_KEY],
+						object: $mapping[self::OBJECT_KEY]
+					),
+					$mappings
+				)
+			);
+		}
+		catch ( \Throwable ) {
+			var_dump($mappings);exit;
+//			return new MappingList();
+		}
 	}
 
 	public function toJson( MappingList $mappingList ): string {

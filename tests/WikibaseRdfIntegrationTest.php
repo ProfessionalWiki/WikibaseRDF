@@ -17,6 +17,11 @@ use Wikibase\Repo\WikibaseRepo;
 
 class WikibaseRdfIntegrationTest extends MediaWikiIntegrationTestCase {
 
+	protected function setUp(): void {
+		parent::setUp();
+		$this->tablesUsed[] = 'page';
+	}
+
 	protected function getPageHtml( string $pageTitle ): string {
 		$title = \Title::newFromText( $pageTitle );
 

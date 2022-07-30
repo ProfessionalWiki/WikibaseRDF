@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseRDF\Persistence;
 
 use ProfessionalWiki\WikibaseRDF\Application\AllMappingsLookup;
-use ProfessionalWiki\WikibaseRDF\Application\EntityMappingList;
+use ProfessionalWiki\WikibaseRDF\Application\MappingListAndId;
 use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikimedia\Rdbms\IDatabase;
@@ -21,6 +21,9 @@ class SqlAllMappingsLookup implements AllMappingsLookup {
 	) {
 	}
 
+	/**
+	 * @return MappingListAndId[]
+	 */
 	public function getAllMappings(): array {
 		return $this->resultsToEntityMappingList( $this->fetchResults() );
 	}
@@ -41,7 +44,7 @@ class SqlAllMappingsLookup implements AllMappingsLookup {
 	}
 
 	/**
-	 * @return EntityMappingList[]
+	 * @return MappingListAndId[]
 	 */
 	private function resultsToEntityMappingList( IResultWrapper $results ): array {
 		$entityMappingsList = [];
@@ -49,7 +52,7 @@ class SqlAllMappingsLookup implements AllMappingsLookup {
 			if ( !is_object( $row ) ) {
 				continue;
 			}
-			$entityMappingsList[] = new EntityMappingList(
+			$entityMappingsList[] = new MappingListAndId(
 				$this->entityIdParser->parse( (string)$row->page_title ),
 				$this->serializer->fromJson( (string)$row->old_text )
 			);

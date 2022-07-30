@@ -6,7 +6,7 @@ namespace ProfessionalWiki\WikibaseRDF\EntryPoints\Rest;
 
 use MediaWiki\Rest\SimpleHandler;
 use ProfessionalWiki\WikibaseRDF\Application\AllMappingsLookup;
-use ProfessionalWiki\WikibaseRDF\Application\EntityMappingList;
+use ProfessionalWiki\WikibaseRDF\Application\MappingListAndId;
 use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
 
 class GetAllMappingsApi extends SimpleHandler {
@@ -29,7 +29,7 @@ class GetAllMappingsApi extends SimpleHandler {
 	}
 
 	/**
-	 * @param EntityMappingList[] $entityMappingsList
+	 * @param MappingListAndId[] $entityMappingsList
 	 *
 	 * @return array<string, array<int, array{predicate: string, object: string}>>
 	 */
