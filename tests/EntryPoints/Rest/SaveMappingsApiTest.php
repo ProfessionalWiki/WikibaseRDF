@@ -6,11 +6,9 @@ namespace ProfessionalWiki\WikibaseRDF\Tests\Integration;
 
 use MediaWiki\Rest\RequestData;
 use MediaWiki\Tests\Rest\Handler\HandlerTestTrait;
-use MediaWikiIntegrationTestCase;
+use ProfessionalWiki\WikibaseRDF\Tests\WikibaseRdfIntegrationTest;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
-use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @covers \ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\SaveMappingsApi
@@ -18,7 +16,7 @@ use Wikibase\Repo\WikibaseRepo;
  * @covers \ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension
  * @group Database
  */
-class SaveMappingsApiTest extends MediaWikiIntegrationTestCase {
+class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	use HandlerTestTrait;
 
 	protected function setUp(): void {
@@ -26,15 +24,7 @@ class SaveMappingsApiTest extends MediaWikiIntegrationTestCase {
 
 		$this->setMwGlobals( 'wgWikibaseRdfPredicates', [ 'owl:sameAs' ] );
 
-		$this->createPersistedItem( new ItemId( 'Q1' ) );
-	}
-
-	private function createPersistedItem( ItemId $itemId ): void {
-		WikibaseRepo::getEntityStore()->saveEntity(
-			new Item( $itemId ),
-			'',
-			self::getTestUser()->getUser()
-		);
+		$this->createItem( new ItemId( 'Q1' ) );
 	}
 
 	public function testHappyPath(): void {

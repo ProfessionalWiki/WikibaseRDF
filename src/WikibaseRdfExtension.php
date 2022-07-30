@@ -55,7 +55,7 @@ class WikibaseRdfExtension {
 		);
 	}
 
-	private function newEntityContentRepository( User $user ): EntityContentRepository {
+	public function newEntityContentRepository( User $user ): SlotEntityContentRepository {
 		return new SlotEntityContentRepository(
 			authority: $user,
 			pageFactory: MediaWikiServices::getInstance()->getWikiPageFactory(),

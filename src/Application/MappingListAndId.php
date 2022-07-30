@@ -6,7 +6,7 @@ namespace ProfessionalWiki\WikibaseRDF\Application;
 
 use Wikibase\DataModel\Entity\EntityId;
 
-class EntityMappingList {
+class MappingListAndId {
 
 	public function __construct(
 		public /* readonly */  EntityId $entityId,
