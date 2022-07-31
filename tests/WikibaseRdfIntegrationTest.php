@@ -78,4 +78,11 @@ class WikibaseRdfIntegrationTest extends MediaWikiIntegrationTestCase {
 		$this->saveItem( $item );
 	}
 
+	/**
+	 * @param string[] $predicates
+	 */
+	protected function setAllowedPredicates( array $predicates ): void {
+		$this->setMwGlobals( 'wgWikibaseRdfPredicates', $predicates );
+	}
+
 }
