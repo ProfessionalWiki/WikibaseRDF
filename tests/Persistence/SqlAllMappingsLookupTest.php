@@ -26,13 +26,6 @@ class SqlAllMappingsLookupTest extends WikibaseRdfIntegrationTest {
 		$this->setAllowedPredicates( [ 'foo:foo', 'foo:bar', 'foo:baz' ] );
 	}
 
-	/**
-	 * @param string[] $predicates
-	 */
-	private function setAllowedPredicates( array $predicates ): void {
-		$this->setMwGlobals( 'wgWikibaseRdfPredicates', $predicates );
-	}
-
 	private function newSqlAllMappingsLookup(): SqlAllMappingsLookup {
 		return new SqlAllMappingsLookup(
 			$this->db,

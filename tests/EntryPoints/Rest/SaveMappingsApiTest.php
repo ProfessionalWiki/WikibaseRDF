@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\Tests\Integration;
 
+use MediaWiki\Rest\LocalizedHttpException;
 use MediaWiki\Rest\RequestData;
 use MediaWiki\Tests\Rest\Handler\HandlerTestTrait;
 use ProfessionalWiki\WikibaseRDF\Tests\WikibaseRdfIntegrationTest;
@@ -22,7 +23,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->setMwGlobals( 'wgWikibaseRdfPredicates', [ 'owl:sameAs' ] );
+		$this->setAllowedPredicates( [ 'owl:sameAs' ] );
 
 		$this->createItem( new ItemId( 'Q1' ) );
 	}
@@ -41,14 +42,305 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$this->assertSame( 204, $response->getStatusCode() );
 	}
 
-	public function testInvalidMappings(): void {
+	public function testJsonIsInvalid(): void {
+		$this->expectException( LocalizedHttpException::class );
+		$this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createInvalidJsonBody()
+			] )
+		);
+	}
+
+	public function testJsonIsAnObject(): void {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'POST',
+				'method' => 'PUT',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createInvalidBody()
+				'bodyContents' => $this->createJsonObjectBody()
+			] )
+		);
+
+		$this->assertSame( 400, $response->getStatusCode() );
+		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
+
+		$data = json_decode( $response->getBody()->getContents(), true );
+		$this->assertIsArray( $data );
+
+		$this->assertArrayHasKey( 'invalidMappings', $data );
+		$this->assertSame(
+			[],
+			$data['invalidMappings']
+		);
+
+		$this->assertStringContainsString(
+			'wikibase-rdf-save-mappings-invalid-mappings',
+			$data['messageTranslations']['']
+		);
+	}
+
+	/**
+	 * This result is the same as testJsonIsAnEmptyList() because it's decoded as an empty list.
+	 * @see JsonBodyValidator::validateBody()
+	 */
+	public function testJsonIsAnEmptyObject(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => '{}'
+			] )
+		);
+
+		$this->assertSame( 204, $response->getStatusCode() );
+	}
+
+	public function testJsonIsAnEmptyList(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => '[]'
+			] )
+		);
+
+		$this->assertSame( 204, $response->getStatusCode() );
+	}
+
+	public function testPredicateKeyIsInvalid(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createInvalidPredicateKeyBody()
+			] )
+		);
+
+		$this->assertSame( 400, $response->getStatusCode() );
+		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
+
+		$data = json_decode( $response->getBody()->getContents(), true );
+		$this->assertIsArray( $data );
+
+		$this->assertArrayHasKey( 'invalidMappings', $data );
+		$this->assertSame(
+			[
+				[ 'predicate' => '', 'object' => 'owl:subClassOf' ]
+			],
+			$data['invalidMappings']
+		);
+
+		$this->assertStringContainsString(
+			'wikibase-rdf-save-mappings-invalid-mappings',
+			$data['messageTranslations']['']
+		);
+	}
+
+	public function testObjectKeyIsInvalid(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createInvalidObjectKeyBody()
+			] )
+		);
+
+		$this->assertSame( 400, $response->getStatusCode() );
+		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
+
+		$data = json_decode( $response->getBody()->getContents(), true );
+		$this->assertIsArray( $data );
+
+		$this->assertArrayHasKey( 'invalidMappings', $data );
+		$this->assertSame(
+			[
+				[ 'predicate' => 'owl:sameAs', 'object' => '' ]
+			],
+			$data['invalidMappings']
+		);
+
+		$this->assertStringContainsString(
+			'wikibase-rdf-save-mappings-invalid-mappings',
+			$data['messageTranslations']['']
+		);
+	}
+
+	public function testPredicateIsMissing(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createMissingPredicateBody()
+			] )
+		);
+
+		$this->assertSame( 400, $response->getStatusCode() );
+		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
+
+		$data = json_decode( $response->getBody()->getContents(), true );
+		$this->assertIsArray( $data );
+
+		$this->assertArrayHasKey( 'invalidMappings', $data );
+		$this->assertSame(
+			[
+				[ 'predicate' => '', 'object' => 'owl:subClassOf' ]
+			],
+			$data['invalidMappings']
+		);
+
+		$this->assertStringContainsString(
+			'wikibase-rdf-save-mappings-invalid-mappings',
+			$data['messageTranslations']['']
+		);
+	}
+
+	public function testObjectIsMissing(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createMissingObjectBody()
+			] )
+		);
+
+		$this->assertSame( 400, $response->getStatusCode() );
+		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
+
+		$data = json_decode( $response->getBody()->getContents(), true );
+		$this->assertIsArray( $data );
+
+		$this->assertArrayHasKey( 'invalidMappings', $data );
+		$this->assertSame(
+			[
+				[ 'predicate' => 'owl:sameAs', 'object' => '' ]
+			],
+			$data['invalidMappings']
+		);
+
+		$this->assertStringContainsString(
+			'wikibase-rdf-save-mappings-invalid-mappings',
+			$data['messageTranslations']['']
+		);
+	}
+
+	public function testPredicateIsEmpty(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createEmptyPredicateBody()
+			] )
+		);
+
+		$this->assertSame( 400, $response->getStatusCode() );
+		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
+
+		$data = json_decode( $response->getBody()->getContents(), true );
+		$this->assertIsArray( $data );
+
+		$this->assertArrayHasKey( 'invalidMappings', $data );
+		$this->assertSame(
+			[
+				[ 'predicate' => '', 'object' => 'owl:subClassOf' ]
+			],
+			$data['invalidMappings']
+		);
+
+		$this->assertStringContainsString(
+			'wikibase-rdf-save-mappings-invalid-mappings',
+			$data['messageTranslations']['']
+		);
+	}
+
+	public function testObjectIsEmpty(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createEmptyObjectBody()
+			] )
+		);
+
+		$this->assertSame( 400, $response->getStatusCode() );
+		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
+
+		$data = json_decode( $response->getBody()->getContents(), true );
+		$this->assertIsArray( $data );
+
+		$this->assertArrayHasKey( 'invalidMappings', $data );
+		$this->assertSame(
+			[
+				[ 'predicate' => 'owl:sameAs', 'object' => '' ]
+			],
+			$data['invalidMappings']
+		);
+
+		$this->assertStringContainsString(
+			'wikibase-rdf-save-mappings-invalid-mappings',
+			$data['messageTranslations']['']
+		);
+	}
+
+	public function testMappingPredicateIsMalformed(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createMalformedPredicateBody()
+			] )
+		);
+
+		$this->assertSame( 400, $response->getStatusCode() );
+		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
+
+		$data = json_decode( $response->getBody()->getContents(), true );
+		$this->assertIsArray( $data );
+
+		$this->assertArrayHasKey( 'invalidMappings', $data );
+		$this->assertSame(
+			[
+				[ 'predicate' => 'owl-sameAs', 'object' => 'http://example.com' ]
+			],
+			$data['invalidMappings']
+		);
+
+		$this->assertStringContainsString(
+			'wikibase-rdf-save-mappings-invalid-mappings',
+			$data['messageTranslations']['']
+		);
+	}
+
+	public function testMappingPredicateIsNotAllowed(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createDisallowedPredicateBody()
 			] )
 		);
 
@@ -66,9 +358,54 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 			$data['invalidMappings']
 		);
 
-		// TODO: setup language codes in test and/or do we need to test this?
 		$this->assertStringContainsString(
 			'wikibase-rdf-save-mappings-invalid-mappings',
+			$data['messageTranslations']['']
+		);
+	}
+
+	public function testEntityIdIsInvalid(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'NotId' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createValidBody()
+			] )
+		);
+
+		$this->assertSame( 400, $response->getStatusCode() );
+		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
+
+		$data = json_decode( $response->getBody()->getContents(), true );
+		$this->assertIsArray( $data );
+
+		$this->assertStringContainsString(
+			'wikibase-rdf-entity-id-invalid',
+			$data['messageTranslations']['']
+		);
+	}
+
+	public function testEntityDoesNotExist(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'Q1000000000' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createValidBody()
+			] )
+		);
+
+		$this->assertSame( 500, $response->getStatusCode() );
+		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
+
+		$data = json_decode( $response->getBody()->getContents(), true );
+		$this->assertIsArray( $data );
+
+		$this->assertStringContainsString(
+			'wikibase-rdf-save-mappings-save-failed',
 			$data['messageTranslations']['']
 		);
 	}
@@ -84,10 +421,70 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		]';
 	}
 
-	private function createInvalidBody(): string {
+	private function createInvalidJsonBody(): string {
+		return '
+			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
+			{"predicate": "owl:sameAs", "object": "owl:subClassOf"}
+		';
+	}
+
+	private function createJsonObjectBody(): string {
+		return '{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"}';
+	}
+
+	private function createInvalidPredicateKeyBody(): string {
+		return '[
+			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
+			{"notPredicate": "owl:sameAs", "object": "owl:subClassOf"}
+		]';
+	}
+
+	private function createInvalidObjectKeyBody(): string {
+		return '[
+			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
+			{"predicate": "owl:sameAs", "notObject": "owl:subClassOf"}
+		]';
+	}
+
+	private function createMissingPredicateBody(): string {
+		return '[
+			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
+			{"object": "owl:subClassOf"}
+		]';
+	}
+
+	private function createMissingObjectBody(): string {
+		return '[
+			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
+			{"predicate": "owl:sameAs"}
+		]';
+	}
+
+	private function createMalformedPredicateBody(): string {
+		return '[
+			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
+			{"predicate": "owl-sameAs", "object": "http://example.com"}
+		]';
+	}
+
+	private function createDisallowedPredicateBody(): string {
 		return '[
 			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
 			{"predicate": "foo:bar", "object": "http://example.com"}
+		]';
+	}
+
+	private function createEmptyPredicateBody(): string {
+		return '[
+			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
+			{"predicate": "", "object": "owl:subClassOf"}
+		]';
+	}
+
+	private function createEmptyObjectBody(): string {
+		return '[
+			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
+			{"predicate": "owl:sameAs", "object": ""}
 		]';
 	}
 
