@@ -47,7 +47,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'POST',
+				'method' => 'PUT',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $this->createInvalidJsonBody()
@@ -55,14 +55,14 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		);
 	}
 
-	public function testJsonIsNotAList(): void {
+	public function testJsonIsAnObject(): void {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'POST',
+				'method' => 'PUT',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createNonArrayBody()
+				'bodyContents' => $this->createJsonObjectBody()
 			] )
 		);
 
@@ -84,14 +84,46 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		);
 	}
 
-	public function testMappingKeysAreInvalid(): void {
+	/**
+	 * This result is the same as testJsonIsAnEmptyList() because it's decoded as an empty list.
+	 * @see JsonBodyValidator::validateBody()
+	 */
+	public function testJsonIsAnEmptyObject(): void {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'POST',
+				'method' => 'PUT',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createInvalidKeysBody()
+				'bodyContents' => '{}'
+			] )
+		);
+
+		$this->assertSame( 204, $response->getStatusCode() );
+	}
+
+	public function testJsonIsAnEmptyList(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => '[]'
+			] )
+		);
+
+		$this->assertSame( 204, $response->getStatusCode() );
+	}
+
+	public function testPredicateKeyIsInvalid(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createInvalidPredicateKeyBody()
 			] )
 		);
 
@@ -102,10 +134,9 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$this->assertIsArray( $data );
 
 		$this->assertArrayHasKey( 'invalidMappings', $data );
-		// TODO: this might be useful if we include the original values, although that complicates the type hinting
 		$this->assertSame(
 			[
-				[ 'predicate' => '', 'object' => '' ]
+				[ 'predicate' => '', 'object' => 'owl:subClassOf' ]
 			],
 			$data['invalidMappings']
 		);
@@ -116,11 +147,42 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		);
 	}
 
-	public function testMappingPredicateIsMissing(): void {
+	public function testObjectKeyIsInvalid(): void {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'POST',
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createInvalidObjectKeyBody()
+			] )
+		);
+
+		$this->assertSame( 400, $response->getStatusCode() );
+		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
+
+		$data = json_decode( $response->getBody()->getContents(), true );
+		$this->assertIsArray( $data );
+
+		$this->assertArrayHasKey( 'invalidMappings', $data );
+		$this->assertSame(
+			[
+				[ 'predicate' => 'owl:sameAs', 'object' => '' ]
+			],
+			$data['invalidMappings']
+		);
+
+		$this->assertStringContainsString(
+			'wikibase-rdf-save-mappings-invalid-mappings',
+			$data['messageTranslations']['']
+		);
+	}
+
+	public function testPredicateIsMissing(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $this->createMissingPredicateBody()
@@ -147,14 +209,76 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		);
 	}
 
-	public function testMappingObjectIsMissing(): void {
+	public function testObjectIsMissing(): void {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'POST',
+				'method' => 'PUT',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $this->createMissingObjectBody()
+			] )
+		);
+
+		$this->assertSame( 400, $response->getStatusCode() );
+		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
+
+		$data = json_decode( $response->getBody()->getContents(), true );
+		$this->assertIsArray( $data );
+
+		$this->assertArrayHasKey( 'invalidMappings', $data );
+		$this->assertSame(
+			[
+				[ 'predicate' => 'owl:sameAs', 'object' => '' ]
+			],
+			$data['invalidMappings']
+		);
+
+		$this->assertStringContainsString(
+			'wikibase-rdf-save-mappings-invalid-mappings',
+			$data['messageTranslations']['']
+		);
+	}
+
+	public function testPredicateIsEmpty(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createEmptyPredicateBody()
+			] )
+		);
+
+		$this->assertSame( 400, $response->getStatusCode() );
+		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
+
+		$data = json_decode( $response->getBody()->getContents(), true );
+		$this->assertIsArray( $data );
+
+		$this->assertArrayHasKey( 'invalidMappings', $data );
+		$this->assertSame(
+			[
+				[ 'predicate' => '', 'object' => 'owl:subClassOf' ]
+			],
+			$data['invalidMappings']
+		);
+
+		$this->assertStringContainsString(
+			'wikibase-rdf-save-mappings-invalid-mappings',
+			$data['messageTranslations']['']
+		);
+	}
+
+	public function testObjectIsEmpty(): void {
+		$response = $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'PUT',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createEmptyObjectBody()
 			] )
 		);
 
@@ -182,7 +306,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'POST',
+				'method' => 'PUT',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $this->createMalformedPredicateBody()
@@ -213,7 +337,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'POST',
+				'method' => 'PUT',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $this->createDisallowedPredicateBody()
@@ -286,20 +410,6 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		);
 	}
 
-	public function testRemoveMappings(): void {
-		$response = $this->executeHandler(
-			WikibaseRdfExtension::saveMappingsApiFactory(),
-			new RequestData( [
-				'method' => 'PUT',
-				'pathParams' => [ 'entity_id' => 'Q1' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createRemoveMappingsBody()
-			] )
-		);
-
-		$this->assertSame( 204, $response->getStatusCode() );
-	}
-
 	public function testSaveFailed(): void {
 		// TODO: use ThrowingMappingRepository
 	}
@@ -318,14 +428,21 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		';
 	}
 
-	private function createNonArrayBody(): string {
+	private function createJsonObjectBody(): string {
 		return '{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"}';
 	}
 
-	private function createInvalidKeysBody(): string {
+	private function createInvalidPredicateKeyBody(): string {
 		return '[
 			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
-			{"foo": "owl:sameAs", "bar": "owl:subClassOf"}
+			{"notPredicate": "owl:sameAs", "object": "owl:subClassOf"}
+		]';
+	}
+
+	private function createInvalidObjectKeyBody(): string {
+		return '[
+			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
+			{"predicate": "owl:sameAs", "notObject": "owl:subClassOf"}
 		]';
 	}
 
@@ -357,8 +474,18 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		]';
 	}
 
-	private function createRemoveMappingsBody(): string {
-		return '[]';
+	private function createEmptyPredicateBody(): string {
+		return '[
+			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
+			{"predicate": "", "object": "owl:subClassOf"}
+		]';
+	}
+
+	private function createEmptyObjectBody(): string {
+		return '[
+			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
+			{"predicate": "owl:sameAs", "object": ""}
+		]';
 	}
 
 }
