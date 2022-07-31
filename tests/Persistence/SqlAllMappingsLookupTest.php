@@ -24,7 +24,25 @@ class SqlAllMappingsLookupTest extends WikibaseRdfIntegrationTest {
 		parent::setUp();
 
 		$this->setAllowedPredicates( [ 'foo:foo', 'foo:bar', 'foo:baz' ] );
+	}
 
+	/**
+	 * @param string[] $predicates
+	 */
+	private function setAllowedPredicates( array $predicates ): void {
+		$this->setMwGlobals( 'wgWikibaseRdfPredicates', $predicates );
+	}
+
+	private function newSqlAllMappingsLookup(): SqlAllMappingsLookup {
+		return new SqlAllMappingsLookup(
+			$this->db,
+			WikibaseRdfExtension::SLOT_NAME,
+			WikibaseRepo::getEntityIdParser(),
+			WikibaseRdfExtension::getInstance()->newMappingListSerializer()
+		);
+	}
+
+	private function saveTestMappings(): void {
 		$this->createItem( new ItemId( 'Q99001' ) );
 		$this->createItemWithMappings(
 			new ItemId( 'Q99002' ),
@@ -57,70 +75,58 @@ class SqlAllMappingsLookupTest extends WikibaseRdfIntegrationTest {
 		);
 	}
 
-	/**
-	 * @param string[] $predicates
-	 */
-	private function setAllowedPredicates( array $predicates ): void {
-		$this->setMwGlobals( 'wgWikibaseRdfPredicates', $predicates );
+	private function getTestMappingsList(): array {
+		return [
+			new MappingListAndId(
+				new ItemId( 'Q99002' ),
+				new MappingList( [
+					new Mapping( 'foo:foo', 'https://example.com/#foo1' )
+				] )
+			),
+			new MappingListAndId(
+				new ItemId( 'Q99003' ),
+				new MappingList( [
+					new Mapping( 'foo:foo', 'https://example.com/#foo1' ),
+					new Mapping( 'foo:bar', 'https://example.com/#bar1' ),
+					new Mapping( 'foo:baz', 'https://example.com/#baz1' )
+				] )
+			),
+			new MappingListAndId(
+				new PropertyId( 'P99002' ),
+				new MappingList( [
+					new Mapping( 'foo:foo', 'https://example.com/#foo1' )
+				] )
+			),
+			new MappingListAndId(
+				new PropertyId( 'P99003' ),
+				new MappingList( [
+					new Mapping( 'foo:foo', 'https://example.com/#foo1' ),
+					new Mapping( 'foo:bar', 'https://example.com/#bar1' ),
+					new Mapping( 'foo:baz', 'https://example.com/#baz1' )
+				] )
+			)
+		];
 	}
 
-	public function newSqlAllMappingsLookup(): SqlAllMappingsLookup {
-		return new SqlAllMappingsLookup(
-			$this->db,
-			WikibaseRdfExtension::SLOT_NAME,
-			WikibaseRepo::getEntityIdParser(),
-			WikibaseRdfExtension::getInstance()->newMappingListSerializer()
-		);
-	}
-
-	public function testUnmodifiedMappings(): void {
-		$allMappings = $this->newSqlAllMappingsLookup()->getAllMappings();
+	public function testReturnsAllMappings(): void {
+		$this->saveTestMappings();
 
 		$this->assertEquals(
-			[
-				new MappingListAndId(
-					new ItemId( 'Q99002' ),
-					new MappingList( [
-						new Mapping( 'foo:foo', 'https://example.com/#foo1' )
-					] )
-				),
-				new MappingListAndId(
-					new ItemId( 'Q99003' ),
-					new MappingList( [
-						new Mapping( 'foo:foo', 'https://example.com/#foo1' ),
-						new Mapping( 'foo:bar', 'https://example.com/#bar1' ),
-						new Mapping( 'foo:baz', 'https://example.com/#baz1' )
-					] )
-				),
-				new MappingListAndId(
-					new PropertyId( 'P99002' ),
-					new MappingList( [
-						new Mapping( 'foo:foo', 'https://example.com/#foo1' )
-					] )
-				),
-				new MappingListAndId(
-					new PropertyId( 'P99003' ),
-					new MappingList( [
-						new Mapping( 'foo:foo', 'https://example.com/#foo1' ),
-						new Mapping( 'foo:bar', 'https://example.com/#bar1' ),
-						new Mapping( 'foo:baz', 'https://example.com/#baz1' )
-					] )
-				)
-			],
-			$allMappings
+			$this->getTestMappingsList(),
+			$this->newSqlAllMappingsLookup()->getAllMappings()
 		);
 	}
 
-//	public function testEntityModified(): void {
-//		// TODO - return the same mappings
-//	}
-//
-//	public function testEmptyMappings(): void {
-//		// TODO - is slot with empty mappings == entity without the mappings slot ?
-//		// i.e. text table contains [] versus nothing
-//	}
+	public function testEmptyMappings(): void {
+		$this->assertSame(
+			[],
+			$this->newSqlAllMappingsLookup()->getAllMappings()
+		);
+	}
 
-	public function testMappingsModified(): void {
+	public function testReturnsLatestRevisionsWhenMappingSlotsAreModified(): void {
+		$this->saveTestMappings();
+
 		$initialCount = count( $this->newSqlAllMappingsLookup()->getAllMappings() );
 
 		$this->setMappings(
@@ -176,6 +182,16 @@ class SqlAllMappingsLookupTest extends WikibaseRdfIntegrationTest {
 				)
 			],
 			$allMappings
+		);
+	}
+
+	public function testReturnsLatestRevisionsWhenMainSlotIsModified(): void {
+		$this->saveTestMappings();
+		$this->modifyItem( new ItemId( 'Q99002' ), 'NewText' );
+
+		$this->assertEquals(
+			$this->getTestMappingsList(),
+			$this->newSqlAllMappingsLookup()->getAllMappings()
 		);
 	}
 

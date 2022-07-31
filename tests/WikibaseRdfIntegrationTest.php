@@ -42,8 +42,12 @@ class WikibaseRdfIntegrationTest extends MediaWikiIntegrationTestCase {
 	}
 
 	protected function createItem( ItemId $itemId ): void {
+		$this->saveItem( new Item( $itemId ) );
+	}
+
+	private function saveItem( Item $item ): void {
 		WikibaseRepo::getEntityStore()->saveEntity(
-			new Item( $itemId ),
+			$item,
 			'',
 			self::getTestSysop()->getUser()
 		);
@@ -65,6 +69,13 @@ class WikibaseRdfIntegrationTest extends MediaWikiIntegrationTestCase {
 	protected function setMappings( EntityId $entityId, MappingList $mappingList ): void {
 		$user = self::getTestSysop()->getUser();
 		WikibaseRdfExtension::getInstance()->newMappingRepository( $user )->setMappings( $entityId, $mappingList );
+	}
+
+	protected function modifyItem( ItemId $itemId, string $labelText ): void {
+		$item = new Item( $itemId );
+		$item->setLabel( 'en', $labelText );
+
+		$this->saveItem( $item );
 	}
 
 }
