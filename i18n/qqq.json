@@ -1,9 +1,23 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jeroen De Dauw"
+			"Jeroen De Dauw",
+			"Kghbln"
 		]
 	},
 	"wikibase-rdf-name": "{{notranslate}}",
-	"wikibase-rdf-description": "{{Desc|name=Wikibase RDF|url=https://github.com/ProfessionalWiki/WikibaseRDF}}"
+	"wikibase-rdf-description": "{{Desc|name=Wikibase RDF|url=https://github.com/ProfessionalWiki/WikibaseRDF}}",
+
+	"wikibase-rdf-mappings-toggler": "This is the text on a button.",
+	"wikibase-rdf-mappings-predicate-heading": "This is a section header.",
+	"wikibase-rdf-mappings-object-heading": "This is a section header.",
+	"wikibase-rdf-mappings-action-save": "This is the text on a button.",
+	"wikibase-rdf-mappings-action-remove": "This is the text on a button.",
+	"wikibase-rdf-mappings-action-cancel": "This is the text on a button.",
+	"wikibase-rdf-mappings-action-edit": "This is the text on a button.",
+	"wikibase-rdf-mappings-action-add": "This is the text on a button.",
+
+	"wikibase-rdf-save-mappings-invalid-mappings": "This is an error message.",
+	"wikibase-rdf-save-mappings-save-failed": "This is an error message.",
+	"wikibase-rdf-entity-id-invalid": "This is an error message."
 }
