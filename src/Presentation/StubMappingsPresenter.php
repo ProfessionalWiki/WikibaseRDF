@@ -6,11 +6,6 @@ namespace ProfessionalWiki\WikibaseRDF\Presentation;
 
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;
 
-/**
- * TOOD: Stub presenter using HTML strings
- * TODO: Use Mustache, Twig, or Wikibase string templates?
- * TODO: i18n - is wfMessage() enough?
- */
 class StubMappingsPresenter implements MappingsPresenter {
 
 	private string $response = '';
@@ -24,18 +19,13 @@ class StubMappingsPresenter implements MappingsPresenter {
 	}
 
 	public function showMappings( MappingList $mappingList ): void {
-		$mappingsHtml = '';
-
-		foreach ( $mappingList->asArray() as $index => $mapping ) {
-			$mappingsHtml .= $this->createRow( $mapping->predicate, $mapping->object );
-		}
-
-		$this->response = '<div id="wikibase-rdf">'
+		$this->response = '<div id="wikibase-rdf" style="display: none;">'
 			. '<div id="wikibase-rdf-toggler"></div>'
 			. '<div class id="wikibase-rdf-mappings">'
 			. $this->createEditTemplate()
+			. $this->createRowTemplate()
 			. $this->createHeader()
-			. $mappingsHtml
+			. $this->createRows( $mappingList )
 			. $this->createFooter()
 			. '</div>'
 			. '</div>';
@@ -50,15 +40,33 @@ class StubMappingsPresenter implements MappingsPresenter {
 	}
 
 	private function createEditTemplate(): string {
-		return '<div class="wikibase-rdf-row wikibase-rdf-row-editing">'
+		return '<div class="wikibase-rdf-row wikibase-rdf-row-editing-template">'
 			. '<div class="wikibase-rdf-predicate">' . $this->createPredicateSelect() . '</div>'
-			. '<div class="wikibase-rdf-object"><input name="wikibase-rdf-object" value="xxx" /></div>'
+			. '<div class="wikibase-rdf-object"><input name="wikibase-rdf-object" value="" /></div>'
 			. '<div class="wikibase-rdf-actions">'
 			. '<a href="#" class="wikibase-rdf-action-save"><span class="icon"></span>' . wfMessage( 'wikibase-rdf-mappings-action-save' ) . '</a> '
 			. '<a href="#" class="wikibase-rdf-action-remove"><span class="icon"></span>' . wfMessage( 'wikibase-rdf-mappings-action-remove' ) . '</a> '
 			. '<a href="#" class="wikibase-rdf-action-cancel"><span class="icon"></span>' . wfMessage( 'wikibase-rdf-mappings-action-cancel' ) . '</a>'
 			. '</div>'
 			. '</div>';
+	}
+
+	private function createRowTemplate(): string {
+		return '<div class="wikibase-rdf-row-template">'
+			. '<div class="wikibase-rdf-predicate"></div>'
+			. '<div class="wikibase-rdf-object"></div>'
+			. '<div class="wikibase-rdf-actions">' . $this->createEditButton() . '</div>'
+			. '</div>';
+	}
+
+	private function createRows( MappingList $mappingList ): string {
+		$html = '<div class="wikibase-rdf-rows">';
+		foreach ( $mappingList->asArray() as $mapping ) {
+			$html .= $this->createRow( $mapping->predicate, $mapping->object );
+		}
+		$html .= '</div>';
+
+		return $html;
 	}
 
 	private function createPredicateSelect(): string {
@@ -71,9 +79,9 @@ class StubMappingsPresenter implements MappingsPresenter {
 	}
 
 	private function createRow( string $relationship, string $url ): string {
-		return '<div class="wikibase-rdf-row">'
-			. '<div class="wikibase-rdf-predicate" data="' . $relationship . '">' . $relationship . '</div>'
-			. '<div class="wikibase-rdf-object" data="' . $url .'">' . $url . '</div>'
+		return '<div class="wikibase-rdf-row" data-predicate="' . $relationship . '" data-object="' . $url .'">'
+			. '<div class="wikibase-rdf-predicate">' . $relationship . '</div>'
+			. '<div class="wikibase-rdf-object">' . $url . '</div>'
 			. '<div class="wikibase-rdf-actions">' . $this->createEditButton() . '</div>'
 			. '</div>';
 	}
