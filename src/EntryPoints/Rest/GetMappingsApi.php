@@ -4,12 +4,15 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\EntryPoints\Rest;
 
+use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
 use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
+use Wikibase\DataModel\Entity\EntityIdParsingException;
+use Wikimedia\Message\MessageValue;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class GetMappingsApi extends SimpleHandler {
@@ -21,13 +24,14 @@ class GetMappingsApi extends SimpleHandler {
 	) {
 	}
 
-	/**
-	 * @return array<string, mixed>
-	 */
-	public function run( string $entityId ): array {
-		return [
-			'mappings' => $this->getMappingsArray( $this->getMappings( $entityId ) )
-		];
+	public function run( string $entityId ): Response {
+		try {
+			$realEntityId = $this->getEntityId( $entityId );
+		} catch ( EntityIdParsingException ) {
+			return $this->presentInvalidEntityId();
+		}
+
+		return $this->presentMappings( $this->getMappings( $realEntityId ) );
 	}
 
 	/**
@@ -55,8 +59,8 @@ class GetMappingsApi extends SimpleHandler {
 		return $this->entityIdParser->parse( $entityId );
 	}
 
-	private function getMappings( string $entityId ): MappingList {
-		return $this->mappingRepository->getMappings( $this->getEntityId( $entityId ) );
+	private function getMappings( EntityId $entityId ): MappingList {
+		return $this->mappingRepository->getMappings( $entityId );
 	}
 
 	/**
@@ -64,6 +68,19 @@ class GetMappingsApi extends SimpleHandler {
 	 */
 	private function getMappingsArray( MappingList $mappings ): array {
 		return $this->mappingListSerializer->mappingListToArray( $mappings );
+	}
+
+	public function presentInvalidEntityId(): Response {
+		return $this->getResponseFactory()->createLocalizedHttpError(
+			400,
+			MessageValue::new( 'wikibase-rdf-entity-id-invalid' ),
+		);
+	}
+
+	public function presentMappings( MappingList $mappings ): Response {
+		return $this->getResponseFactory()->createJson( [
+			'mappings' => $this->getMappingsArray( $mappings )
+		] );
 	}
 
 }
