@@ -6,19 +6,12 @@ $( function () {
 	'use strict';
 
 	moveSection();
-
 	mw.loader.using( 'wikibase.view.ControllerViewFactory', addToggler );
-
-	$( '.wikibase-rdf-action-add' ).click( clickAdd );
-	let rdfSection = $('#wikibase-rdf');
-	rdfSection.on( 'click', '.wikibase-rdf-action-edit', clickEdit );
-	rdfSection.on( 'click', '.wikibase-rdf-action-save', clickSave );
-	rdfSection.on( 'click', '.wikibase-rdf-action-remove', clickRemove );
-	rdfSection.on( 'click', '.wikibase-rdf-action-cancel', clickCancel );
+	setupEvents();
 
 	function moveSection() {
 		// Move Mappings before Statements section.
-		$('#wikibase-rdf').insertBefore( $( 'h2.wikibase-statements' ) ).show();
+		$( '#wikibase-rdf' ).insertBefore( $( 'h2.wikibase-statements' ) ).show();
 	}
 
 	function addToggler() {
@@ -30,22 +23,72 @@ $( function () {
 		toggler.find( '.ui-toggler-label' ).text( mw.msg( 'wikibase-rdf-mappings-toggler' ) );
 	}
 
+	function setupEvents() {
+		$( '.wikibase-rdf-action-add' ).click( clickAdd );
+		$( '#wikibase-rdf' )
+			.on( 'click', '.wikibase-rdf-action-edit', clickEdit )
+			.on( 'click', '.wikibase-rdf-action-save', clickSave )
+			.on( 'click', '.wikibase-rdf-action-remove', clickRemove )
+			.on( 'click', '.wikibase-rdf-action-cancel', clickCancel );
+	}
+
 	function findRow( element ) {
 		return $( element ).parents( '.wikibase-rdf-row' );
 	}
 
-	function clickEdit( event ) {
+	function clickAdd( event ) {
+		console.log( 'clickAdd' );
 		event.preventDefault();
 
-		let row = findRow( this );
+		let row = $( '.wikibase-rdf-row-editing-template' ).clone();
+		row.find( '.wikibase-rdf-action-remove' ).remove();
+		row.removeClass( 'wikibase-rdf-row-editing-template' );
+		row.addClass( 'wikibase-rdf-row-editing-add' );
+		row.appendTo( $( '.wikibase-rdf-rows' ) );
+	}
+
+	function clickEdit( event ) {
+		console.log( 'clickEdit' );
+		event.preventDefault();
+
+		let row = findRow( event.target );
 		row.html( $( '.wikibase-rdf-row-editing-template' ).html() );
 		row.addClass( 'wikibase-rdf-row-editing-existing' );
 		row.find( '[name="wikibase-rdf-predicate"]' ).val( row.data( 'predicate' ) ).change();
 		row.find( '[name="wikibase-rdf-object"]' ).val( row.data( 'object' ) ).change();
 	}
 
+	function clickSave( event ) {
+		console.log( 'clickSave' );
+		event.preventDefault();
+		saveMappings( event.target );
+	}
+
+	function clickRemove( event ) {
+		console.log( 'clickRemove' );
+		event.preventDefault();
+		saveMappings( event.target );
+	}
+
+	function clickCancel( event ) {
+		console.log( 'clickCancel' );
+		event.preventDefault();
+
+		let row = findRow( event.target );
+
+		if ( row.hasClass( 'wikibase-rdf-row-editing-add' ) ) {
+			row.remove();
+			return;
+		}
+
+		row.html( $( '.wikibase-rdf-row-template' ).html() );
+		row.removeClass( 'wikibase-rdf-row-editing' );
+		row.find( '.wikibase-rdf-predicate' ).html( row.data( 'predicate' ) );
+		row.find( '.wikibase-rdf-object' ).html( row.data( 'object' ) );
+	}
+
 	function saveMappings( trigger ) {
-		// TODO: get all mappings from form
+		console.log( 'saveMappings' );
 		let mappings = [];
 
 		findRow( trigger ).addClass( 'wikibase-rdf-row-editing-saving' );
@@ -61,7 +104,10 @@ $( function () {
 
 			if ( isTrigger && isRemove ) {
 				return;
-			} else if ( ( isAdd || isEdit ) && isTrigger ) {
+			} else if ( isAdd || isEdit) {
+				if ( !isTrigger ) {
+					return;
+				}
 				// Rows in edit mode should not be saved, unless it was the triggering row.
 				mapping.predicate = $row.find( '[name="wikibase-rdf-predicate"] :selected' ).val();
 				mapping.object = $row.find( '[name="wikibase-rdf-object"]' ).val();
@@ -73,23 +119,31 @@ $( function () {
 			mappings.push( mapping );
 		} );
 
-		// TODO: call REST API
-		console.log( mappings );
-
-		// TODO: showError( '' );
-		return true;
+		let api = new mw.Rest();
+		api.post(
+			'/wikibase-rdf/v0/mappings/' + mw.config.get( 'wgTitle' ),
+			mappings,
+			{ 'authorization': 'token' }
+		)
+			.done( function() {
+				hideError();
+				let isSave = $( trigger ).hasClass( 'wikibase-rdf-action-save' );
+				let isRemove = $( trigger ).hasClass( 'wikibase-rdf-action-remove' );
+				if ( isSave ) {
+					onSuccessfulSave( trigger );
+				}
+				else if ( isRemove ) {
+					onSuccessfulRemove( trigger );
+				}
+			} )
+			.fail ( function( data, response ) {
+				showError( response.xhr.responseJSON );
+			} );
 	}
 
-	function clickSave( event ) {
-		event.preventDefault();
-
-		let saved = saveMappings( this );
-
-		if ( !saved ) {
-			return;
-		}
-
-		let row = findRow( this );
+	function onSuccessfulSave( trigger ) {
+		console.log( 'onSuccessfulSave' );
+		let row = findRow( trigger );
 		row.data( 'predicate', row.find( '[name="wikibase-rdf-predicate"] :selected' ).val() );
 		row.data( 'object', row.find( '[name="wikibase-rdf-object"]' ).val() );
 
@@ -101,47 +155,20 @@ $( function () {
 		row.find( '.wikibase-rdf-object' ).html( row.data( 'object' ) );
 	}
 
-	function clickRemove( event ) {
-		event.preventDefault();
-
-		let saved = saveMappings( this );
-
-		if ( !saved ) {
-			return;
-		}
-
-		findRow( this ).remove();
+	function onSuccessfulRemove( trigger ) {
+		console.log( 'removed' );
+		findRow( trigger ).remove();
 	}
 
-	function clickCancel( event ) {
-		event.preventDefault();
-
-		let row = findRow( this );
-
-		if ( row.hasClass( 'wikibase-rdf-row-editing-add' ) ) {
-			row.remove();
-			return;
-		}
-
-		row.html( $( '.wikibase-rdf-row-template' ).html() );
-		row.removeClass( 'wikibase-rdf-row-editing' );
-		row.find( '.wikibase-rdf-predicate' ).html( row.data( 'predicate' ) );
-		row.find( '.wikibase-rdf-object' ).html( row.data( 'object' ) );
-	}
-
-	function clickAdd( event ) {
-		event.preventDefault();
-
-		let row = $( '.wikibase-rdf-row-editing-template' ).clone();
-		row.find( '.wikibase-rdf-action-remove' ).remove();
-		row.removeClass( 'wikibase-rdf-row-editing-template' );
-		row.addClass( 'wikibase-rdf-row-editing-add' );
-		row.appendTo( $( '.wikibase-rdf-rows' ) );
+	function hideError() {
+		console.log( 'hideError' );
+		$( '.wikibase-rdf-error' ).hide();
 	}
 
 	function showError( error ) {
-		// TODO: show error message
-		console.error( error );
+		console.log( 'showError' );
+		// TODO: i18n message
+		$( '.wikibase-rdf-error' ).html( JSON.stringify( error ) ).show();
 	}
 
 } );

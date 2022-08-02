@@ -25,6 +25,7 @@ class StubMappingsPresenter implements MappingsPresenter {
 			. $this->createEditTemplate()
 			. $this->createRowTemplate()
 			. $this->createHeader()
+			. $this->createErrorBox()
 			. $this->createRows( $mappingList )
 			. $this->createFooter()
 			. '</div>'
@@ -37,6 +38,10 @@ class StubMappingsPresenter implements MappingsPresenter {
 			. '<span class="wikibase-rdf-mappings-object-heading">' . wfMessage( 'wikibase-rdf-mappings-object-heading' ) . '</span>'
 			. '<span class="wikibase-rdf-mappings-actions-heading"></span>'
 			. '</div>';
+	}
+
+	private function createErrorBox(): string {
+		return '<div class="wikibase-rdf-error" style="display: none;"></div>';
 	}
 
 	private function createEditTemplate(): string {
