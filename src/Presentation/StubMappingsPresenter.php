@@ -84,7 +84,7 @@ class StubMappingsPresenter implements MappingsPresenter {
 	}
 
 	private function createRow( string $relationship, string $url ): string {
-		return '<div class="wikibase-rdf-row" data-predicate="' . $relationship . '" data-object="' . $url .'">'
+		return '<div class="wikibase-rdf-row" data-predicate="' . $relationship . '" data-object="' . $url . '">'
 			. '<div class="wikibase-rdf-predicate">' . $relationship . '</div>'
 			. '<div class="wikibase-rdf-object">' . $url . '</div>'
 			. '<div class="wikibase-rdf-actions">' . $this->createEditButton() . '</div>'
