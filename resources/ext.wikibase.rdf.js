@@ -59,7 +59,7 @@ $( function () {
 	function onSuccessfulSave( trigger ) {
 		console.log( 'onSuccessfulSave' );
 		const $row = findRow( trigger );
-		$row.data( 'predicate', $row.find( '[name="wikibase-rdf-predicate"] :selected' ).val() );
+		$row.data( 'predicate', $row.find( '[name="wikibase-rdf-predicate"]' ).val() );
 		$row.data( 'object', $row.find( '[name="wikibase-rdf-object"]' ).val() );
 
 		$row.removeClass( 'wikibase-rdf-row-editing-existing' );
@@ -97,7 +97,7 @@ $( function () {
 					return;
 				}
 				// Rows in edit mode should not be saved, unless it was the triggering row.
-				mapping.predicate = $row.find( '[name="wikibase-rdf-predicate"] option:selected' ).val();
+				mapping.predicate = $row.find( '[name="wikibase-rdf-predicate"]' ).val();
 				mapping.object = $row.find( '[name="wikibase-rdf-object"]' ).val();
 				$row.removeClass( 'wikibase-rdf-row-editing-saving' );
 			} else {
