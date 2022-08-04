@@ -53,7 +53,7 @@ $( function () {
 	function showError( error ) {
 		console.log( 'showError' );
 		// TODO: i18n message
-		$( '.wikibase-rdf-error' ).html( JSON.stringify( error ) ).show();
+		$( '.wikibase-rdf-error' ).text( JSON.stringify( error ) ).show();
 	}
 
 	function onSuccessfulSave( trigger ) {
@@ -66,8 +66,8 @@ $( function () {
 		$row.removeClass( 'wikibase-rdf-row-editing-add' );
 
 		$row.html( $( '.wikibase-rdf-row-template' ).html() );
-		$row.find( '.wikibase-rdf-predicate' ).html( $row.data( 'predicate' ) );
-		$row.find( '.wikibase-rdf-object' ).html( $row.data( 'object' ) );
+		$row.find( '.wikibase-rdf-predicate' ).text( $row.data( 'predicate' ) );
+		$row.find( '.wikibase-rdf-object' ).text( $row.data( 'object' ) );
 	}
 
 	function onSuccessfulRemove( trigger ) {
@@ -153,8 +153,8 @@ $( function () {
 
 		$row.html( $( '.wikibase-rdf-row-template' ).html() );
 		$row.removeClass( 'wikibase-rdf-row-editing' );
-		$row.find( '.wikibase-rdf-predicate' ).html( $row.data( 'predicate' ) );
-		$row.find( '.wikibase-rdf-object' ).html( $row.data( 'object' ) );
+		$row.find( '.wikibase-rdf-predicate' ).text( $row.data( 'predicate' ) );
+		$row.find( '.wikibase-rdf-object' ).text( $row.data( 'object' ) );
 	}
 
 	function setupEvents() {

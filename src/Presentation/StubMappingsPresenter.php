@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\Presentation;
 
+use Html;
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;
 
 class StubMappingsPresenter implements MappingsPresenter {
@@ -77,18 +78,20 @@ class StubMappingsPresenter implements MappingsPresenter {
 	private function createPredicateSelect(): string {
 		$html = '<select name="wikibase-rdf-predicate">';
 		foreach ( $this->allowedPredicates as $predicate ) {
-			$html .= '<option value="' . $predicate . '">' . $predicate . '</option>';
+			$html .= Html::element( 'option', [ 'value' => $predicate ], $predicate );
 		}
 		$html .= '</select>';
 		return $html;
 	}
 
 	private function createRow( string $relationship, string $url ): string {
-		return '<div class="wikibase-rdf-row" data-predicate="' . $relationship . '" data-object="' . $url . '">'
-			. '<div class="wikibase-rdf-predicate">' . $relationship . '</div>'
-			. '<div class="wikibase-rdf-object">' . $url . '</div>'
-			. '<div class="wikibase-rdf-actions">' . $this->createEditButton() . '</div>'
-			. '</div>';
+		return Html::rawElement(
+			'div',
+			[ 'class' => 'wikibase-rdf-row', 'data-predicate' => $relationship, 'data-object' => $url ],
+			Html::element( 'div', [ 'class' => 'wikibase-rdf-predicate' ], $relationship )
+				. Html::element( 'div', [ 'class' => 'wikibase-rdf-object' ], $url )
+				. Html::rawElement( 'div', [ 'class' => 'wikibase-rdf-actions' ], $this->createEditButton() )
+		);
 	}
 
 	private function createEditButton(): string {
