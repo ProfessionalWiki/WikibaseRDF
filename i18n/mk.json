@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Vlad5250"
+		]
+	},
+	"wikibase-rdf-mappings-predicate-heading": "Односи",
+	"wikibase-rdf-mappings-object-heading": "URL",
+	"wikibase-rdf-mappings-action-save": "зачувај",
+	"wikibase-rdf-mappings-action-remove": "отстрани",
+	"wikibase-rdf-mappings-action-cancel": "откажи",
+	"wikibase-rdf-mappings-action-edit": "уреди",
+	"wikibase-rdf-save-mappings-save-failed": "Зачувувањето не успеа"
+}

@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Papuass"
+		]
+	},
+	"wikibase-rdf-mappings-object-heading": "URL",
+	"wikibase-rdf-mappings-action-save": "saglabāt",
+	"wikibase-rdf-mappings-action-remove": "noņemt",
+	"wikibase-rdf-mappings-action-cancel": "atcelt"
+}

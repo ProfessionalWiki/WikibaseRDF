@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"আজিজ"
+		]
+	},
+	"wikibase-rdf-mappings-predicate-heading": "সম্পর্ক",
+	"wikibase-rdf-mappings-object-heading": "ইউআরএল",
+	"wikibase-rdf-mappings-action-save": "সংরক্ষণ",
+	"wikibase-rdf-mappings-action-remove": "অপসারণ",
+	"wikibase-rdf-mappings-action-cancel": "বাতিল",
+	"wikibase-rdf-mappings-action-edit": "সম্পাদনা",
+	"wikibase-rdf-save-mappings-save-failed": "সংরক্ষণ ব্যর্থ হয়েছে"
+}

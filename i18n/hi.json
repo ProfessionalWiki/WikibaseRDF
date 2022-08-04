@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Abijeet Patro"
+		]
+	},
+	"wikibase-rdf-mappings-predicate-heading": "सम्बन्ध",
+	"wikibase-rdf-mappings-action-save": "सहेजें",
+	"wikibase-rdf-mappings-action-remove": "हटायें",
+	"wikibase-rdf-mappings-action-cancel": "रद्द करें",
+	"wikibase-rdf-mappings-action-edit": "सम्पादन"
+}

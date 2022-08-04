@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kghbln"
+		]
+	},
+	"wikibase-rdf-save-mappings-invalid-mappings": "Von Ihnen vorgenommene Zuordnungen sind ungültig",
+	"wikibase-rdf-entity-id-invalid": "Die von Ihnen angegebene Entitätskennung ist ungültig"
+}
