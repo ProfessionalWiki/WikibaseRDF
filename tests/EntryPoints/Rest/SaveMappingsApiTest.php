@@ -32,7 +32,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'PUT',
+				'method' => 'POST',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $this->createValidBody()
@@ -47,7 +47,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'PUT',
+				'method' => 'POST',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $this->createInvalidJsonBody()
@@ -59,7 +59,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'PUT',
+				'method' => 'POST',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $this->createJsonObjectBody()
@@ -92,7 +92,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'PUT',
+				'method' => 'POST',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => '{}'
@@ -106,7 +106,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'PUT',
+				'method' => 'POST',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => '[]'
@@ -120,7 +120,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'PUT',
+				'method' => 'POST',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $this->createInvalidPredicateKeyBody()
@@ -151,7 +151,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'PUT',
+				'method' => 'POST',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $this->createInvalidObjectKeyBody()
@@ -182,7 +182,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'PUT',
+				'method' => 'POST',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $this->createMissingPredicateBody()
@@ -213,7 +213,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'PUT',
+				'method' => 'POST',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $this->createMissingObjectBody()
@@ -244,7 +244,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'PUT',
+				'method' => 'POST',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $this->createEmptyPredicateBody()
@@ -275,7 +275,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'PUT',
+				'method' => 'POST',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $this->createEmptyObjectBody()
@@ -306,7 +306,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'PUT',
+				'method' => 'POST',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $this->createMalformedPredicateBody()
@@ -337,7 +337,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'PUT',
+				'method' => 'POST',
 				'pathParams' => [ 'entity_id' => 'Q1' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $this->createDisallowedPredicateBody()
@@ -368,7 +368,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'PUT',
+				'method' => 'POST',
 				'pathParams' => [ 'entity_id' => 'NotId' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $this->createValidBody()
@@ -391,7 +391,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$response = $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
-				'method' => 'PUT',
+				'method' => 'POST',
 				'pathParams' => [ 'entity_id' => 'Q1000000000' ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $this->createValidBody()

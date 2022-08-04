@@ -47,7 +47,7 @@
 		},
 		{
 			"path": "/wikibase-rdf/v0/mappings/{entity_id}",
-			"method": [ "PUT" ],
+			"method": [ "POST" ],
 			"factory": "ProfessionalWiki\\WikibaseRDF\\WikibaseRdfExtension::saveMappingsApiFactory"
 		},
 		{
@@ -71,9 +71,6 @@
 
 	"ResourceModules": {
 		"ext.wikibase.rdf": {
-			"dependencies": [
-				"wikibase.view.ControllerViewFactory"
-			],
 			"scripts": [
 				"ext.wikibase.rdf.js"
 			],

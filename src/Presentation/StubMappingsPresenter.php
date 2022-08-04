@@ -4,13 +4,9 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\Presentation;
 
+use Html;
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;
 
-/**
- * TOOD: Stub presenter using HTML strings
- * TODO: Use Mustache, Twig, or Wikibase string templates?
- * TODO: i18n - is wfMessage() enough?
- */
 class StubMappingsPresenter implements MappingsPresenter {
 
 	private string $response = '';
@@ -24,21 +20,15 @@ class StubMappingsPresenter implements MappingsPresenter {
 	}
 
 	public function showMappings( MappingList $mappingList ): void {
-		$mappingsHtml = '';
-
-		foreach ( $mappingList->asArray() as $index => $mapping ) {
-			// TODO: make first row editable in the stub UI
-			if ( $index === 0 ) {
-				$mappingsHtml .= $this->createEditableRow( $mapping->predicate, $mapping->object );
-			} else {
-				$mappingsHtml .= $this->createRow( $mapping->predicate, $mapping->object );
-			}
-		}
-
-		$this->response = '<div id="wikibase-rdf">'
+		$this->response = '<div id="wikibase-rdf" style="display: none;">'
 			. '<div id="wikibase-rdf-toggler"></div>'
 			. '<div class id="wikibase-rdf-mappings">'
-			. $this->createHeader() . $mappingsHtml . $this->createFooter()
+			. $this->createEditTemplate()
+			. $this->createRowTemplate()
+			. $this->createHeader()
+			. $this->createErrorBox()
+			. $this->createRows( $mappingList )
+			. $this->createFooter()
 			. '</div>'
 			. '</div>';
 	}
@@ -51,10 +41,14 @@ class StubMappingsPresenter implements MappingsPresenter {
 			. '</div>';
 	}
 
-	private function createEditableRow( string $relationship, string $url ): string {
-		return '<div class="wikibase-rdf-row">'
-			. '<div class="wikibase-rdf-predicate">' . $this->createPredicateSelect( $relationship ) . '</div>'
-			. '<div class="wikibase-rdf-object"><input value="' . $url . '"></div>'
+	private function createErrorBox(): string {
+		return '<div class="wikibase-rdf-error" style="display: none;"></div>';
+	}
+
+	private function createEditTemplate(): string {
+		return '<div class="wikibase-rdf-row wikibase-rdf-row-editing-template">'
+			. '<div class="wikibase-rdf-predicate">' . $this->createPredicateSelect() . '</div>'
+			. '<div class="wikibase-rdf-object"><input name="wikibase-rdf-object" value="" /></div>'
 			. '<div class="wikibase-rdf-actions">'
 			. '<a href="#" class="wikibase-rdf-action-save"><span class="icon"></span>' . wfMessage( 'wikibase-rdf-mappings-action-save' ) . '</a> '
 			. '<a href="#" class="wikibase-rdf-action-remove"><span class="icon"></span>' . wfMessage( 'wikibase-rdf-mappings-action-remove' ) . '</a> '
@@ -63,26 +57,41 @@ class StubMappingsPresenter implements MappingsPresenter {
 			. '</div>';
 	}
 
-	private function createPredicateSelect( string $selected ): string {
-		$html = '<select>';
-		foreach ( $this->allowedPredicates as $predicate ) {
-			// TOOD: selection will be handled by JS
-			$html .= '<option' . ( $predicate == $selected ? ' selected' : '' ) . '>' . $predicate . '</option>';
+	private function createRowTemplate(): string {
+		return '<div class="wikibase-rdf-row-template">'
+			. '<div class="wikibase-rdf-predicate"></div>'
+			. '<div class="wikibase-rdf-object"></div>'
+			. '<div class="wikibase-rdf-actions">' . $this->createEditButton() . '</div>'
+			. '</div>';
+	}
+
+	private function createRows( MappingList $mappingList ): string {
+		$html = '<div class="wikibase-rdf-rows">';
+		foreach ( $mappingList->asArray() as $mapping ) {
+			$html .= $this->createRow( $mapping->predicate, $mapping->object );
 		}
-		// TODO: handle removed/changed allowed predicates
-		if ( !in_array( $selected, $this->allowedPredicates ) ) {
-			$html .= '<option selected>' . $selected . '</option>';
+		$html .= '</div>';
+
+		return $html;
+	}
+
+	private function createPredicateSelect(): string {
+		$html = '<select name="wikibase-rdf-predicate">';
+		foreach ( $this->allowedPredicates as $predicate ) {
+			$html .= Html::element( 'option', [ 'value' => $predicate ], $predicate );
 		}
 		$html .= '</select>';
 		return $html;
 	}
 
 	private function createRow( string $relationship, string $url ): string {
-		return '<div class="wikibase-rdf-row">'
-			. '<div class="wikibase-rdf-predicate">' . $relationship . '</div>'
-			. '<div class="wikibase-rdf-object">' . $url . '</div>'
-			. '<div class="wikibase-rdf-actions">' . $this->createEditButton() . '</div>'
-			. '</div>';
+		return Html::rawElement(
+			'div',
+			[ 'class' => 'wikibase-rdf-row', 'data-predicate' => $relationship, 'data-object' => $url ],
+			Html::element( 'div', [ 'class' => 'wikibase-rdf-predicate' ], $relationship )
+				. Html::element( 'div', [ 'class' => 'wikibase-rdf-object' ], $url )
+				. Html::rawElement( 'div', [ 'class' => 'wikibase-rdf-actions' ], $this->createEditButton() )
+		);
 	}
 
 	private function createEditButton(): string {
