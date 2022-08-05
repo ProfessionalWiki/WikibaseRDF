@@ -75,8 +75,20 @@ $( function () {
 		findRow( trigger ).remove();
 	}
 
+	function disableActions() {
+		console.log( 'disableActions' );
+		$( '#wikibase-rdf' ).addClass( 'wikibase-rdf-disabled' );
+	}
+
+	function enableActions() {
+		console.log( 'enableActions' );
+		$( '#wikibase-rdf' ).removeClass( 'wikibase-rdf-disabled' );
+	}
+
 	function saveMappings( trigger ) {
 		console.log( 'saveMappings' );
+		disableActions();
+
 		const mappings = [];
 
 		findRow( trigger ).addClass( 'wikibase-rdf-row-editing-saving' );
@@ -122,9 +134,11 @@ $( function () {
 				} else if ( isRemove ) {
 					onSuccessfulRemove( trigger );
 				}
+				enableActions();
 			} )
 			.fail( function ( data, response ) {
 				showError( response.xhr.responseJSON );
+				enableActions();
 			} );
 	}
 
