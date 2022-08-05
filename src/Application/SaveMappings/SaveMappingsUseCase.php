@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\Application\SaveMappings;
 
-use InvalidArgumentException;
+use PermissionsError;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
 use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
 use Throwable;
@@ -57,6 +57,8 @@ class SaveMappingsUseCase {
 		try {
 			$this->repository->setMappings( $entityId, $mappings );
 			$this->presenter->presentSuccess();
+		} catch ( PermissionsError $exception ) {
+			$this->presenter->presentPermissionDenied( $exception );
 		} catch ( Throwable ) {
 			$this->presenter->presentSaveFailed();
 		}

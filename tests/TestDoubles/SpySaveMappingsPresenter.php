@@ -4,8 +4,8 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\Tests\TestDoubles;
 
-use ProfessionalWiki\WikibaseRDF\Application\MappingList;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsPresenter;
+use Throwable;
 
 class SpySaveMappingsPresenter implements SaveMappingsPresenter {
 
@@ -14,6 +14,7 @@ class SpySaveMappingsPresenter implements SaveMappingsPresenter {
 	public array $invalidMappings = [];
 	public bool $showedSaveFailed = false;
 	public bool $showedInvalidEntityId = false;
+	public Throwable $permissionDeniedException;
 
 	public function presentSuccess(): void {
 		$this->showedSuccess = true;
@@ -32,6 +33,10 @@ class SpySaveMappingsPresenter implements SaveMappingsPresenter {
 
 	public function presentInvalidEntityId(): void {
 		$this->showedInvalidEntityId = true;
+	}
+
+	public function presentPermissionDenied( Throwable $exception ): void {
+		$this->permissionDeniedException = $exception;
 	}
 
 }

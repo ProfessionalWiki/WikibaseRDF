@@ -6,6 +6,7 @@ namespace ProfessionalWiki\WikibaseRDF\Persistence;
 
 use Content;
 use Exception;
+use PermissionsError;
 use Wikibase\DataModel\Entity\EntityId;
 
 /**
@@ -17,6 +18,7 @@ interface EntityContentRepository {
 
 	/**
 	 * @throws Exception
+	 * @throws PermissionsError
 	 */
 	public function setContent( EntityId $entityId, Content $content ): void;
 
