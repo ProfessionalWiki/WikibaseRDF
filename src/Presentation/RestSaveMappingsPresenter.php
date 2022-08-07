@@ -6,9 +6,8 @@ namespace ProfessionalWiki\WikibaseRDF\Presentation;
 
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\ResponseFactory;
-use ProfessionalWiki\WikibaseRDF\Application\MappingList;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsPresenter;
-use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
+use Throwable;
 use Wikimedia\Message\MessageValue;
 
 class RestSaveMappingsPresenter implements SaveMappingsPresenter {
@@ -43,6 +42,13 @@ class RestSaveMappingsPresenter implements SaveMappingsPresenter {
 		$this->response = $this->responseFactory->createLocalizedHttpError(
 			400,
 			MessageValue::new( 'wikibase-rdf-entity-id-invalid' ),
+		);
+	}
+
+	public function presentPermissionDenied( Throwable $exception ): void {
+		$this->response = $this->responseFactory->createHttpError(
+			403,
+			[ 'message' => $exception->getMessage() ]
 		);
 	}
 

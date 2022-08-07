@@ -4,10 +4,12 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\Tests\Application\SaveMappings;
 
+use PermissionsError;
 use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsUseCase;
 use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
 use ProfessionalWiki\WikibaseRDF\Persistence\InMemoryMappingRepository;
+use ProfessionalWiki\WikibaseRDF\Tests\TestDoubles\PermissionDeniedMappingRepository;
 use ProfessionalWiki\WikibaseRDF\Tests\TestDoubles\SpySaveMappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Tests\TestDoubles\ThrowingMappingRepository;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
@@ -138,6 +140,28 @@ class SaveMappingsUseCaseTest extends TestCase {
 		);
 
 		$this->assertTrue( $this->presenter->showedInvalidEntityId );
+	}
+
+	public function testShouldShowPermissionDenied(): void {
+		$useCase = new SaveMappingsUseCase(
+			$this->presenter,
+			new PermissionDeniedMappingRepository(),
+			[ self::VALID_PREDICATE ],
+			new BasicEntityIdParser(),
+			new MappingListSerializer()
+		);
+
+		$useCase->saveMappings(
+			'Q1',
+			[
+				[ 'predicate' => self::VALID_PREDICATE, 'object' => self::VALID_OBJECT ]
+			]
+		);
+
+		$this->assertEquals(
+			new PermissionsError( 'edit' ),
+			$this->presenter->permissionDeniedException
+		);
 	}
 
 }

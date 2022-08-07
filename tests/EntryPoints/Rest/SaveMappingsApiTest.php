@@ -410,6 +410,87 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		);
 	}
 
+	public function testPermissionDeniedForAnonymousUser(): void {
+		$this->setMwGlobals( 'wgGroupPermissions', [ '*' => [ 'edit' => false ] ] );
+
+		$response = $this->executeHandler(
+			handler: WikibaseRdfExtension::saveMappingsApiFactory(),
+			request: new RequestData( [
+				'method' => 'POST',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createValidBody()
+			] ),
+			authority: $this->mockAnonNullAuthority()
+		);
+
+		$this->assertSame( 403, $response->getStatusCode() );
+	}
+
+	public function testPermissionDeniedForUserWithNoGroups(): void {
+		$this->setMwGlobals( 'wgGroupPermissions', [ '*' => [ 'edit' => false ] ] );
+
+		$response = $this->executeHandler(
+			handler: WikibaseRdfExtension::saveMappingsApiFactory(),
+			request: new RequestData( [
+				'method' => 'POST',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createValidBody()
+			] ),
+			authority: $this->getTestUser()->getUser()
+		);
+
+		$this->assertSame( 403, $response->getStatusCode() );
+	}
+
+	public function testPermissionDeniedForUserWithDeniedGroup(): void {
+		$this->setMwGlobals(
+			'wgGroupPermissions',
+			[
+				'*' => [ 'edit' => false ],
+				'user' => [ 'edit' => false ]
+			]
+		);
+
+		$response = $this->executeHandler(
+			handler: WikibaseRdfExtension::saveMappingsApiFactory(),
+			request: new RequestData( [
+				'method' => 'POST',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createValidBody()
+			] ),
+			authority: $this->getTestUser( [ 'user' ] )->getUser()
+		);
+
+		$this->assertSame( 403, $response->getStatusCode() );
+	}
+
+	public function testPermissionNotDeniedForUserWithAllowedGroup(): void {
+		$this->setMwGlobals(
+			'wgGroupPermissions',
+			[
+				'*' => [ 'edit' => false ],
+				'user' => [ 'edit' => false ],
+				'sysop' => [ 'edit' => true ]
+			]
+		);
+
+		$response = $this->executeHandler(
+			handler: WikibaseRdfExtension::saveMappingsApiFactory(),
+			request: new RequestData( [
+				'method' => 'POST',
+				'pathParams' => [ 'entity_id' => 'Q1' ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $this->createValidBody()
+			] ),
+			authority: $this->getTestSysop()->getUser()
+		);
+
+		$this->assertSame( 204, $response->getStatusCode() );
+	}
+
 	public function testSaveFailed(): void {
 		// TODO: use ThrowingMappingRepository
 	}

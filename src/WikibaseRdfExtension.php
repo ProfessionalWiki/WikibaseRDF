@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseRDF;
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Permissions\Authority;
 use MediaWiki\Rest\ResponseFactory;
 use ProfessionalWiki\WikibaseRDF\Application\AllMappingsLookup;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
@@ -13,7 +14,6 @@ use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsUseCase;
 use ProfessionalWiki\WikibaseRDF\Application\ShowMappingsUseCase;
 use ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\GetAllMappingsApi;
 use ProfessionalWiki\WikibaseRDF\Persistence\ContentSlotMappingRepository;
-use ProfessionalWiki\WikibaseRDF\Persistence\EntityContentRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\SlotEntityContentRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\SqlAllMappingsLookup;
 use ProfessionalWiki\WikibaseRDF\Presentation\MappingsPresenter;
@@ -55,18 +55,18 @@ class WikibaseRdfExtension {
 		);
 	}
 
-	public function newEntityContentRepository( User $user ): SlotEntityContentRepository {
+	public function newEntityContentRepository( Authority $authority ): SlotEntityContentRepository {
 		return new SlotEntityContentRepository(
-			authority: $user,
+			authority: $authority,
 			pageFactory: MediaWikiServices::getInstance()->getWikiPageFactory(),
 			entityTitleLookup: WikibaseRepo::getEntityTitleLookup(),
 			slotName: self::SLOT_NAME
 		);
 	}
 
-	public function newMappingRepository( User $user ): MappingRepository {
+	public function newMappingRepository( Authority $authority ): MappingRepository {
 		return new ContentSlotMappingRepository(
-			contentRepository: $this->newEntityContentRepository( $user ),
+			contentRepository: $this->newEntityContentRepository( $authority ),
 			serializer: $this->newMappingListSerializer()
 		);
 	}
@@ -135,10 +135,13 @@ class WikibaseRdfExtension {
 		return (array)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseRdfPredicates' );
 	}
 
-	public function newSaveMappingsUseCase( SaveMappingsPresenter $presenter ): SaveMappingsUseCase {
+	public function newSaveMappingsUseCase(
+		SaveMappingsPresenter $presenter,
+		Authority $authority
+	): SaveMappingsUseCase {
 		return new SaveMappingsUseCase(
 			$presenter,
-			$this->newMappingRepository( RequestContext::getMain()->getUser() ),
+			$this->newMappingRepository( $authority ),
 			self::getAllowedPredicates(),
 			$this->newEntityIdParser(),
 			$this->newMappingListSerializer()

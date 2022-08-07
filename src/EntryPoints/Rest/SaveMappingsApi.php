@@ -16,7 +16,7 @@ class SaveMappingsApi extends SimpleHandler {
 
 	public function run( string $entityId ): Response {
 		$presenter = WikibaseRdfExtension::getInstance()->newRestSaveMappingsPresenter( $this->getResponseFactory() );
-		$useCase = WikibaseRdfExtension::getInstance()->newSaveMappingsUseCase( $presenter );
+		$useCase = WikibaseRdfExtension::getInstance()->newSaveMappingsUseCase( $presenter, $this->getAuthority() );
 		$useCase->saveMappings( $entityId, (array)$this->getValidatedBody() );
 
 		return $presenter->getResponse();

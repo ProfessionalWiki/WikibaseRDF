@@ -7,10 +7,13 @@ namespace ProfessionalWiki\WikibaseRDF\Persistence;
 use CommentStoreComment;
 use Content;
 use Exception;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Permissions\Authority;
+use MediaWiki\Permissions\PermissionStatus;
 use MediaWiki\Revision\RevisionAccessException;
 use MediaWiki\Revision\RevisionRecord;
+use PermissionsError;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use WikiPage;
@@ -55,9 +58,17 @@ class SlotEntityContentRepository implements EntityContentRepository {
 		$page = $this->getWikiPage( $entityId );
 
 		if ( $page !== null ) {
+			$this->checkPageUserPermissions( $page );
 			$updater = $page->newPageUpdater( $this->authority );
 			$updater->setContent( $this->slotName, $content );
 			$updater->saveRevision( CommentStoreComment::newUnsavedComment( 'Updated entity mappings' ) ); // TODO
+		}
+	}
+
+	private function checkPageUserPermissions( WikiPage $page ): void {
+		$status = new PermissionStatus();
+		if ( !$this->authority->authorizeWrite( 'edit', $page, $status ) ) {
+			throw new PermissionsError( 'edit', $status );
 		}
 	}
 
