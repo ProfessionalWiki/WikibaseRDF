@@ -17,5 +17,6 @@
 	"wikibase-rdf-mappings-action-add": "This is the text on a button.",
 	"wikibase-rdf-save-mappings-invalid-mappings": "This is an error message.",
 	"wikibase-rdf-save-mappings-save-failed": "This is an error message.",
-	"wikibase-rdf-entity-id-invalid": "This is an error message."
+	"wikibase-rdf-entity-id-invalid": "This is an error message.",
+	"special-mapping-predicates": "This is the label on \"Special:SpecialPages\" linking to \"MediaWiki:MappingPredicates\"."
 }

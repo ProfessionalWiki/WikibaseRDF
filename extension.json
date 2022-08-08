@@ -64,6 +64,10 @@
 		}
 	},
 
+	"SpecialPages": {
+		"MappingPredicates": "ProfessionalWiki\\WikibaseRDF\\SpecialMappingPredicates"
+	},
+
 	"ResourceFileModulePaths": {
 		"localBasePath": "resources",
 		"remoteExtPath": "WikibaseRDF/resources"

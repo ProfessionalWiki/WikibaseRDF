@@ -18,5 +18,7 @@
 
 	"wikibase-rdf-save-mappings-invalid-mappings": "Some of the mappings you specified are invalid",
 	"wikibase-rdf-save-mappings-save-failed": "Save failed",
-	"wikibase-rdf-entity-id-invalid": "The entity ID you specified is invalid"
+	"wikibase-rdf-entity-id-invalid": "The entity ID you specified is invalid",
+
+	"special-mapping-predicates": "Mapping predicates"
 }
