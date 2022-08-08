@@ -58,6 +58,14 @@ Configuration can be changed via [LocalSettings.php].
 
 ### Allowed predicates
 
+List of allowed predicates.
+
+Variable: `$wgWikibaseRdfPredicates`
+
+Default: `[]`
+
+Example:
+
 ```php
 $wgWikibaseRdfPredicates = [
 	'owl:sameAs',
