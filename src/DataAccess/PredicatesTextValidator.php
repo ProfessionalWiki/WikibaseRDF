@@ -30,6 +30,9 @@ class PredicatesTextValidator {
 		return $this->invalidPredicates === [];
 	}
 
+	/**
+	 * @return string[]
+	 */
 	private function normalizeLines( string $predicatesText ): array {
 		return array_filter(
 			array_map(
@@ -43,10 +46,16 @@ class PredicatesTextValidator {
 		return str_contains( $predicate, ':' );
 	}
 
+	/**
+	 * @return string[]
+	 */
 	public function getValidPredicates(): array {
 		return $this->validPredicates;
 	}
 
+	/**
+	 * @return string[]
+	 */
 	public function getInvalidPredicates(): array {
 		return $this->invalidPredicates;
 	}

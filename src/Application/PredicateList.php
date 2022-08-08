@@ -18,7 +18,7 @@ class PredicateList {
 		return new self( array_merge( $this->predicates, $predicates->predicates ) );
 	}
 
-	public function contains(string $predicate ): bool {
+	public function contains( string $predicate ): bool {
 		return in_array( new Predicate( $predicate ), $this->predicates );
 	}
 

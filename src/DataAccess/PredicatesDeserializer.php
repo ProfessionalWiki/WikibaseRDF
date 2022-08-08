@@ -9,7 +9,7 @@ use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
 
 class PredicatesDeserializer {
 
-	function __construct(
+	public function __construct(
 		private PredicatesTextValidator $validator
 	) {
 	}

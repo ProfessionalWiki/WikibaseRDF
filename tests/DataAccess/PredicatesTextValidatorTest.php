@@ -7,6 +7,9 @@ namespace ProfessionalWiki\WikibaseRDF\Tests\Application;
 use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseRDF\DataAccess\PredicatesTextValidator;
 
+/**
+ * @covers \ProfessionalWiki\WikibaseRDF\DataAccess\PredicatesTextValidator
+ */
 class PredicatesTextValidatorTest extends TestCase {
 
 	public function testValidPredicatesAreValid(): void {

@@ -107,10 +107,10 @@ class MediaWikiHooks {
 		if ( is_string( $text ) && WikibaseRdfExtension::getInstance()->isConfigTitle( $editPage->getTitle() ) ) {
 			$validator = new PredicatesTextValidator();
 			if ( !$validator->validate( $text ) ) {
-				$invalidPredicates = join(
+				$invalidPredicates = implode(
 					', ',
 					array_map(
-						fn( string $predicate) => '"' . $predicate . '"' ,
+						fn( string $predicate ) => '"' . $predicate . '"',
 						$validator->getInvalidPredicates()
 					)
 				);
