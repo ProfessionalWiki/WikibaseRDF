@@ -1,0 +1,19 @@
+{
+	"@metadata": {
+		"authors": [
+			"Sabelöga"
+		]
+	},
+	"wikibase-rdf-description": "Wikibase-tillägg som gör det möjligt att definiera RDF-kartläggningar för Wikibase-entiteter",
+	"wikibase-rdf-mappings-toggler": "Kartläggning till andra ontologier",
+	"wikibase-rdf-mappings-predicate-heading": "Förhållande",
+	"wikibase-rdf-mappings-object-heading": "URL",
+	"wikibase-rdf-mappings-action-save": "spara",
+	"wikibase-rdf-mappings-action-remove": "ta bort",
+	"wikibase-rdf-mappings-action-cancel": "avbryt",
+	"wikibase-rdf-mappings-action-edit": "redigera",
+	"wikibase-rdf-mappings-action-add": "spara kartläggning",
+	"wikibase-rdf-save-mappings-invalid-mappings": "Vissa kartläggningar du angett är ogiltiga",
+	"wikibase-rdf-save-mappings-save-failed": "Kunde inte spara",
+	"wikibase-rdf-entity-id-invalid": "Entitets-ID:t du angett är ogiltigt"
+}

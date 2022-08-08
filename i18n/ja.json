@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"MathXplore"
+			"MathXplore",
+			"Sou0012"
 		]
 	},
 	"wikibase-rdf-mappings-predicate-heading": "関係",
@@ -10,5 +11,8 @@
 	"wikibase-rdf-mappings-action-remove": "除去",
 	"wikibase-rdf-mappings-action-cancel": "キャンセル",
 	"wikibase-rdf-mappings-action-edit": "編集",
-	"wikibase-rdf-save-mappings-save-failed": "保存に失敗しました"
+	"wikibase-rdf-mappings-action-add": "追加マッピング",
+	"wikibase-rdf-save-mappings-invalid-mappings": "指定されたマッピングの一部が無効です。",
+	"wikibase-rdf-save-mappings-save-failed": "保存に失敗しました",
+	"wikibase-rdf-entity-id-invalid": "指定されたエンティティIDが無効です"
 }
