@@ -9,6 +9,7 @@ use MediaWiki\Permissions\Authority;
 use MediaWiki\Rest\ResponseFactory;
 use ProfessionalWiki\WikibaseRDF\Application\AllMappingsLookup;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
+use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsUseCase;
 use ProfessionalWiki\WikibaseRDF\Application\ShowMappingsUseCase;
@@ -54,7 +55,7 @@ class WikibaseRdfExtension {
 
 	public function newStubMappingsPresenter(): StubMappingsPresenter {
 		return new StubMappingsPresenter(
-			$this->newMappingPredicatesLookup()->getMappingPredicates()
+			$this->getAllowedPredicates()
 		);
 	}
 
@@ -138,6 +139,10 @@ class WikibaseRdfExtension {
 		);
 	}
 
+	private function getAllowedPredicates(): PredicateList {
+		return $this->newMappingPredicatesLookup()->getMappingPredicates();
+	}
+
 	public function newSaveMappingsUseCase(
 		SaveMappingsPresenter $presenter,
 		Authority $authority
@@ -145,7 +150,7 @@ class WikibaseRdfExtension {
 		return new SaveMappingsUseCase(
 			$presenter,
 			$this->newMappingRepository( $authority ),
-			$this->newMappingPredicatesLookup()->getMappingPredicates(),
+			$this->getAllowedPredicates(),
 			$this->newEntityIdParser(),
 			$this->newMappingListSerializer()
 		);
