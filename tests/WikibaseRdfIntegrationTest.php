@@ -85,4 +85,18 @@ class WikibaseRdfIntegrationTest extends MediaWikiIntegrationTestCase {
 		$this->setMwGlobals( 'wgWikibaseRdfPredicates', $predicates );
 	}
 
+	protected function createConfigPage( string $config ) {
+		$this->insertPage(
+			'MediaWiki:' . WikibaseRdfExtension::CONFIG_PAGE_TITLE,
+			$config
+		);
+	}
+
+	protected function editConfigPage( string $config ) {
+		$this->editPage(
+			'MediaWiki:' . WikibaseRdfExtension::CONFIG_PAGE_TITLE,
+			$config
+		);
+	}
+
 }

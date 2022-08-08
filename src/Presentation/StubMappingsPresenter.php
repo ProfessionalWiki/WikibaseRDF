@@ -6,16 +6,14 @@ namespace ProfessionalWiki\WikibaseRDF\Presentation;
 
 use Html;
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;
+use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
 
 class StubMappingsPresenter implements MappingsPresenter {
 
 	private string $response = '';
 
-	/**
-	 * @param string[] $allowedPredicates
-	 */
 	public function __construct(
-		private array $allowedPredicates
+		private PredicateList $allowedPredicates
 	) {
 	}
 
@@ -77,8 +75,8 @@ class StubMappingsPresenter implements MappingsPresenter {
 
 	private function createPredicateSelect(): string {
 		$html = '<select name="wikibase-rdf-predicate">';
-		foreach ( $this->allowedPredicates as $predicate ) {
-			$html .= Html::element( 'option', [ 'value' => $predicate ], $predicate );
+		foreach ( $this->allowedPredicates->asArray() as $predicate ) {
+			$html .= Html::element( 'option', [ 'value' => $predicate->predicate ], $predicate->predicate );
 		}
 		$html .= '</select>';
 		return $html;

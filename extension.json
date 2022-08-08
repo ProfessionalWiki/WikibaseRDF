@@ -34,6 +34,9 @@
 	},
 
 	"Hooks": {
+		"AlternateEdit": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onAlternateEdit",
+		"ContentHandlerDefaultModelFor": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onContentHandlerDefaultModelFor",
+		"EditFilter": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onEditFilter",
 		"MediaWikiServices": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onMediaWikiServices",
 		"OutputPageParserOutput": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onOutputPageParserOutput",
 		"WikibaseRepoEntityTypes": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onWikibaseRepoEntityTypes"

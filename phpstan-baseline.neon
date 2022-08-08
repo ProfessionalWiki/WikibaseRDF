@@ -9,8 +9,3 @@ parameters:
 			message: "#^Constant WB_NS_PROPERTY not found\\.$#"
 			count: 1
 			path: src/EntryPoints/MediaWikiHooks.php
-
-		-
-			message: "#^Method ProfessionalWiki\\\\WikibaseRDF\\\\WikibaseRdfExtension\\:\\:getAllowedPredicates\\(\\) should return array\\<string\\> but returns array\\.$#"
-			count: 1
-			path: src/WikibaseRdfExtension.php
