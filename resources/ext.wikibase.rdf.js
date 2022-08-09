@@ -52,8 +52,7 @@ $( function () {
 
 	function showError( error ) {
 		console.log( 'showError' );
-		// TODO: i18n message
-		$( '.wikibase-rdf-error' ).text( JSON.stringify( error ) ).show();
+		$( '.wikibase-rdf-error' ).text( error ).show();
 	}
 
 	function onSuccessfulSave( trigger ) {
@@ -137,7 +136,20 @@ $( function () {
 				enableActions();
 			} )
 			.fail( function ( data, response ) {
-				showError( response.xhr.responseJSON );
+				const userLang = mw.config.get( 'wgUserLanguage' );
+				const siteLang = mw.config.get( 'wgContentLanguage' );
+				if ( response.xhr.responseJSON.hasOwnProperty( 'messageTranslations' ) ) {
+					if ( userLang in response.xhr.responseJSON.messageTranslations ) {
+						showError( response.xhr.responseJSON.messageTranslations[userLang] );
+					} else if ( siteLang in response.xhr.responseJSON.messageTranslations ) {
+						showError( response.xhr.responseJSON.messageTranslations[siteLang] );
+					} else {
+						showError( response.xhr.responseJSON.messageTranslations['en'] );
+					}
+				} else {
+					// TOOD: Handle other message structures
+					showError( JSON.stringify( response.xhr.responseJSON ) );
+				}
 				enableActions();
 			} );
 	}
