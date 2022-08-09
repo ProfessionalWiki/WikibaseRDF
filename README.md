@@ -115,7 +115,7 @@ Alternatively, you can execute commands from the MediaWiki root directory:
 Save all RDF mappings for an existing entity (e.g. Q1):
 
 ```shell
-curl -X PUT -H 'Content-Type: application/json' "http://localhost:8484/rest.php/wikibase-rdf/v0/mappings/Q1" \
+curl -X POST -H 'Content-Type: application/json' "http://localhost:8484/rest.php/wikibase-rdf/v0/mappings/Q1" \
   -d '[{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"}, {"predicate": "owl:sameAs", "object": "owl:subClassOf"}, {"predicate": "foo:bar", "object": "http://example.com"}]'
 ```
 
