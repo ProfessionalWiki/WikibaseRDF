@@ -21,6 +21,7 @@
 	"wikibase-rdf-entity-id-invalid": "The entity ID you specified is invalid",
 	"wikibase-rdf-permission-denied": "You do not have permission to edit this entity's mappings",
 
+	"wikibase-rdf-config-intro": "Removing predicates that are in use on your wiki breaks the editing UI and is not recommended",
 	"wikibase-rdf-config-invalid": "Invalid predicates:\n$1. Your changes were not saved.",
 
 	"special-mapping-predicates": "Mapping predicates"

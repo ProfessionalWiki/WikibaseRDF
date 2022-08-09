@@ -124,6 +124,7 @@ class MediaWikiHooks {
 	public static function onAlternateEdit( EditPage $editPage ): void {
 		if ( WikibaseRdfExtension::getInstance()->isConfigTitle( $editPage->getTitle() ) ) {
 			$editPage->suppressIntro = true;
+			$editPage->editFormTextBeforeContent = wfMessage( 'wikibase-rdf-config-intro' );
 		}
 	}
 
