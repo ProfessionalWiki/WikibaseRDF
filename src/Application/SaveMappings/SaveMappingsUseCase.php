@@ -6,6 +6,7 @@ namespace ProfessionalWiki\WikibaseRDF\Application\SaveMappings;
 
 use PermissionsError;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
+use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
 use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
 use Throwable;
 use Wikibase\DataModel\Entity\EntityIdParser;
@@ -16,13 +17,10 @@ class SaveMappingsUseCase {
 	private const PREDICATE_KEY = 'predicate';
 	private const OBJECT_KEY = 'object';
 
-	/**
-	 * @param string[] $allowedPredicates
-	 */
 	public function __construct(
 		private SaveMappingsPresenter $presenter,
 		private MappingRepository $repository,
-		private array $allowedPredicates,
+		private PredicateList $allowedPredicates,
 		private EntityIdParser $entityIdParser,
 		private MappingListSerializer $mappingListSerializer
 	) {
@@ -110,7 +108,7 @@ class SaveMappingsUseCase {
 		return $predicate !== ''
 			&& $object !== ''
 			&& str_contains( $predicate, ':' )
-			&& in_array( $predicate, $this->allowedPredicates );
+			&& $this->allowedPredicates->contains( $predicate );
 	}
 
 }

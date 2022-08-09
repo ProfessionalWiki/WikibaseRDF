@@ -9,9 +9,16 @@ use MediaWiki\Permissions\Authority;
 use MediaWiki\Rest\ResponseFactory;
 use ProfessionalWiki\WikibaseRDF\Application\AllMappingsLookup;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
+use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsUseCase;
 use ProfessionalWiki\WikibaseRDF\Application\ShowMappingsUseCase;
+use ProfessionalWiki\WikibaseRDF\DataAccess\CombiningMappingPredicatesLookup;
+use ProfessionalWiki\WikibaseRDF\DataAccess\MappingPredicatesLookup;
+use ProfessionalWiki\WikibaseRDF\DataAccess\PageContentFetcher;
+use ProfessionalWiki\WikibaseRDF\DataAccess\PredicatesDeserializer;
+use ProfessionalWiki\WikibaseRDF\DataAccess\PredicatesTextValidator;
+use ProfessionalWiki\WikibaseRDF\DataAccess\WikiMappingPredicatesLookup;
 use ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\GetAllMappingsApi;
 use ProfessionalWiki\WikibaseRDF\Persistence\ContentSlotMappingRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\SlotEntityContentRepository;
@@ -23,6 +30,7 @@ use ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\SaveMappingsApi;
 use ProfessionalWiki\WikibaseRDF\Presentation\RestSaveMappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Presentation\StubMappingsPresenter;
 use RequestContext;
+use Title;
 use User;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParser;
@@ -36,6 +44,7 @@ use Wikimedia\Rdbms\ILoadBalancer;
 class WikibaseRdfExtension {
 
 	public const SLOT_NAME = 'wikibase-rdf';
+	public const CONFIG_PAGE_TITLE = 'MappingPredicates';
 
 	public static function getInstance(): self {
 		/** @var ?WikibaseRdfExtension $instance */
@@ -45,7 +54,9 @@ class WikibaseRdfExtension {
 	}
 
 	public function newStubMappingsPresenter(): StubMappingsPresenter {
-		return new StubMappingsPresenter( self::getAllowedPredicates() );
+		return new StubMappingsPresenter(
+			$this->getAllowedPredicates()
+		);
 	}
 
 	public function newShowMappingsUseCase( MappingsPresenter $presenter, User $user ): ShowMappingsUseCase {
@@ -128,11 +139,8 @@ class WikibaseRdfExtension {
 		);
 	}
 
-	/**
-	 * @return string[]
-	 */
-	private static function getAllowedPredicates(): array {
-		return (array)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseRdfPredicates' );
+	private function getAllowedPredicates(): PredicateList {
+		return $this->newMappingPredicatesLookup()->getMappingPredicates();
 	}
 
 	public function newSaveMappingsUseCase(
@@ -142,7 +150,7 @@ class WikibaseRdfExtension {
 		return new SaveMappingsUseCase(
 			$presenter,
 			$this->newMappingRepository( $authority ),
-			self::getAllowedPredicates(),
+			$this->getAllowedPredicates(),
 			$this->newEntityIdParser(),
 			$this->newMappingListSerializer()
 		);
@@ -152,6 +160,27 @@ class WikibaseRdfExtension {
 		return new RestSaveMappingsPresenter(
 			$responseFactory
 		);
+	}
+
+	public function newMappingPredicatesLookup(): MappingPredicatesLookup {
+		return new CombiningMappingPredicatesLookup(
+			(array)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseRdfPredicates' ),
+			new WikiMappingPredicatesLookup(
+				new PageContentFetcher(
+					MediaWikiServices::getInstance()->getTitleParser(),
+					MediaWikiServices::getInstance()->getRevisionLookup()
+				),
+				new PredicatesDeserializer(
+					new PredicatesTextValidator()
+				),
+				self::CONFIG_PAGE_TITLE
+			)
+		);
+	}
+
+	public function isConfigTitle( Title $title ): bool {
+		return $title->getNamespace() === NS_MEDIAWIKI
+			&& $title->getText() === self::CONFIG_PAGE_TITLE;
 	}
 
 }

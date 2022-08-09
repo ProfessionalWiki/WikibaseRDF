@@ -4,15 +4,18 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\EntryPoints;
 
+use EditPage;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRoleRegistry;
 use OutputPage;
 use ParserOutput;
+use ProfessionalWiki\WikibaseRDF\DataAccess\PredicatesDeserializer;
+use ProfessionalWiki\WikibaseRDF\DataAccess\PredicatesTextValidator;
 use ProfessionalWiki\WikibaseRDF\Presentation\RDF\MultiEntityRdfBuilder;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
+use Title;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
-use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lib\EntityTypeDefinitions;
 use Wikibase\Repo\Rdf\EntityRdfBuilder;
 use Wikibase\Repo\Rdf\RdfVocabulary;
@@ -92,6 +95,36 @@ class MediaWikiHooks {
 			$factoryFunction( ...func_get_args() ),
 			WikibaseRdfExtension::getInstance()->newMappingRdfBuilder( $writer )
 		);
+	}
+
+	public static function onContentHandlerDefaultModelFor( Title $title, ?string &$model ): void {
+		if ( WikibaseRdfExtension::getInstance()->isConfigTitle( $title ) ) {
+			$model = CONTENT_MODEL_TEXT;
+		}
+	}
+
+	public static function onEditFilter( EditPage $editPage, ?string $text, ?string $section, string &$error ): void {
+		if ( is_string( $text ) && WikibaseRdfExtension::getInstance()->isConfigTitle( $editPage->getTitle() ) ) {
+			$validator = new PredicatesTextValidator();
+			if ( !$validator->validate( $text ) ) {
+				$invalidPredicates = implode(
+					', ',
+					array_map(
+						fn( string $predicate ) => '"' . $predicate . '"',
+						$validator->getInvalidPredicates()
+					)
+				);
+				$error = \Html::errorBox(
+					wfMessage( 'wikibase-rdf-config-invalid', $invalidPredicates )->escaped()
+				);
+			}
+		}
+	}
+
+	public static function onAlternateEdit( EditPage $editPage ): void {
+		if ( WikibaseRdfExtension::getInstance()->isConfigTitle( $editPage->getTitle() ) ) {
+			$editPage->suppressIntro = true;
+		}
 	}
 
 }

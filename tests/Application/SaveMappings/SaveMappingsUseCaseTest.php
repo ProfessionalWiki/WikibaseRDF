@@ -6,6 +6,8 @@ namespace ProfessionalWiki\WikibaseRDF\Tests\Application\SaveMappings;
 
 use PermissionsError;
 use PHPUnit\Framework\TestCase;
+use ProfessionalWiki\WikibaseRDF\Application\Predicate;
+use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsUseCase;
 use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
 use ProfessionalWiki\WikibaseRDF\Persistence\InMemoryMappingRepository;
@@ -36,7 +38,7 @@ class SaveMappingsUseCaseTest extends TestCase {
 		return new SaveMappingsUseCase(
 			$this->presenter,
 			$this->repository,
-			[ self::VALID_PREDICATE ],
+			new PredicateList( [ new Predicate( self::VALID_PREDICATE ) ] ),
 			new BasicEntityIdParser(),
 			new MappingListSerializer()
 		);
@@ -106,7 +108,7 @@ class SaveMappingsUseCaseTest extends TestCase {
 		$useCase = new SaveMappingsUseCase(
 			$this->presenter,
 			new ThrowingMappingRepository(),
-			[ self::VALID_PREDICATE ],
+			new PredicateList( [ new Predicate( self::VALID_PREDICATE ) ] ),
 			new BasicEntityIdParser(),
 			new MappingListSerializer()
 		);
@@ -127,7 +129,7 @@ class SaveMappingsUseCaseTest extends TestCase {
 		$useCase = new SaveMappingsUseCase(
 			$this->presenter,
 			new ThrowingMappingRepository(),
-			[ self::VALID_PREDICATE ],
+			new PredicateList( [ new Predicate( self::VALID_PREDICATE ) ] ),
 			new BasicEntityIdParser(),
 			new MappingListSerializer()
 		);
@@ -146,7 +148,7 @@ class SaveMappingsUseCaseTest extends TestCase {
 		$useCase = new SaveMappingsUseCase(
 			$this->presenter,
 			new PermissionDeniedMappingRepository(),
-			[ self::VALID_PREDICATE ],
+			new PredicateList( [ new Predicate( self::VALID_PREDICATE ) ] ),
 			new BasicEntityIdParser(),
 			new MappingListSerializer()
 		);

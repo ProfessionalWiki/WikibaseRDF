@@ -7,6 +7,8 @@ namespace ProfessionalWiki\WikibaseRDF\Tests\Presentation;
 use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseRDF\Application\Mapping;
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;
+use ProfessionalWiki\WikibaseRDF\Application\Predicate;
+use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
 use ProfessionalWiki\WikibaseRDF\Presentation\StubMappingsPresenter;
 
 /**
@@ -14,14 +16,11 @@ use ProfessionalWiki\WikibaseRDF\Presentation\StubMappingsPresenter;
  */
 class StubMappingsPresenterTest extends TestCase {
 
-	/**
-	 * @return string[]
-	 */
-	private function getAllowedPredicates(): array {
-		return [
-			'owl:sameAs',
-			'skos:exactMatch',
-		];
+	private function getAllowedPredicates(): PredicateList {
+		return new PredicateList( [
+			new Predicate( 'owl:sameAs' ),
+			new Predicate( 'skos:exactMatch' ),
+		] );
 	}
 
 	public function testMappingValuesAreDisplayed(): void {
