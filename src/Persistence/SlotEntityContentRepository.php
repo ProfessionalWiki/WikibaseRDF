@@ -58,17 +58,9 @@ class SlotEntityContentRepository implements EntityContentRepository {
 		$page = $this->getWikiPage( $entityId );
 
 		if ( $page !== null ) {
-			$this->checkPageUserPermissions( $page );
 			$updater = $page->newPageUpdater( $this->authority );
 			$updater->setContent( $this->slotName, $content );
 			$updater->saveRevision( CommentStoreComment::newUnsavedComment( 'Updated entity mappings' ) ); // TODO
-		}
-	}
-
-	private function checkPageUserPermissions( WikiPage $page ): void {
-		$status = new PermissionStatus();
-		if ( !$this->authority->authorizeWrite( 'edit', $page, $status ) ) {
-			throw new PermissionsError( 'edit', $status );
 		}
 	}
 

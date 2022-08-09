@@ -150,14 +150,17 @@ class WikibaseRdfExtension {
 
 	public function newSaveMappingsUseCase(
 		SaveMappingsPresenter $presenter,
-		Authority $authority
+		User $user
 	): SaveMappingsUseCase {
 		return new SaveMappingsUseCase(
 			$presenter,
+			$this->newMappingRepository( $user ),
+			self::getAllowedPredicates(),
 			$this->newMappingRepository( $authority ),
 			$this->getAllowedPredicates(),
 			$this->newEntityIdParser(),
-			$this->newMappingListSerializer()
+			$this->newMappingListSerializer(),
+			$this->newEntityMappingsAuthorizer( $user )
 		);
 	}
 

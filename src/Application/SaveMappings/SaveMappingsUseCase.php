@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\Application\SaveMappings;
 
-use PermissionsError;
+use ProfessionalWiki\WikibaseRDF\Application\EntityMappingsAuthorizer;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
 use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
 use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
@@ -22,7 +22,8 @@ class SaveMappingsUseCase {
 		private MappingRepository $repository,
 		private PredicateList $allowedPredicates,
 		private EntityIdParser $entityIdParser,
-		private MappingListSerializer $mappingListSerializer
+		private MappingListSerializer $mappingListSerializer,
+		private EntityMappingsAuthorizer $authorizer
 	) {
 	}
 
@@ -34,6 +35,11 @@ class SaveMappingsUseCase {
 			$entityId = $this->entityIdParser->parse( $entityIdValue );
 		} catch ( EntityIdParsingException ) {
 			$this->presenter->presentInvalidEntityId();
+			return;
+		}
+
+		if ( !$this->authorizer->canEditEntityMappings( $entityId ) ) {
+			$this->presenter->presentPermissionDenied();
 			return;
 		}
 
@@ -55,8 +61,6 @@ class SaveMappingsUseCase {
 		try {
 			$this->repository->setMappings( $entityId, $mappings );
 			$this->presenter->presentSuccess();
-		} catch ( PermissionsError $exception ) {
-			$this->presenter->presentPermissionDenied( $exception );
 		} catch ( Throwable ) {
 			$this->presenter->presentSaveFailed();
 		}
