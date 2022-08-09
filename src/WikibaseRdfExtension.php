@@ -155,8 +155,6 @@ class WikibaseRdfExtension {
 		return new SaveMappingsUseCase(
 			$presenter,
 			$this->newMappingRepository( $user ),
-			self::getAllowedPredicates(),
-			$this->newMappingRepository( $authority ),
 			$this->getAllowedPredicates(),
 			$this->newEntityIdParser(),
 			$this->newMappingListSerializer(),

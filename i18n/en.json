@@ -19,7 +19,7 @@
 	"wikibase-rdf-save-mappings-invalid-mappings": "Some of the mappings you specified are invalid",
 	"wikibase-rdf-save-mappings-save-failed": "Save failed",
 	"wikibase-rdf-entity-id-invalid": "The entity ID you specified is invalid",
-	"wikibase-rdf-permission-denied": "You do not have permission to edit this entity's mappings"
+	"wikibase-rdf-permission-denied": "You do not have permission to edit this entity's mappings",
 
 	"wikibase-rdf-config-invalid": "Invalid predicates:\n$1. Your changes were not saved.",
 

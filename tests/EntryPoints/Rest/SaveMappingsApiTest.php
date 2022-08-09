@@ -301,7 +301,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 
 		$this->setRequestUser( $this->getServiceContainer()->getUserFactory()->newAnonymous() );
 
-		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody(), $this->mockAnonNullAuthority() );
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody() );
 
 		$this->assertSame( 403, $response->getStatusCode() );
 	}
@@ -311,7 +311,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 
 		$this->setRequestUser( $this->getTestUser()->getUser() );
 
-		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody(), $this->getTestUser()->getUser() );
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody() );
 
 		$this->assertSame( 403, $response->getStatusCode() );
 	}
@@ -327,7 +327,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 
 		$this->setRequestUser( $this->getTestUser( [ 'user' ] )->getUser() );
 
-		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody(), $this->getTestUser( [ 'user' ] )->getUser() );
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody() );
 
 		$this->assertSame( 403, $response->getStatusCode() );
 	}
@@ -344,7 +344,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 
 		$this->setRequestUser( $this->getTestSysop()->getUser() );
 
-		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody(), $this->getTestSysop()->getUser() );
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody() );
 
 		$this->assertSame( 204, $response->getStatusCode() );
 	}
@@ -427,7 +427,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		]';
 	}
 
-	private function doSaveMappingsRequest( string $entityId, string $body, Authority $authority = null ): ResponseInterface {
+	private function doSaveMappingsRequest( string $entityId, string $body ): ResponseInterface {
 		return $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
@@ -435,8 +435,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 				'pathParams' => [ 'entity_id' => $entityId ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $body
-			] ),
-			authority: $authority
+			] )
 		);
 	}
 
