@@ -4,8 +4,10 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\Tests\Integration;
 
+use MediaWiki\Permissions\Authority;
 use MediaWiki\Rest\LocalizedHttpException;
 use MediaWiki\Rest\RequestData;
+use MediaWiki\Rest\ResponseInterface;
 use MediaWiki\Tests\Rest\Handler\HandlerTestTrait;
 use ProfessionalWiki\WikibaseRDF\Tests\WikibaseRdfIntegrationTest;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
@@ -29,42 +31,18 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	}
 
 	public function testHappyPath(): void {
-		$response = $this->executeHandler(
-			WikibaseRdfExtension::saveMappingsApiFactory(),
-			new RequestData( [
-				'method' => 'POST',
-				'pathParams' => [ 'entity_id' => 'Q1' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createValidBody()
-			] )
-		);
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody() );
 
 		$this->assertSame( 204, $response->getStatusCode() );
 	}
 
 	public function testJsonIsInvalid(): void {
 		$this->expectException( LocalizedHttpException::class );
-		$this->executeHandler(
-			WikibaseRdfExtension::saveMappingsApiFactory(),
-			new RequestData( [
-				'method' => 'POST',
-				'pathParams' => [ 'entity_id' => 'Q1' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createInvalidJsonBody()
-			] )
-		);
+		$this->doSaveMappingsRequest( 'Q1', $this->createInvalidJsonBody() );
 	}
 
 	public function testJsonIsAnObject(): void {
-		$response = $this->executeHandler(
-			WikibaseRdfExtension::saveMappingsApiFactory(),
-			new RequestData( [
-				'method' => 'POST',
-				'pathParams' => [ 'entity_id' => 'Q1' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createJsonObjectBody()
-			] )
-		);
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createJsonObjectBody() );
 
 		$this->assertSame( 400, $response->getStatusCode() );
 		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
@@ -89,43 +67,19 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	 * @see JsonBodyValidator::validateBody()
 	 */
 	public function testJsonIsAnEmptyObject(): void {
-		$response = $this->executeHandler(
-			WikibaseRdfExtension::saveMappingsApiFactory(),
-			new RequestData( [
-				'method' => 'POST',
-				'pathParams' => [ 'entity_id' => 'Q1' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => '{}'
-			] )
-		);
+		$response = $this->doSaveMappingsRequest( 'Q1', '{}' );
 
 		$this->assertSame( 204, $response->getStatusCode() );
 	}
 
 	public function testJsonIsAnEmptyList(): void {
-		$response = $this->executeHandler(
-			WikibaseRdfExtension::saveMappingsApiFactory(),
-			new RequestData( [
-				'method' => 'POST',
-				'pathParams' => [ 'entity_id' => 'Q1' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => '[]'
-			] )
-		);
+		$response = $this->doSaveMappingsRequest( 'Q1', '[]' );
 
 		$this->assertSame( 204, $response->getStatusCode() );
 	}
 
 	public function testPredicateKeyIsInvalid(): void {
-		$response = $this->executeHandler(
-			WikibaseRdfExtension::saveMappingsApiFactory(),
-			new RequestData( [
-				'method' => 'POST',
-				'pathParams' => [ 'entity_id' => 'Q1' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createInvalidPredicateKeyBody()
-			] )
-		);
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createInvalidPredicateKeyBody() );
 
 		$this->assertSame( 400, $response->getStatusCode() );
 		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
@@ -148,15 +102,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	}
 
 	public function testObjectKeyIsInvalid(): void {
-		$response = $this->executeHandler(
-			WikibaseRdfExtension::saveMappingsApiFactory(),
-			new RequestData( [
-				'method' => 'POST',
-				'pathParams' => [ 'entity_id' => 'Q1' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createInvalidObjectKeyBody()
-			] )
-		);
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createInvalidObjectKeyBody() );
 
 		$this->assertSame( 400, $response->getStatusCode() );
 		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
@@ -179,15 +125,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	}
 
 	public function testPredicateIsMissing(): void {
-		$response = $this->executeHandler(
-			WikibaseRdfExtension::saveMappingsApiFactory(),
-			new RequestData( [
-				'method' => 'POST',
-				'pathParams' => [ 'entity_id' => 'Q1' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createMissingPredicateBody()
-			] )
-		);
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createMissingPredicateBody() );
 
 		$this->assertSame( 400, $response->getStatusCode() );
 		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
@@ -210,15 +148,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	}
 
 	public function testObjectIsMissing(): void {
-		$response = $this->executeHandler(
-			WikibaseRdfExtension::saveMappingsApiFactory(),
-			new RequestData( [
-				'method' => 'POST',
-				'pathParams' => [ 'entity_id' => 'Q1' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createMissingObjectBody()
-			] )
-		);
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createMissingObjectBody() );
 
 		$this->assertSame( 400, $response->getStatusCode() );
 		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
@@ -241,15 +171,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	}
 
 	public function testPredicateIsEmpty(): void {
-		$response = $this->executeHandler(
-			WikibaseRdfExtension::saveMappingsApiFactory(),
-			new RequestData( [
-				'method' => 'POST',
-				'pathParams' => [ 'entity_id' => 'Q1' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createEmptyPredicateBody()
-			] )
-		);
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createEmptyPredicateBody() );
 
 		$this->assertSame( 400, $response->getStatusCode() );
 		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
@@ -272,15 +194,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	}
 
 	public function testObjectIsEmpty(): void {
-		$response = $this->executeHandler(
-			WikibaseRdfExtension::saveMappingsApiFactory(),
-			new RequestData( [
-				'method' => 'POST',
-				'pathParams' => [ 'entity_id' => 'Q1' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createEmptyObjectBody()
-			] )
-		);
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createEmptyObjectBody() );
 
 		$this->assertSame( 400, $response->getStatusCode() );
 		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
@@ -303,15 +217,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	}
 
 	public function testMappingPredicateIsMalformed(): void {
-		$response = $this->executeHandler(
-			WikibaseRdfExtension::saveMappingsApiFactory(),
-			new RequestData( [
-				'method' => 'POST',
-				'pathParams' => [ 'entity_id' => 'Q1' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createMalformedPredicateBody()
-			] )
-		);
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createMalformedPredicateBody() );
 
 		$this->assertSame( 400, $response->getStatusCode() );
 		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
@@ -334,15 +240,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	}
 
 	public function testMappingPredicateIsNotAllowed(): void {
-		$response = $this->executeHandler(
-			WikibaseRdfExtension::saveMappingsApiFactory(),
-			new RequestData( [
-				'method' => 'POST',
-				'pathParams' => [ 'entity_id' => 'Q1' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createDisallowedPredicateBody()
-			] )
-		);
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createDisallowedPredicateBody() );
 
 		$this->assertSame( 400, $response->getStatusCode() );
 		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
@@ -365,15 +263,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	}
 
 	public function testEntityIdIsInvalid(): void {
-		$response = $this->executeHandler(
-			WikibaseRdfExtension::saveMappingsApiFactory(),
-			new RequestData( [
-				'method' => 'POST',
-				'pathParams' => [ 'entity_id' => 'NotId' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createValidBody()
-			] )
-		);
+		$response = $this->doSaveMappingsRequest( 'NotId', $this->createValidBody() );
 
 		$this->assertSame( 400, $response->getStatusCode() );
 		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
@@ -388,15 +278,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	}
 
 	public function testEntityDoesNotExist(): void {
-		$response = $this->executeHandler(
-			WikibaseRdfExtension::saveMappingsApiFactory(),
-			new RequestData( [
-				'method' => 'POST',
-				'pathParams' => [ 'entity_id' => 'Q1000000000' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createValidBody()
-			] )
-		);
+		$response = $this->doSaveMappingsRequest( 'Q1000000000', $this->createValidBody() );
 
 		$this->assertSame( 500, $response->getStatusCode() );
 		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
@@ -413,16 +295,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	public function testPermissionDeniedForAnonymousUser(): void {
 		$this->setMwGlobals( 'wgGroupPermissions', [ '*' => [ 'edit' => false ] ] );
 
-		$response = $this->executeHandler(
-			handler: WikibaseRdfExtension::saveMappingsApiFactory(),
-			request: new RequestData( [
-				'method' => 'POST',
-				'pathParams' => [ 'entity_id' => 'Q1' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createValidBody()
-			] ),
-			authority: $this->mockAnonNullAuthority()
-		);
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody(), $this->mockAnonNullAuthority() );
 
 		$this->assertSame( 403, $response->getStatusCode() );
 	}
@@ -430,16 +303,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	public function testPermissionDeniedForUserWithNoGroups(): void {
 		$this->setMwGlobals( 'wgGroupPermissions', [ '*' => [ 'edit' => false ] ] );
 
-		$response = $this->executeHandler(
-			handler: WikibaseRdfExtension::saveMappingsApiFactory(),
-			request: new RequestData( [
-				'method' => 'POST',
-				'pathParams' => [ 'entity_id' => 'Q1' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createValidBody()
-			] ),
-			authority: $this->getTestUser()->getUser()
-		);
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody(), $this->getTestUser()->getUser() );
 
 		$this->assertSame( 403, $response->getStatusCode() );
 	}
@@ -453,16 +317,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 			]
 		);
 
-		$response = $this->executeHandler(
-			handler: WikibaseRdfExtension::saveMappingsApiFactory(),
-			request: new RequestData( [
-				'method' => 'POST',
-				'pathParams' => [ 'entity_id' => 'Q1' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createValidBody()
-			] ),
-			authority: $this->getTestUser( [ 'user' ] )->getUser()
-		);
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody(), $this->getTestUser( [ 'user' ] )->getUser() );
 
 		$this->assertSame( 403, $response->getStatusCode() );
 	}
@@ -477,16 +332,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 			]
 		);
 
-		$response = $this->executeHandler(
-			handler: WikibaseRdfExtension::saveMappingsApiFactory(),
-			request: new RequestData( [
-				'method' => 'POST',
-				'pathParams' => [ 'entity_id' => 'Q1' ],
-				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $this->createValidBody()
-			] ),
-			authority: $this->getTestSysop()->getUser()
-		);
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody(), $this->getTestSysop()->getUser() );
 
 		$this->assertSame( 204, $response->getStatusCode() );
 	}
@@ -567,6 +413,19 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
 			{"predicate": "owl:sameAs", "object": ""}
 		]';
+	}
+
+	private function doSaveMappingsRequest( string $entityId, string $body, Authority $authority = null ): ResponseInterface {
+		return $this->executeHandler(
+			WikibaseRdfExtension::saveMappingsApiFactory(),
+			new RequestData( [
+				'method' => 'POST',
+				'pathParams' => [ 'entity_id' => $entityId ],
+				'headers' => [ 'Content-Type' => 'application/json' ],
+				'bodyContents' => $body
+			] ),
+			authority: $authority
+		);
 	}
 
 }
