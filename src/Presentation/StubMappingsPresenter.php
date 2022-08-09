@@ -17,16 +17,16 @@ class StubMappingsPresenter implements MappingsPresenter {
 	) {
 	}
 
-	public function showMappings( MappingList $mappingList ): void {
+	public function showMappings( MappingList $mappingList, bool $canEdit ): void {
 		$this->response = '<div id="wikibase-rdf" style="display: none;">'
 			. '<div id="wikibase-rdf-toggler"></div>'
 			. '<div class id="wikibase-rdf-mappings">'
-			. $this->createEditTemplate()
-			. $this->createRowTemplate()
+			. $this->createEditTemplate( $canEdit )
+			. $this->createRowTemplate( $canEdit )
 			. $this->createHeader()
 			. $this->createErrorBox()
-			. $this->createRows( $mappingList )
-			. $this->createFooter()
+			. $this->createRows( $mappingList, $canEdit )
+			. $this->createFooter( $canEdit )
 			. '</div>'
 			. '</div>';
 	}
@@ -43,7 +43,10 @@ class StubMappingsPresenter implements MappingsPresenter {
 		return '<div class="wikibase-rdf-error" style="display: none;"></div>';
 	}
 
-	private function createEditTemplate(): string {
+	private function createEditTemplate( bool $canEdit ): string {
+		if ( !$canEdit ) {
+			return '';
+		}
 		return '<div class="wikibase-rdf-row wikibase-rdf-row-editing-template">'
 			. '<div class="wikibase-rdf-predicate">' . $this->createPredicateSelect() . '</div>'
 			. '<div class="wikibase-rdf-object"><input name="wikibase-rdf-object" value="" /></div>'
@@ -55,18 +58,18 @@ class StubMappingsPresenter implements MappingsPresenter {
 			. '</div>';
 	}
 
-	private function createRowTemplate(): string {
+	private function createRowTemplate( bool $canEdit ): string {
 		return '<div class="wikibase-rdf-row-template">'
 			. '<div class="wikibase-rdf-predicate"></div>'
 			. '<div class="wikibase-rdf-object"></div>'
-			. '<div class="wikibase-rdf-actions">' . $this->createEditButton() . '</div>'
+			. '<div class="wikibase-rdf-actions">' . $this->createEditButton( $canEdit ) . '</div>'
 			. '</div>';
 	}
 
-	private function createRows( MappingList $mappingList ): string {
+	private function createRows( MappingList $mappingList, bool $canEdit ): string {
 		$html = '<div class="wikibase-rdf-rows">';
 		foreach ( $mappingList->asArray() as $mapping ) {
-			$html .= $this->createRow( $mapping->predicate, $mapping->object );
+			$html .= $this->createRow( $mapping->predicate, $mapping->object, $canEdit );
 		}
 		$html .= '</div>';
 
@@ -82,21 +85,27 @@ class StubMappingsPresenter implements MappingsPresenter {
 		return $html;
 	}
 
-	private function createRow( string $relationship, string $url ): string {
+	private function createRow( string $relationship, string $url, bool $canEdit ): string {
 		return Html::rawElement(
 			'div',
 			[ 'class' => 'wikibase-rdf-row', 'data-predicate' => $relationship, 'data-object' => $url ],
 			Html::element( 'div', [ 'class' => 'wikibase-rdf-predicate' ], $relationship )
 				. Html::element( 'div', [ 'class' => 'wikibase-rdf-object' ], $url )
-				. Html::rawElement( 'div', [ 'class' => 'wikibase-rdf-actions' ], $this->createEditButton() )
+				. Html::rawElement( 'div', [ 'class' => 'wikibase-rdf-actions' ], $this->createEditButton( $canEdit ) )
 		);
 	}
 
-	private function createEditButton(): string {
+	private function createEditButton( bool $canEdit ): string {
+		if ( !$canEdit ) {
+			return '';
+		}
 		return '<a href="#" class="wikibase-rdf-action-edit"><span class="icon"></span>' . wfMessage( 'wikibase-rdf-mappings-action-edit' ) . '</a>';
 	}
 
-	private function createFooter(): string {
+	private function createFooter( bool $canEdit ): string {
+		if ( !$canEdit ) {
+			return '';
+		}
 		return '<div class="wikibase-rdf-footer"><a href="#" class="wikibase-rdf-action-add"><span class="icon"></span>' . wfMessage( 'wikibase-rdf-mappings-action-add' ) . '</a></div>';
 	}
 

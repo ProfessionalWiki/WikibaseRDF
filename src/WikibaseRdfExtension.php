@@ -8,6 +8,7 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Rest\ResponseFactory;
 use ProfessionalWiki\WikibaseRDF\Application\AllMappingsLookup;
+use ProfessionalWiki\WikibaseRDF\Application\EntityMappingsAuthorizer;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
 use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsPresenter;
@@ -23,6 +24,7 @@ use ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\GetAllMappingsApi;
 use ProfessionalWiki\WikibaseRDF\Persistence\ContentSlotMappingRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\SlotEntityContentRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\SqlAllMappingsLookup;
+use ProfessionalWiki\WikibaseRDF\Persistence\UserBasedEntityMappingsAuthorizer;
 use ProfessionalWiki\WikibaseRDF\Presentation\MappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Presentation\RDF\MappingRdfBuilder;
 use ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\GetMappingsApi;
@@ -34,6 +36,8 @@ use Title;
 use User;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParser;
+use Wikibase\Repo\Store\EntityPermissionChecker;
+use Wikibase\Repo\Store\WikiPageEntityStorePermissionChecker;
 use Wikibase\Repo\WikibaseRepo;
 use Wikimedia\Purtle\RdfWriter;
 use Wikimedia\Rdbms\ILoadBalancer;
@@ -62,7 +66,8 @@ class WikibaseRdfExtension {
 	public function newShowMappingsUseCase( MappingsPresenter $presenter, User $user ): ShowMappingsUseCase {
 		return new ShowMappingsUseCase(
 			$presenter,
-			$this->newMappingRepository( $user )
+			$this->newMappingRepository( $user ),
+			$this->newEntityMappingsAuthorizer( $user )
 		);
 	}
 
@@ -181,6 +186,22 @@ class WikibaseRdfExtension {
 	public function isConfigTitle( Title $title ): bool {
 		return $title->getNamespace() === NS_MEDIAWIKI
 			&& $title->getText() === self::CONFIG_PAGE_TITLE;
+	}
+
+	public function newEntityPermissionChecker( MediaWikiServices $services ): EntityPermissionChecker {
+		return new WikiPageEntityStorePermissionChecker(
+			WikibaseRepo::getEntityNamespaceLookup( $services ),
+			WikibaseRepo::getEntityTitleLookup( $services ),
+			$services->getPermissionManager(),
+			(array)$services->getMainConfig()->get( 'AvailableRights' )
+		);
+	}
+
+	public function newEntityMappingsAuthorizer( User $user ): EntityMappingsAuthorizer {
+		return new UserBasedEntityMappingsAuthorizer(
+			$user,
+			$this->newEntityPermissionChecker( MediaWikiServices::getInstance() )
+		);
 	}
 
 }
