@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace ProfessionalWiki\WikibaseRDF\Tests\Integration;
+namespace ProfessionalWiki\WikibaseRDF\Tests\EntryPoints\Rest;
 
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Rest\LocalizedHttpException;
@@ -11,6 +11,8 @@ use MediaWiki\Rest\ResponseInterface;
 use MediaWiki\Tests\Rest\Handler\HandlerTestTrait;
 use ProfessionalWiki\WikibaseRDF\Tests\WikibaseRdfIntegrationTest;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
+use RequestContext;
+use User;
 use Wikibase\DataModel\Entity\ItemId;
 
 /**
@@ -26,6 +28,13 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		parent::setUp();
 
 		$this->setAllowedPredicates( [ 'owl:sameAs' ] );
+
+		$this->setMwGlobals(
+			'wgGroupPermissions',
+			[
+				'*' => [ 'read' => true, 'edit' => true ],
+			]
+		);
 
 		$this->createItem( new ItemId( 'Q1' ) );
 	}
@@ -280,22 +289,19 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	public function testEntityDoesNotExist(): void {
 		$response = $this->doSaveMappingsRequest( 'Q1000000000', $this->createValidBody() );
 
-		$this->assertSame( 500, $response->getStatusCode() );
+		$this->assertSame( 403, $response->getStatusCode() );
 		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
 
 		$data = json_decode( $response->getBody()->getContents(), true );
 		$this->assertIsArray( $data );
-
-		$this->assertStringContainsString(
-			'wikibase-rdf-save-mappings-save-failed',
-			$data['messageTranslations']['']
-		);
 	}
 
 	public function testPermissionDeniedForAnonymousUser(): void {
 		$this->setMwGlobals( 'wgGroupPermissions', [ '*' => [ 'edit' => false ] ] );
 
-		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody(), $this->mockAnonNullAuthority() );
+		$this->setRequestUser( $this->getServiceContainer()->getUserFactory()->newAnonymous() );
+
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody() );
 
 		$this->assertSame( 403, $response->getStatusCode() );
 	}
@@ -303,7 +309,9 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	public function testPermissionDeniedForUserWithNoGroups(): void {
 		$this->setMwGlobals( 'wgGroupPermissions', [ '*' => [ 'edit' => false ] ] );
 
-		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody(), $this->getTestUser()->getUser() );
+		$this->setRequestUser( $this->getTestUser()->getUser() );
+
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody() );
 
 		$this->assertSame( 403, $response->getStatusCode() );
 	}
@@ -317,7 +325,9 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 			]
 		);
 
-		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody(), $this->getTestUser( [ 'user' ] )->getUser() );
+		$this->setRequestUser( $this->getTestUser( [ 'user' ] )->getUser() );
+
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody() );
 
 		$this->assertSame( 403, $response->getStatusCode() );
 	}
@@ -326,13 +336,15 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$this->setMwGlobals(
 			'wgGroupPermissions',
 			[
-				'*' => [ 'edit' => false ],
-				'user' => [ 'edit' => false ],
-				'sysop' => [ 'edit' => true ]
+				'*' => [ 'read' => true, 'edit' => false ],
+				'user' => [ 'read' => true, 'edit' => false ],
+				'sysop' => [ 'read' => true, 'edit' => true ]
 			]
 		);
 
-		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody(), $this->getTestSysop()->getUser() );
+		$this->setRequestUser( $this->getTestSysop()->getUser() );
+
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createValidBody() );
 
 		$this->assertSame( 204, $response->getStatusCode() );
 	}
@@ -415,7 +427,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		]';
 	}
 
-	private function doSaveMappingsRequest( string $entityId, string $body, Authority $authority = null ): ResponseInterface {
+	private function doSaveMappingsRequest( string $entityId, string $body ): ResponseInterface {
 		return $this->executeHandler(
 			WikibaseRdfExtension::saveMappingsApiFactory(),
 			new RequestData( [
@@ -423,9 +435,12 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 				'pathParams' => [ 'entity_id' => $entityId ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
 				'bodyContents' => $body
-			] ),
-			authority: $authority
+			] )
 		);
+	}
+
+	private function setRequestUser( User $user ): void {
+		RequestContext::getMain()->setUser( $user );
 	}
 
 }

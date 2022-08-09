@@ -9,3 +9,8 @@ parameters:
 			message: "#^Constant WB_NS_PROPERTY not found\\.$#"
 			count: 1
 			path: src/EntryPoints/MediaWikiHooks.php
+
+		-
+			message: "#^Parameter \\#4 \\$availableRights of class Wikibase\\\\Repo\\\\Store\\\\WikiPageEntityStorePermissionChecker constructor expects array\\<string\\>, array given\\.$#"
+			count: 1
+			path: src/WikibaseRdfExtension.php

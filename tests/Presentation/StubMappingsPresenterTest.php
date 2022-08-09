@@ -16,6 +16,12 @@ use ProfessionalWiki\WikibaseRDF\Presentation\StubMappingsPresenter;
  */
 class StubMappingsPresenterTest extends TestCase {
 
+	private const CLASS_ACTION_EDIT = 'wikibase-rdf-action-edit';
+	private const CLASS_ACTION_SAVE = 'wikibase-rdf-action-save';
+	private const CLASS_ACTION_REMOVE = 'wikibase-rdf-action-remove';
+	private const CLASS_ACTION_CANCEL = 'wikibase-rdf-action-cancel';
+	private const CLASS_ACTION_ADD = 'wikibase-rdf-action-add';
+
 	private function getAllowedPredicates(): PredicateList {
 		return new PredicateList( [
 			new Predicate( 'owl:sameAs' ),
@@ -29,7 +35,8 @@ class StubMappingsPresenterTest extends TestCase {
 		$mapping2 = new Mapping( 'skos:exactMatch', 'http://www.example.com/foo' );
 
 		$presenter->showMappings(
-			new MappingList( [ $mapping1, $mapping2 ] )
+			new MappingList( [ $mapping1, $mapping2 ] ),
+			true
 		);
 		$html = $presenter->getHtml();
 
@@ -37,6 +44,42 @@ class StubMappingsPresenterTest extends TestCase {
 		$this->assertStringContainsString( $mapping1->object, $html );
 		$this->assertStringContainsString( $mapping2->predicate, $html );
 		$this->assertStringContainsString( $mapping2->object, $html );
+	}
+
+	public function testEditActionsAreDisplayed(): void {
+		$presenter = new StubMappingsPresenter( $this->getAllowedPredicates() );
+		$mapping1 = new Mapping( 'owl:sameAs', 'http://www.w3.org/2000/01/rdf-schema#subClassOf' );
+		$mapping2 = new Mapping( 'skos:exactMatch', 'http://www.example.com/foo' );
+
+		$presenter->showMappings(
+			new MappingList( [ $mapping1, $mapping2 ] ),
+			true
+		);
+		$html = $presenter->getHtml();
+
+		$this->assertStringContainsString( self::CLASS_ACTION_EDIT, $html );
+		$this->assertStringContainsString( self::CLASS_ACTION_SAVE, $html );
+		$this->assertStringContainsString( self::CLASS_ACTION_REMOVE, $html );
+		$this->assertStringContainsString( self::CLASS_ACTION_CANCEL, $html );
+		$this->assertStringContainsString( self::CLASS_ACTION_ADD, $html );
+	}
+
+	public function testEditActionsAreNotDisplayed(): void {
+		$presenter = new StubMappingsPresenter( $this->getAllowedPredicates() );
+		$mapping1 = new Mapping( 'owl:sameAs', 'http://www.w3.org/2000/01/rdf-schema#subClassOf' );
+		$mapping2 = new Mapping( 'skos:exactMatch', 'http://www.example.com/foo' );
+
+		$presenter->showMappings(
+			new MappingList( [ $mapping1, $mapping2 ] ),
+			false
+		);
+		$html = $presenter->getHtml();
+
+		$this->assertStringNotContainsString( self::CLASS_ACTION_EDIT, $html );
+		$this->assertStringNotContainsString( self::CLASS_ACTION_SAVE, $html );
+		$this->assertStringNotContainsString( self::CLASS_ACTION_REMOVE, $html );
+		$this->assertStringNotContainsString( self::CLASS_ACTION_CANCEL, $html );
+		$this->assertStringNotContainsString( self::CLASS_ACTION_ADD, $html );
 	}
 
 }

@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace ProfessionalWiki\WikibaseRDF\Tests\Integration;
+namespace ProfessionalWiki\WikibaseRDF\Tests\EntryPoints\Rest;
 
 use MediaWiki\Rest\RequestData;
 use MediaWiki\Tests\Rest\Handler\HandlerTestTrait;

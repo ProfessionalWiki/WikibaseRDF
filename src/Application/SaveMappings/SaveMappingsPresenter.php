@@ -4,8 +4,6 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\Application\SaveMappings;
 
-use Throwable;
-
 interface SaveMappingsPresenter {
 
 	public function presentSuccess(): void;
@@ -19,6 +17,6 @@ interface SaveMappingsPresenter {
 
 	public function presentInvalidEntityId(): void;
 
-	public function presentPermissionDenied( Throwable $exception ): void;
+	public function presentPermissionDenied(): void;
 
 }

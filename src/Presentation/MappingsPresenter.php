@@ -8,6 +8,6 @@ use ProfessionalWiki\WikibaseRDF\Application\MappingList;
 
 interface MappingsPresenter {
 
-	public function showMappings( MappingList $mappingList ): void;
+	public function showMappings( MappingList $mappingList, bool $canEdit ): void;
 
 }

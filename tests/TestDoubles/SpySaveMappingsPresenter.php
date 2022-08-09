@@ -14,7 +14,7 @@ class SpySaveMappingsPresenter implements SaveMappingsPresenter {
 	public array $invalidMappings = [];
 	public bool $showedSaveFailed = false;
 	public bool $showedInvalidEntityId = false;
-	public Throwable $permissionDeniedException;
+	public bool $showedPermissionDenied = false;
 
 	public function presentSuccess(): void {
 		$this->showedSuccess = true;
@@ -35,8 +35,8 @@ class SpySaveMappingsPresenter implements SaveMappingsPresenter {
 		$this->showedInvalidEntityId = true;
 	}
 
-	public function presentPermissionDenied( Throwable $exception ): void {
-		$this->permissionDeniedException = $exception;
+	public function presentPermissionDenied(): void {
+		$this->showedPermissionDenied = true;
 	}
 
 }

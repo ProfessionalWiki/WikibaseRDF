@@ -9,6 +9,9 @@
     </MixedAssignment>
   </file>
   <file src="src/WikibaseRdfExtension.php">
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>(array)$services-&gt;getMainConfig()-&gt;get( 'AvailableRights' )</code>
+    </MixedArgumentTypeCoercion>
     <MixedReturnTypeCoercion occurrences="2">
       <code>(array)MediaWikiServices::getInstance()-&gt;getMainConfig()-&gt;get( 'WikibaseRdfPredicates' )</code>
       <code>string[]</code>

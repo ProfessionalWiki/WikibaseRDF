@@ -45,10 +45,10 @@ class RestSaveMappingsPresenter implements SaveMappingsPresenter {
 		);
 	}
 
-	public function presentPermissionDenied( Throwable $exception ): void {
-		$this->response = $this->responseFactory->createHttpError(
+	public function presentPermissionDenied(): void {
+		$this->response = $this->responseFactory->createLocalizedHttpError(
 			403,
-			[ 'message' => $exception->getMessage() ]
+			MessageValue::new( 'wikibase-rdf-permission-denied' ),
 		);
 	}
 

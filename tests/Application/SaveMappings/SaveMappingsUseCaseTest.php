@@ -4,15 +4,17 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\Tests\Application\SaveMappings;
 
-use PermissionsError;
 use PHPUnit\Framework\TestCase;
+use ProfessionalWiki\WikibaseRDF\Application\EntityMappingsAuthorizer;
 use ProfessionalWiki\WikibaseRDF\Application\Predicate;
 use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsUseCase;
 use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
 use ProfessionalWiki\WikibaseRDF\Persistence\InMemoryMappingRepository;
+use ProfessionalWiki\WikibaseRDF\Tests\TestDoubles\FailingEntityMappingsAuthorizer;
 use ProfessionalWiki\WikibaseRDF\Tests\TestDoubles\PermissionDeniedMappingRepository;
 use ProfessionalWiki\WikibaseRDF\Tests\TestDoubles\SpySaveMappingsPresenter;
+use ProfessionalWiki\WikibaseRDF\Tests\TestDoubles\SucceedingEntityMappingsAuthorizer;
 use ProfessionalWiki\WikibaseRDF\Tests\TestDoubles\ThrowingMappingRepository;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\DataModel\Entity\ItemId;
@@ -34,18 +36,27 @@ class SaveMappingsUseCaseTest extends TestCase {
 		$this->repository = new InMemoryMappingRepository();
 	}
 
-	private function newUseCase(): SaveMappingsUseCase {
+	private function newSucceedingAuthorizer(): EntityMappingsAuthorizer {
+		return new SucceedingEntityMappingsAuthorizer();
+	}
+
+	private function newFailingAuthorizer(): EntityMappingsAuthorizer {
+		return new FailingEntityMappingsAuthorizer();
+	}
+
+	private function newUseCase( EntityMappingsAuthorizer $authorizer ): SaveMappingsUseCase {
 		return new SaveMappingsUseCase(
 			$this->presenter,
 			$this->repository,
 			new PredicateList( [ new Predicate( self::VALID_PREDICATE ) ] ),
 			new BasicEntityIdParser(),
-			new MappingListSerializer()
+			new MappingListSerializer(),
+			$authorizer
 		);
 	}
 
 	public function testShouldShowSuccess(): void {
-		$useCase = $this->newUseCase();
+		$useCase = $this->newUseCase( $this->newSucceedingAuthorizer() );
 
 		$useCase->saveMappings(
 			'Q1',
@@ -60,7 +71,7 @@ class SaveMappingsUseCaseTest extends TestCase {
 	}
 
 	public function testMappingIsPersisted(): void {
-		$useCase = $this->newUseCase();
+		$useCase = $this->newUseCase( $this->newSucceedingAuthorizer() );
 
 		$useCase->saveMappings(
 			'Q2',
@@ -82,7 +93,7 @@ class SaveMappingsUseCaseTest extends TestCase {
 	}
 
 	public function testShouldShowInvalidMappings(): void {
-		$useCase = $this->newUseCase();
+		$useCase = $this->newUseCase( $this->newSucceedingAuthorizer() );
 
 		$useCase->saveMappings(
 			'Q3',
@@ -110,7 +121,8 @@ class SaveMappingsUseCaseTest extends TestCase {
 			new ThrowingMappingRepository(),
 			new PredicateList( [ new Predicate( self::VALID_PREDICATE ) ] ),
 			new BasicEntityIdParser(),
-			new MappingListSerializer()
+			new MappingListSerializer(),
+			$this->newSucceedingAuthorizer()
 		);
 
 		$useCase->saveMappings(
@@ -131,7 +143,8 @@ class SaveMappingsUseCaseTest extends TestCase {
 			new ThrowingMappingRepository(),
 			new PredicateList( [ new Predicate( self::VALID_PREDICATE ) ] ),
 			new BasicEntityIdParser(),
-			new MappingListSerializer()
+			new MappingListSerializer(),
+			$this->newSucceedingAuthorizer()
 		);
 
 		$useCase->saveMappings(
@@ -150,7 +163,8 @@ class SaveMappingsUseCaseTest extends TestCase {
 			new PermissionDeniedMappingRepository(),
 			new PredicateList( [ new Predicate( self::VALID_PREDICATE ) ] ),
 			new BasicEntityIdParser(),
-			new MappingListSerializer()
+			new MappingListSerializer(),
+			$this->newFailingAuthorizer()
 		);
 
 		$useCase->saveMappings(
@@ -160,10 +174,7 @@ class SaveMappingsUseCaseTest extends TestCase {
 			]
 		);
 
-		$this->assertEquals(
-			new PermissionsError( 'edit' ),
-			$this->presenter->permissionDeniedException
-		);
+		$this->assertTrue( $this->presenter->showedPermissionDenied );
 	}
 
 }

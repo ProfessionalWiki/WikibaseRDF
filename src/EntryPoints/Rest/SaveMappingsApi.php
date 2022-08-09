@@ -10,16 +10,22 @@ use MediaWiki\Rest\SimpleHandler;
 use MediaWiki\Rest\Validator\BodyValidator;
 use MediaWiki\Rest\Validator\JsonBodyValidator;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
+use RequestContext;
+use User;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SaveMappingsApi extends SimpleHandler {
 
 	public function run( string $entityId ): Response {
 		$presenter = WikibaseRdfExtension::getInstance()->newRestSaveMappingsPresenter( $this->getResponseFactory() );
-		$useCase = WikibaseRdfExtension::getInstance()->newSaveMappingsUseCase( $presenter, $this->getAuthority() );
+		$useCase = WikibaseRdfExtension::getInstance()->newSaveMappingsUseCase( $presenter, $this->getUser() );
 		$useCase->saveMappings( $entityId, (array)$this->getValidatedBody() );
 
 		return $presenter->getResponse();
+	}
+
+	private function getUser(): User {
+		return RequestContext::getMain()->getUser();
 	}
 
 	/**
