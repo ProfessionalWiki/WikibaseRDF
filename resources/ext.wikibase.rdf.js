@@ -174,6 +174,7 @@ $( function () {
 
 		if ( $row.hasClass( 'wikibase-rdf-row-editing-add' ) ) {
 			$row.remove();
+			hideError();
 			return;
 		}
 
@@ -181,6 +182,7 @@ $( function () {
 		$row.removeClass( 'wikibase-rdf-row-editing' );
 		$row.find( '.wikibase-rdf-predicate' ).text( $row.data( 'predicate' ) );
 		$row.find( '.wikibase-rdf-object' ).text( $row.data( 'object' ) );
+		hideError();
 	}
 
 	function setupEvents() {
