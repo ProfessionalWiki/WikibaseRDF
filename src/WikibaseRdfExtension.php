@@ -30,7 +30,7 @@ use ProfessionalWiki\WikibaseRDF\Presentation\RDF\MappingRdfBuilder;
 use ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\GetMappingsApi;
 use ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\SaveMappingsApi;
 use ProfessionalWiki\WikibaseRDF\Presentation\RestSaveMappingsPresenter;
-use ProfessionalWiki\WikibaseRDF\Presentation\StubMappingsPresenter;
+use ProfessionalWiki\WikibaseRDF\Presentation\HtmlMappingsPresenter;
 use RequestContext;
 use Title;
 use User;
@@ -57,8 +57,8 @@ class WikibaseRdfExtension {
 		return $instance;
 	}
 
-	public function newStubMappingsPresenter(): StubMappingsPresenter {
-		return new StubMappingsPresenter(
+	public function newHtmlMappingsPresenter(): HtmlMappingsPresenter {
+		return new HtmlMappingsPresenter(
 			$this->getAllowedPredicates()
 		);
 	}

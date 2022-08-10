@@ -30,6 +30,7 @@ $( function () {
 		const $row = $( '.wikibase-rdf-row-editing-template' ).clone();
 		$row.find( '.wikibase-rdf-action-remove' ).remove();
 		$row.removeClass( 'wikibase-rdf-row-editing-template' );
+		$row.addClass( 'wikibase-rdf-row' );
 		$row.addClass( 'wikibase-rdf-row-editing-add' );
 		$row.appendTo( $( '.wikibase-rdf-rows' ) );
 	}
@@ -174,6 +175,7 @@ $( function () {
 
 		if ( $row.hasClass( 'wikibase-rdf-row-editing-add' ) ) {
 			$row.remove();
+			hideError();
 			return;
 		}
 
@@ -181,6 +183,7 @@ $( function () {
 		$row.removeClass( 'wikibase-rdf-row-editing' );
 		$row.find( '.wikibase-rdf-predicate' ).text( $row.data( 'predicate' ) );
 		$row.find( '.wikibase-rdf-object' ).text( $row.data( 'object' ) );
+		hideError();
 	}
 
 	function setupEvents() {

@@ -67,7 +67,7 @@
 
 		<UndefinedFunction>
 			<errorLevel type="suppress">
-				<file name="src/Presentation/StubMappingsPresenter.php" />
+				<file name="src/Presentation/HtmlMappingsPresenter.php" />
 			</errorLevel>
 		</UndefinedFunction>
 	</issueHandlers>

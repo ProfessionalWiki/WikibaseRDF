@@ -9,12 +9,12 @@ use ProfessionalWiki\WikibaseRDF\Application\Mapping;
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;
 use ProfessionalWiki\WikibaseRDF\Application\Predicate;
 use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
-use ProfessionalWiki\WikibaseRDF\Presentation\StubMappingsPresenter;
+use ProfessionalWiki\WikibaseRDF\Presentation\HtmlMappingsPresenter;
 
 /**
- * @covers \ProfessionalWiki\WikibaseRDF\Presentation\StubMappingsPresenter
+ * @covers \ProfessionalWiki\WikibaseRDF\Presentation\HtmlMappingsPresenter
  */
-class StubMappingsPresenterTest extends TestCase {
+class HtmlMappingsPresenterTest extends TestCase {
 
 	private const CLASS_ACTION_EDIT = 'wikibase-rdf-action-edit';
 	private const CLASS_ACTION_SAVE = 'wikibase-rdf-action-save';
@@ -30,7 +30,7 @@ class StubMappingsPresenterTest extends TestCase {
 	}
 
 	public function testMappingValuesAreDisplayed(): void {
-		$presenter = new StubMappingsPresenter( $this->getAllowedPredicates() );
+		$presenter = new HtmlMappingsPresenter( $this->getAllowedPredicates() );
 		$mapping1 = new Mapping( 'owl:sameAs', 'http://www.w3.org/2000/01/rdf-schema#subClassOf' );
 		$mapping2 = new Mapping( 'skos:exactMatch', 'http://www.example.com/foo' );
 
@@ -47,7 +47,7 @@ class StubMappingsPresenterTest extends TestCase {
 	}
 
 	public function testEditActionsAreDisplayed(): void {
-		$presenter = new StubMappingsPresenter( $this->getAllowedPredicates() );
+		$presenter = new HtmlMappingsPresenter( $this->getAllowedPredicates() );
 		$mapping1 = new Mapping( 'owl:sameAs', 'http://www.w3.org/2000/01/rdf-schema#subClassOf' );
 		$mapping2 = new Mapping( 'skos:exactMatch', 'http://www.example.com/foo' );
 
@@ -65,7 +65,7 @@ class StubMappingsPresenterTest extends TestCase {
 	}
 
 	public function testEditActionsAreNotDisplayed(): void {
-		$presenter = new StubMappingsPresenter( $this->getAllowedPredicates() );
+		$presenter = new HtmlMappingsPresenter( $this->getAllowedPredicates() );
 		$mapping1 = new Mapping( 'owl:sameAs', 'http://www.w3.org/2000/01/rdf-schema#subClassOf' );
 		$mapping2 = new Mapping( 'skos:exactMatch', 'http://www.example.com/foo' );
 
