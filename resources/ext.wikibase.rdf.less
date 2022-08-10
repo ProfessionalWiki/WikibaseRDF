@@ -5,33 +5,40 @@
 	width: 100%;
 }
 
-#wikibase-rdf-mappings {
-	margin: 0 2em 2em 0;
-	max-width: 65em;
-	width: 100%;
-
+#wikibase-rdf-mappings table {
 	background: #fff;
 	border: 1px solid #c8ccd1;
+	border-spacing: 0;
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+	word-wrap: break-word;
 }
 
-#wikibase-rdf-header {
-	display: flex;
-	width: 100%;
+#wikibase-rdf-header th {
+	background-color: #eaecf0;
+	border-right: 1px solid #fff;
+	padding: 0 0 0 0.4em;
+	position: sticky;
+	top: 0;
+	font-weight: inherit;
+	text-align: left;
 }
 
 .wikibase-rdf-mappings-predicate-heading {
-	background-color: #eaecf0;
 	width: 15em;
 }
 
-.wikibase-rdf-mappings-object-heading {
-	background-color: #eaecf0;
-	flex-grow: 1;
+.wikibase-rdf-mappings-actions-heading {
+	width: 18em;
 }
 
-.wikibase-rdf-mappings-actions-heading {
-	background-color: #eaecf0;
-	width: 18em;
+.wikibase-rdf-rows td {
+	line-height: 136%;
+	overflow: hidden;
+	padding: 0.4em;
+	text-overflow: ellipsis;
+	vertical-align: top;
 }
 
 .wikibase-rdf-error {
@@ -44,11 +51,6 @@
 	color: unset;
 }
 
-.wikibase-rdf-row {
-	display: flex;
-	width: 100%;
-}
-
 .wikibase-rdf-row-editing-template {
 	display: none;
 }
@@ -57,24 +59,16 @@
 	display: none;
 }
 
-.wikibase-rdf-predicate {
-	width: 15em;
-}
-
 .wikibase-rdf-predicate select {
-	width: 95%;
-}
-
-.wikibase-rdf-object {
-	flex-grow: 1;
+	width: 100%;
 }
 
 .wikibase-rdf-object input {
-	width: 95%;
+	width: 100%;
 }
 
-.wikibase-rdf-actions {
-	width: 18em;
+.wikibase-rdf-actions a {
+	font-size: small;
 }
 
 #wikibase-rdf .icon {
@@ -120,5 +114,15 @@
 }
 
 .wikibase-rdf-footer {
-	background-color: #eaecf0;
+	overflow: hidden;
+}
+
+.wikibase-rdf-footer-actions {
+	float: right;
+	padding: 0.4em;
+	width: 18em;
+}
+
+.wikibase-rdf-action-add {
+	font-size: small;
 }

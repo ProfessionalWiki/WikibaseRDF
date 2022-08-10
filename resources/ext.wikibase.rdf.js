@@ -30,6 +30,7 @@ $( function () {
 		const $row = $( '.wikibase-rdf-row-editing-template' ).clone();
 		$row.find( '.wikibase-rdf-action-remove' ).remove();
 		$row.removeClass( 'wikibase-rdf-row-editing-template' );
+		$row.addClass( 'wikibase-rdf-row' );
 		$row.addClass( 'wikibase-rdf-row-editing-add' );
 		$row.appendTo( $( '.wikibase-rdf-rows' ) );
 	}
