@@ -8,7 +8,7 @@ use Html;
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;
 use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
 
-class StubMappingsPresenter implements MappingsPresenter {
+class HtmlMappingsPresenter implements MappingsPresenter {
 
 	private string $response = '';
 
