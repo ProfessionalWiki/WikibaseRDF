@@ -17,6 +17,7 @@ It was conceived and funded by the [Wikibase Stakeholder Group].
 - [Usage](#usage)
 - [Installation](#installation)
 - [PHP Configuration](#php-configuration)
+- [REST API](#rest-api)
 - [Development](#development)
 - [Release notes](#release-notes)
 
@@ -75,6 +76,12 @@ $wgWikibaseRdfPredicates = [
 ];
 ```
 
+## REST API
+
+This extension provides REST API endpoints for getting and setting the RDF mappings for a Wikibase entity.
+
+For more information, refer to the [REST API documentation](docs/rest.md).
+
 ## Development
 
 To ensure the dev dependencies get installed, have this in your `composer.local.json`:
@@ -109,21 +116,6 @@ Alternatively, you can execute commands from the MediaWiki root directory:
 * Style checks: `vendor/bin/phpcs -p -s --standard=extensions/WikibaseRDF/phpcs.xml`
 * PHPStan: `vendor/bin/phpstan analyse --configuration=extensions/WikibaseRDF/phpstan.neon --memory-limit=2G`
 * Psalm: `php vendor/bin/psalm --config=extensions/WikibaseRDF/psalm.xml`
-
-### REST API
-
-Save all RDF mappings for an existing entity (e.g. Q1):
-
-```shell
-curl -X POST -H 'Content-Type: application/json' "http://localhost:8484/rest.php/wikibase-rdf/v0/mappings/Q1" \
-  -d '[{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"}, {"predicate": "owl:sameAs", "object": "owl:subClassOf"}, {"predicate": "foo:bar", "object": "http://example.com"}]'
-```
-
-Retrieve all RDF mappings for an existing entity (e.g. Q1):
-
-```shell
-curl "http://localhost:8484/rest.php/wikibase-rdf/v0/mappings/Q1"
-```
 
 ## Release notes
 
