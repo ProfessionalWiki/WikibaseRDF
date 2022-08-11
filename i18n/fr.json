@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Eihel",
+			"Gomoko",
 			"Verdy p"
 		]
 	},
@@ -16,5 +17,9 @@
 	"wikibase-rdf-mappings-action-add": "ajouter une correspondance",
 	"wikibase-rdf-save-mappings-invalid-mappings": "Certaines des correspondances que vous avez spécifiées ne sont pas valides",
 	"wikibase-rdf-save-mappings-save-failed": "Échec de la sauvegarde",
-	"wikibase-rdf-entity-id-invalid": "L’identifiant d’entité que vous avez spécifié n’est pas valide"
+	"wikibase-rdf-entity-id-invalid": "L’identifiant d’entité que vous avez spécifié n’est pas valide",
+	"wikibase-rdf-permission-denied": "Vous n’avez pas le droit de modifier les correspondances de cette entité",
+	"wikibase-rdf-config-intro": "Supprimer les prédicats utilisés dans votre wiki casse l’IHM de modification et n’est pas recommandé",
+	"wikibase-rdf-config-invalid": "Prédicats non valides :\n$1. Vos modifications n’ont pas été enregistrées.",
+	"special-mapping-predicates": "Prédicats de correspondance"
 }
