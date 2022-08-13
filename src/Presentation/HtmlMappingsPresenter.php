@@ -13,7 +13,8 @@ class HtmlMappingsPresenter implements MappingsPresenter {
 	private string $response = '';
 
 	public function __construct(
-		private PredicateList $allowedPredicates
+		private PredicateList $allowedPredicates,
+		private bool $isDiffPage
 	) {
 	}
 
@@ -24,13 +25,13 @@ class HtmlMappingsPresenter implements MappingsPresenter {
 			. '<table>'
 			. $this->createHeader()
 			. '<tbody class="wikibase-rdf-rows">'
-			. $this->createEditTemplate( $canEdit )
-			. $this->createRowTemplate( $canEdit )
+			. $this->createEditTemplate( $canEdit && !$this->isDiffPage )
+			. $this->createRowTemplate( $canEdit && !$this->isDiffPage )
 			. $this->createErrorBox()
-			. $this->createRows( $mappingList, $canEdit )
+			. $this->createRows( $mappingList, $canEdit && !$this->isDiffPage )
 			. '</tbody>'
 			. '</table>'
-			. $this->createFooter( $canEdit )
+			. $this->createFooter( $canEdit && !$this->isDiffPage )
 			. '</div>'
 			. '</div>';
 	}

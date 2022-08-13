@@ -30,7 +30,7 @@ class HtmlMappingsPresenterTest extends TestCase {
 	}
 
 	public function testMappingValuesAreDisplayed(): void {
-		$presenter = new HtmlMappingsPresenter( $this->getAllowedPredicates() );
+		$presenter = new HtmlMappingsPresenter( $this->getAllowedPredicates(), false );
 		$mapping1 = new Mapping( 'owl:sameAs', 'http://www.w3.org/2000/01/rdf-schema#subClassOf' );
 		$mapping2 = new Mapping( 'skos:exactMatch', 'http://www.example.com/foo' );
 
@@ -47,7 +47,7 @@ class HtmlMappingsPresenterTest extends TestCase {
 	}
 
 	public function testEditActionsAreDisplayed(): void {
-		$presenter = new HtmlMappingsPresenter( $this->getAllowedPredicates() );
+		$presenter = new HtmlMappingsPresenter( $this->getAllowedPredicates(), false );
 		$mapping1 = new Mapping( 'owl:sameAs', 'http://www.w3.org/2000/01/rdf-schema#subClassOf' );
 		$mapping2 = new Mapping( 'skos:exactMatch', 'http://www.example.com/foo' );
 
@@ -64,14 +64,32 @@ class HtmlMappingsPresenterTest extends TestCase {
 		$this->assertStringContainsString( self::CLASS_ACTION_ADD, $html );
 	}
 
-	public function testEditActionsAreNotDisplayed(): void {
-		$presenter = new HtmlMappingsPresenter( $this->getAllowedPredicates() );
+	public function testEditActionsAreNotDisplayedWhenUserCannotEdit(): void {
+		$presenter = new HtmlMappingsPresenter( $this->getAllowedPredicates(), false );
 		$mapping1 = new Mapping( 'owl:sameAs', 'http://www.w3.org/2000/01/rdf-schema#subClassOf' );
 		$mapping2 = new Mapping( 'skos:exactMatch', 'http://www.example.com/foo' );
 
 		$presenter->showMappings(
 			new MappingList( [ $mapping1, $mapping2 ] ),
 			false
+		);
+		$html = $presenter->getHtml();
+
+		$this->assertStringNotContainsString( self::CLASS_ACTION_EDIT, $html );
+		$this->assertStringNotContainsString( self::CLASS_ACTION_SAVE, $html );
+		$this->assertStringNotContainsString( self::CLASS_ACTION_REMOVE, $html );
+		$this->assertStringNotContainsString( self::CLASS_ACTION_CANCEL, $html );
+		$this->assertStringNotContainsString( self::CLASS_ACTION_ADD, $html );
+	}
+
+	public function testEditActionsAreNotDisplayedOnDiffPage(): void {
+		$presenter = new HtmlMappingsPresenter( $this->getAllowedPredicates(), true );
+		$mapping1 = new Mapping( 'owl:sameAs', 'http://www.w3.org/2000/01/rdf-schema#subClassOf' );
+		$mapping2 = new Mapping( 'skos:exactMatch', 'http://www.example.com/foo' );
+
+		$presenter->showMappings(
+			new MappingList( [ $mapping1, $mapping2 ] ),
+			true
 		);
 		$html = $presenter->getHtml();
 

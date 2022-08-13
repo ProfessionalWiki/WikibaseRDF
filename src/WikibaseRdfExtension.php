@@ -57,9 +57,10 @@ class WikibaseRdfExtension {
 		return $instance;
 	}
 
-	public function newHtmlMappingsPresenter(): HtmlMappingsPresenter {
+	public function newHtmlMappingsPresenter( bool $isDiffPage ): HtmlMappingsPresenter {
 		return new HtmlMappingsPresenter(
-			$this->getAllowedPredicates()
+			$this->getAllowedPredicates(),
+			$isDiffPage
 		);
 	}
 

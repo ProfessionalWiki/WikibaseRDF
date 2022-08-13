@@ -67,7 +67,9 @@ class MediaWikiHooks {
 		// TODO: load styles earlier because this causes the initial content to be unstyled
 		$page->addModules( 'ext.wikibase.rdf' );
 
-		$presenter = WikibaseRdfExtension::getInstance()->newHtmlMappingsPresenter();
+		$presenter = WikibaseRdfExtension::getInstance()->newHtmlMappingsPresenter(
+			 $page->getRequest()->getCheck( 'diff' )
+		);
 
 		$useCase = WikibaseRdfExtension::getInstance()->newShowMappingsUseCase( $presenter, $page->getUser() );
 		$useCase->showMappings( $entityId );
