@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Veracious"
+		]
+	},
+	"wikibase-rdf-mappings-object-heading": "URL",
+	"wikibase-rdf-mappings-action-save": "simpan",
+	"wikibase-rdf-mappings-action-cancel": "batalkan",
+	"wikibase-rdf-mappings-action-edit": "sunting",
+	"wikibase-rdf-mappings-action-add": "tambahkan pemetaan",
+	"wikibase-rdf-save-mappings-save-failed": "Gagal menyimpan",
+	"wikibase-rdf-config-invalid": "Predikat tidak valid:\n$1. Perubahan Anda tidak tersimpan.",
+	"special-mapping-predicates": "Predikat pemetaan"
+}
