@@ -15,15 +15,22 @@ It was conceived and funded by the [Wikibase Stakeholder Group].
 **Table of Contents**
 
 - [Usage](#usage)
+  * [REST API](#rest-api)
 - [Installation](#installation)
 - [PHP Configuration](#php-configuration)
-- [REST API](#rest-api)
 - [Development](#development)
 - [Release notes](#release-notes)
 
 ## Usage
 
 TODO
+
+
+### REST API
+
+This extension provides REST API endpoints for getting and setting the RDF mappings for a Wikibase entity.
+
+For more information, refer to the [REST API documentation](docs/rest.md).
 
 ## Installation
 
@@ -76,12 +83,6 @@ $wgWikibaseRdfPredicates = [
 ];
 ```
 
-## REST API
-
-This extension provides REST API endpoints for getting and setting the RDF mappings for a Wikibase entity.
-
-For more information, refer to the [REST API documentation](docs/rest.md).
-
 ## Development
 
 To ensure the dev dependencies get installed, have this in your `composer.local.json`:
@@ -125,8 +126,9 @@ Initial release for Wikibase 1.37 with these features:
 
 * Ability to add mappings to Items and Properties via an on-page UI
 * Inclusion of mappings in the RDF output
-* Configurable relationships (predicates)
+* Configurable relationships (predicates), including configuration UI on `MediaWiki:MappingPredicates`
 * API endpoint to retrieve or update the mappings for an Entity
+* API endpoint to retrieve all mappings defined on the wiki
 * TranslateWiki integration
 * Support for PHP 8.0 and 8.1
 
