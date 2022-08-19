@@ -109,18 +109,25 @@ class MediaWikiHooks {
 		if ( is_string( $text ) && WikibaseRdfExtension::getInstance()->isConfigTitle( $editPage->getTitle() ) ) {
 			$validator = new PredicatesTextValidator();
 			if ( !$validator->validate( $text ) ) {
-				$invalidPredicates = implode(
-					', ',
-					array_map(
-						fn( string $predicate ) => '"' . $predicate . '"',
-						$validator->getInvalidPredicates()
-					)
-				);
-				$error = \Html::errorBox(
-					wfMessage( 'wikibase-rdf-config-invalid', $invalidPredicates )->escaped()
-				);
+				$error = self::createInvalidPredicatesError( $validator->getInvalidPredicates() );
 			}
 		}
+	}
+
+	/**
+	 * @param string[] $invalidPredicates
+	 */
+	private static function createInvalidPredicatesError( array $invalidPredicates ): string {
+		$imploded = implode(
+			', ',
+			array_map(
+				fn( string $predicate ) => '"' . $predicate . '"',
+				$invalidPredicates
+			)
+		);
+		return \Html::errorBox(
+			wfMessage( 'wikibase-rdf-config-invalid', count( $invalidPredicates ), $imploded )->escaped()
+		);
 	}
 
 	public static function onAlternateEdit( EditPage $editPage ): void {
