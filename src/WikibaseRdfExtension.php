@@ -13,7 +13,6 @@ use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
 use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsUseCase;
-use ProfessionalWiki\WikibaseRDF\Application\ShowMappingsUseCase;
 use ProfessionalWiki\WikibaseRDF\DataAccess\CombiningMappingPredicatesLookup;
 use ProfessionalWiki\WikibaseRDF\DataAccess\LocalSettingsMappingPredicatesLookup;
 use ProfessionalWiki\WikibaseRDF\DataAccess\MappingPredicatesLookup;
@@ -63,14 +62,6 @@ class WikibaseRdfExtension {
 		return new HtmlMappingsPresenter(
 			$this->getAllowedPredicates(),
 			$isDiffPage
-		);
-	}
-
-	public function newShowMappingsUseCase( MappingsPresenter $presenter, User $user ): ShowMappingsUseCase {
-		return new ShowMappingsUseCase(
-			$presenter,
-			$this->newMappingRepository( $user ),
-			$this->newEntityMappingsAuthorizer( $user )
 		);
 	}
 
