@@ -25,6 +25,7 @@ use ProfessionalWiki\WikibaseRDF\Persistence\ContentSlotMappingRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\SlotEntityContentRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\SqlAllMappingsLookup;
 use ProfessionalWiki\WikibaseRDF\Persistence\UserBasedEntityMappingsAuthorizer;
+use ProfessionalWiki\WikibaseRDF\Presentation\HtmlPredicatesPresenter;
 use ProfessionalWiki\WikibaseRDF\Presentation\MappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Presentation\RDF\MappingRdfBuilder;
 use ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\GetMappingsApi;
@@ -204,6 +205,10 @@ class WikibaseRdfExtension {
 			$user,
 			$this->newEntityPermissionChecker( MediaWikiServices::getInstance() )
 		);
+	}
+
+	public function newHtmlPredicatesPresenter(): HtmlPredicatesPresenter {
+		return new HtmlPredicatesPresenter();
 	}
 
 }

@@ -24,5 +24,9 @@
 	"wikibase-rdf-config-intro": "Removing predicates that are in use on your wiki breaks the editing UI and is not recommended",
 	"wikibase-rdf-config-invalid": "Invalid {{PLURAL:$1|predicate|predicates}}:\n$2. Your changes were not saved.",
 
+	"wikibase-rdf-config-list-intro": "This page defines which predicates can be used in mappings to other ontologies. This functionality is part of the <a href=\"https://www.mediawiki.org/wiki/Extension:WikibaseRDF\">Wikibase RDF extension</a>.",
+	"wikibase-rdf-config-list-heading": "Allowed {{PLURAL:$1|predicate|predicates}}:",
+	"wikibase-rdf-config-list-empty": "No predicates are defined.",
+
 	"special-mapping-predicates": "Mapping predicates"
 }

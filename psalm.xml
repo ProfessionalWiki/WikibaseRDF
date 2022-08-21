@@ -67,7 +67,8 @@
 
 		<UndefinedFunction>
 			<errorLevel type="suppress">
-				<file name="src/Presentation/HtmlMappingsPresenter.php" />
+				<referencedFunction name="wfMessage"/>
+				<directory name="src" />
 			</errorLevel>
 		</UndefinedFunction>
 	</issueHandlers>
