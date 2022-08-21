@@ -8,13 +8,25 @@
       <code>$array</code>
     </MixedAssignment>
   </file>
+  <file src="src/Presentation/HtmlPredicatesPresenter.php">
+    <MixedArgument occurrences="3">
+      <code>wfMessage( 'wikibase-rdf-config-list-empty' )-&gt;text()</code>
+      <code>wfMessage( 'wikibase-rdf-config-list-heading', $count )-&gt;text()</code>
+      <code>wfMessage( 'wikibase-rdf-config-list-intro' )-&gt;text()</code>
+    </MixedArgument>
+    <MixedMethodCall occurrences="4">
+      <code>text</code>
+      <code>text</code>
+      <code>text</code>
+      <code>text</code>
+    </MixedMethodCall>
+    <MixedOperand occurrences="1">
+      <code>wfMessage( 'wikibase-rdf-config-list-footer' )-&gt;text()</code>
+    </MixedOperand>
+  </file>
   <file src="src/WikibaseRdfExtension.php">
     <MixedArgumentTypeCoercion occurrences="1">
       <code>(array)$services-&gt;getMainConfig()-&gt;get( 'AvailableRights' )</code>
     </MixedArgumentTypeCoercion>
-    <MixedReturnTypeCoercion occurrences="2">
-      <code>(array)MediaWikiServices::getInstance()-&gt;getMainConfig()-&gt;get( 'WikibaseRdfPredicates' )</code>
-      <code>string[]</code>
-    </MixedReturnTypeCoercion>
   </file>
 </files>

@@ -35,6 +35,7 @@
 
 	"Hooks": {
 		"AlternateEdit": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onAlternateEdit",
+		"ArticleRevisionViewCustom": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onArticleRevisionViewCustom",
 		"ContentHandlerDefaultModelFor": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onContentHandlerDefaultModelFor",
 		"EditFilter": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onEditFilter",
 		"MediaWikiServices": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onMediaWikiServices",

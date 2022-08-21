@@ -15,6 +15,7 @@ use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsUseCase;
 use ProfessionalWiki\WikibaseRDF\Application\ShowMappingsUseCase;
 use ProfessionalWiki\WikibaseRDF\DataAccess\CombiningMappingPredicatesLookup;
+use ProfessionalWiki\WikibaseRDF\DataAccess\LocalSettingsMappingPredicatesLookup;
 use ProfessionalWiki\WikibaseRDF\DataAccess\MappingPredicatesLookup;
 use ProfessionalWiki\WikibaseRDF\DataAccess\PageContentFetcher;
 use ProfessionalWiki\WikibaseRDF\DataAccess\PredicatesDeserializer;
@@ -25,6 +26,7 @@ use ProfessionalWiki\WikibaseRDF\Persistence\ContentSlotMappingRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\SlotEntityContentRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\SqlAllMappingsLookup;
 use ProfessionalWiki\WikibaseRDF\Persistence\UserBasedEntityMappingsAuthorizer;
+use ProfessionalWiki\WikibaseRDF\Presentation\HtmlPredicatesPresenter;
 use ProfessionalWiki\WikibaseRDF\Presentation\MappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Presentation\RDF\MappingRdfBuilder;
 use ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\GetMappingsApi;
@@ -169,19 +171,29 @@ class WikibaseRdfExtension {
 		);
 	}
 
-	public function newMappingPredicatesLookup(): MappingPredicatesLookup {
+	public function newLocalSettingsMappingPredicatesLookup(): LocalSettingsMappingPredicatesLookup {
+		return new LocalSettingsMappingPredicatesLookup(
+			(array)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseRdfPredicates' )
+		);
+	}
+
+	public function newWikiMappingPredicatesLookup(): WikiMappingPredicatesLookup {
+		return new WikiMappingPredicatesLookup(
+			new PageContentFetcher(
+				MediaWikiServices::getInstance()->getTitleParser(),
+				MediaWikiServices::getInstance()->getRevisionLookup()
+			),
+			new PredicatesDeserializer(
+				new PredicatesTextValidator()
+			),
+			self::CONFIG_PAGE_TITLE
+		);
+	}
+
+	public function newMappingPredicatesLookup(): CombiningMappingPredicatesLookup {
 		return new CombiningMappingPredicatesLookup(
-			(array)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseRdfPredicates' ),
-			new WikiMappingPredicatesLookup(
-				new PageContentFetcher(
-					MediaWikiServices::getInstance()->getTitleParser(),
-					MediaWikiServices::getInstance()->getRevisionLookup()
-				),
-				new PredicatesDeserializer(
-					new PredicatesTextValidator()
-				),
-				self::CONFIG_PAGE_TITLE
-			)
+			$this->newLocalSettingsMappingPredicatesLookup(),
+			$this->newWikiMappingPredicatesLookup()
 		);
 	}
 
@@ -204,6 +216,10 @@ class WikibaseRdfExtension {
 			$user,
 			$this->newEntityPermissionChecker( MediaWikiServices::getInstance() )
 		);
+	}
+
+	public function newHtmlPredicatesPresenter(): HtmlPredicatesPresenter {
+		return new HtmlPredicatesPresenter();
 	}
 
 }

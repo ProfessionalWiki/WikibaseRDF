@@ -6,6 +6,7 @@ namespace ProfessionalWiki\WikibaseRDF\EntryPoints;
 
 use EditPage;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRoleRegistry;
 use OutputPage;
 use ParserOutput;
@@ -135,6 +136,27 @@ class MediaWikiHooks {
 			$editPage->suppressIntro = true;
 			$editPage->editFormTextBeforeContent = wfMessage( 'wikibase-rdf-config-intro' );
 		}
+	}
+
+	public static function onArticleRevisionViewCustom(
+		RevisionRecord $revision,
+		Title $title,
+		int $oldId,
+		OutputPage $output
+	): bool {
+		if ( WikibaseRdfExtension::getInstance()->isConfigTitle( $title ) ) {
+			$localSettingsLookup = WikibaseRdfExtension::getInstance()->newLocalSettingsMappingPredicatesLookup();
+			$wikiSettingsLookup = WikibaseRdfExtension::getInstance()->newWikiMappingPredicatesLookup();
+			$presenter = WikibaseRdfExtension::getInstance()->newHtmlPredicatesPresenter();
+			$presenter->presentPredicates(
+				$localSettingsLookup->getMappingPredicates(),
+				$wikiSettingsLookup->getMappingPredicates()
+			);
+			$output->clearHTML();
+			$output->addHTML( $presenter->getHtml() );
+			return false;
+		}
+		return true;
 	}
 
 }
