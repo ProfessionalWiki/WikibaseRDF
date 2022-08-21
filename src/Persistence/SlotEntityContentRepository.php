@@ -10,10 +10,9 @@ use Exception;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Permissions\Authority;
-use MediaWiki\Permissions\PermissionStatus;
 use MediaWiki\Revision\RevisionAccessException;
+use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
-use PermissionsError;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use WikiPage;
@@ -24,12 +23,19 @@ class SlotEntityContentRepository implements EntityContentRepository {
 		private Authority $authority,
 		private WikiPageFactory $pageFactory,
 		private EntityTitleLookup $entityTitleLookup,
-		private string $slotName
+		private string $slotName,
+		private RevisionLookup $revisionLookup
 	) {
 	}
 
-	public function getContent( EntityId $entityId ): ?Content {
-		$revision = $this->getWikiPage( $entityId )?->getRevisionRecord();
+	public function getContent( EntityId $entityId, int $revisionId = 0 ): ?Content {
+		$page = $this->getWikiPage( $entityId );
+
+		if ( $page === null ) {
+			return null;
+		}
+
+		$revision = $this->revisionLookup->getRevisionByTitle( $page, $revisionId );
 
 		try {
 			return $revision?->getSlot( $this->slotName, RevisionRecord::FOR_PUBLIC, $this->authority )?->getContent();

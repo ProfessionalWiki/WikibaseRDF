@@ -11,7 +11,7 @@ use Wikibase\DataModel\Entity\EntityId;
 
 class ThrowingMappingRepository implements MappingRepository {
 
-	public function getMappings( EntityId $entityId ): MappingList {
+	public function getMappings( EntityId $entityId, int $revisionId = 0 ): MappingList {
 		throw new RuntimeException();
 	}
 

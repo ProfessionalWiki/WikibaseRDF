@@ -13,7 +13,6 @@ use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
 use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsUseCase;
-use ProfessionalWiki\WikibaseRDF\Application\ShowMappingsUseCase;
 use ProfessionalWiki\WikibaseRDF\DataAccess\CombiningMappingPredicatesLookup;
 use ProfessionalWiki\WikibaseRDF\DataAccess\LocalSettingsMappingPredicatesLookup;
 use ProfessionalWiki\WikibaseRDF\DataAccess\MappingPredicatesLookup;
@@ -66,20 +65,13 @@ class WikibaseRdfExtension {
 		);
 	}
 
-	public function newShowMappingsUseCase( MappingsPresenter $presenter, User $user ): ShowMappingsUseCase {
-		return new ShowMappingsUseCase(
-			$presenter,
-			$this->newMappingRepository( $user ),
-			$this->newEntityMappingsAuthorizer( $user )
-		);
-	}
-
 	public function newEntityContentRepository( Authority $authority ): SlotEntityContentRepository {
 		return new SlotEntityContentRepository(
 			authority: $authority,
 			pageFactory: MediaWikiServices::getInstance()->getWikiPageFactory(),
 			entityTitleLookup: WikibaseRepo::getEntityTitleLookup(),
-			slotName: self::SLOT_NAME
+			slotName: self::SLOT_NAME,
+			revisionLookup: MediaWikiServices::getInstance()->getRevisionLookup()
 		);
 	}
 

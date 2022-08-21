@@ -15,7 +15,7 @@ class InMemoryMappingRepository implements MappingRepository {
 	 */
 	private array $mappingsById = [];
 
-	public function getMappings( EntityId $entityId ): MappingList {
+	public function getMappings( EntityId $entityId, int $revisionId = 0 ): MappingList {
 		return $this->mappingsById[$entityId->getSerialization()] ?? new MappingList();
 	}
 

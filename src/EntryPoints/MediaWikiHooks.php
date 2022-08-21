@@ -72,8 +72,13 @@ class MediaWikiHooks {
 			 $page->getRequest()->getCheck( 'diff' )
 		);
 
-		$useCase = WikibaseRdfExtension::getInstance()->newShowMappingsUseCase( $presenter, $page->getUser() );
-		$useCase->showMappings( $entityId );
+		$repository = WikibaseRdfExtension::getInstance()->newMappingRepository( $page->getUser() );
+		$authorizer = WikibaseRdfExtension::getInstance()->newEntityMappingsAuthorizer( $page->getUser() );
+
+		$presenter->showMappings(
+			$repository->getMappings( $entityId, $page->getRevisionId() ?? 0 ),
+			$authorizer->canEditEntityMappings( $entityId )
+		);
 
 		$page->addHTML( $presenter->getHtml() );
 	}

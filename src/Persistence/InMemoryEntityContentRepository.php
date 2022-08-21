@@ -14,7 +14,7 @@ class InMemoryEntityContentRepository implements EntityContentRepository {
 	 */
 	private array $contentList = [];
 
-	public function getContent( EntityId $entityId ): ?Content {
+	public function getContent( EntityId $entityId, int $revisionId = 0 ): ?Content {
 		return $this->contentList[$entityId->getSerialization()] ?? null;
 	}
 
