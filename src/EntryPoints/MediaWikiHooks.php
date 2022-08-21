@@ -76,7 +76,7 @@ class MediaWikiHooks {
 		$authorizer = WikibaseRdfExtension::getInstance()->newEntityMappingsAuthorizer( $page->getUser() );
 
 		$presenter->showMappings(
-			$repository->getMappings( $entityId, $page->getRevisionId() ),
+			$repository->getMappings( $entityId, $page->getRevisionId() ?? 0 ),
 			$authorizer->canEditEntityMappings( $entityId )
 		);
 
