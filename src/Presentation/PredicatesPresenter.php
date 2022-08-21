@@ -8,6 +8,6 @@ use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
 
 interface PredicatesPresenter {
 
-	public function presentPredicates( PredicateList $predicates ): void;
+	public function presentPredicates( PredicateList $localSettingsPredicates, PredicateList $wikiPredicates ): void;
 
 }

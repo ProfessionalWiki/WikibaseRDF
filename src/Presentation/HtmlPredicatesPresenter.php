@@ -10,12 +10,16 @@ use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
 
 class HtmlPredicatesPresenter implements PredicatesPresenter {
 
-	private string $response = '';
-	private PredicateList $predicates;
+	private const ASTERISK = '<code>*</code>';
 
-	public function presentPredicates( PredicateList $predicates ): void {
-		$this->predicates = $predicates;
-		$this->response = $this->createIntro() . $this->createList();
+	private string $response = '';
+	private PredicateList $localSettingsPredicates;
+	private PredicateList $wikiPredicates;
+
+	public function presentPredicates( PredicateList $localSettingsPredicates, PredicateList $wikiPredicates ): void {
+		$this->localSettingsPredicates = $localSettingsPredicates;
+		$this->wikiPredicates = $wikiPredicates;
+		$this->response = $this->createIntro() . $this->createList() . $this->createFooter();
 	}
 
 	private function createIntro(): string {
@@ -23,23 +27,57 @@ class HtmlPredicatesPresenter implements PredicatesPresenter {
 	}
 
 	private function createList(): string {
-		$predicates = $this->predicates->asArray();
+		$localSettingsPredicates = $this->localSettingsPredicates->asArray();
+		$wikiPredicates = $this->wikiPredicates->asArray();
+		$count = count( $localSettingsPredicates ) + count( $wikiPredicates );
 
-		if ( count( $predicates ) === 0 ) {
+		if ( $count === 0 ) {
 			return Html::element( 'p', [], wfMessage( 'wikibase-rdf-config-list-empty' )->text() );
 		}
 
-		return Html::element( 'p', [], wfMessage( 'wikibase-rdf-config-list-heading', count( $predicates ) )->text() )
-			. Html::rawElement( 'ul', [], implode( $this->createListItems() ) );
+		return Html::element( 'p', [], wfMessage( 'wikibase-rdf-config-list-heading', $count )->text() )
+			. Html::rawElement(
+				'ul',
+				[],
+				implode( $this->createLocalSettingsListItems() ) . implode( $this->createWikiListItems() )
+			);
 	}
 
 	/**
 	 * @return string[]
 	 */
-	private function createListItems(): array {
+	private function createLocalSettingsListItems(): array {
+		return array_map(
+			static function ( Predicate $predicate ) {
+				return Html::rawElement(
+					'li',
+					[],
+					Html::element( 'span', [], $predicate->predicate ) . ' ' . self::ASTERISK
+				);
+			},
+			$this->localSettingsPredicates->asArray()
+		);
+	}
+
+	/**
+	 * @return string[]
+	 */
+	private function createWikiListItems(): array {
 		return array_map(
 			fn( Predicate $predicate ) => Html::element( 'li', [], $predicate->predicate ),
-			$this->predicates->asArray()
+			$this->wikiPredicates->asArray()
+		);
+	}
+
+	private function createFooter(): string {
+		if ( count( $this->localSettingsPredicates->asArray() ) === 0 ) {
+			return '';
+		}
+
+		return Html::rawElement(
+			'p',
+			[],
+			self::ASTERISK . ' ' . wfMessage( 'wikibase-rdf-config-list-footer' )->text()
 		);
 	}
 

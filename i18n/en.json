@@ -27,6 +27,7 @@
 	"wikibase-rdf-config-list-intro": "This page defines which predicates can be used in mappings to other ontologies. This functionality is part of the <a href=\"https://www.mediawiki.org/wiki/Extension:WikibaseRDF\">Wikibase RDF extension</a>.",
 	"wikibase-rdf-config-list-heading": "Allowed {{PLURAL:$1|predicate|predicates}}:",
 	"wikibase-rdf-config-list-empty": "No predicates are defined.",
+	"wikibase-rdf-config-list-footer": "Defined in LocalSettings.php, cannot be modified via this page.",
 
 	"special-mapping-predicates": "Mapping predicates"
 }

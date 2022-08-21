@@ -145,9 +145,13 @@ class MediaWikiHooks {
 		OutputPage $output
 	): bool {
 		if ( WikibaseRdfExtension::getInstance()->isConfigTitle( $title ) ) {
-			$lookup = WikibaseRdfExtension::getInstance()->newMappingPredicatesLookup();
+			$localSettingsLookup = WikibaseRdfExtension::getInstance()->newLocalSettingsMappingPredicatesLookup();
+			$wikiSettingsLookup = WikibaseRdfExtension::getInstance()->newWikiMappingPredicatesLookup();
 			$presenter = WikibaseRdfExtension::getInstance()->newHtmlPredicatesPresenter();
-			$presenter->presentPredicates( $lookup->getMappingPredicates() );
+			$presenter->presentPredicates(
+				$localSettingsLookup->getMappingPredicates(),
+				$wikiSettingsLookup->getMappingPredicates()
+			);
 			$output->clearHTML();
 			$output->addHTML( $presenter->getHtml() );
 			return false;

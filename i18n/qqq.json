@@ -24,5 +24,6 @@
 	"wikibase-rdf-config-list-intro": "This is the text shown at the top of \"MediaWiki:MappingPredicates\" when viewing.",
 	"wikibase-rdf-config-list-heading": "This is the text shown before the list of predicates on \"MediaWiki:MappingPredicates\".",
 	"wikibase-rdf-config-list-empty": "This is the text shown on \"MediaWiki:MappingPredicates\" when no predicates are defined.",
+	"wikibase-rdf-config-list-footer": "This is the text shown at the bottom of \"MediaWiki:MappingPredicates\" when viewing.",
 	"special-mapping-predicates": "This is the label on \"Special:SpecialPages\" linking to \"MediaWiki:MappingPredicates\"."
 }

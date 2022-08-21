@@ -14,21 +14,53 @@ use ProfessionalWiki\WikibaseRDF\Presentation\HtmlPredicatesPresenter;
  */
 class HtmlPredicatesPresenterTest extends TestCase {
 
-	public function testHtmlContainsPredicates(): void {
-		$mappingList = new PredicateList( [ new Predicate( 'foo:bar' ), new Predicate( 'bar:baz' ) ] );
+	private const LOCAL_SETTINGS_MESSAGE = '<code>*</code> Defined in LocalSettings.php';
+
+	public function testHtmlContainsOnlyLocalSettingsPredicates(): void {
 		$presenter = new HtmlPredicatesPresenter();
-		$presenter->presentPredicates( $mappingList );
+		$presenter->presentPredicates(
+			new PredicateList( [ new Predicate( 'foo:bar' ), new Predicate( 'bar:baz' ) ] ),
+			new PredicateList()
+		);
 
 		$html = $presenter->getHtml();
 
-		$this->assertStringContainsString( 'foo:bar', $html );
-		$this->assertStringContainsString( 'bar:baz', $html );
+		$this->assertStringContainsString( '<li><span>foo:bar</span> <code>*</code></li>', $html );
+		$this->assertStringContainsString( '<li><span>bar:baz</span> <code>*</code></li>', $html );
+		$this->assertStringContainsString( self::LOCAL_SETTINGS_MESSAGE, $html );
+	}
+
+	public function testHtmlContainsOnlyWikiConfigPredicates(): void {
+		$presenter = new HtmlPredicatesPresenter();
+		$presenter->presentPredicates(
+			new PredicateList(),
+			new PredicateList( [ new Predicate( 'foo:bar' ), new Predicate( 'bar:baz' ) ] )
+		);
+
+		$html = $presenter->getHtml();
+
+		$this->assertStringContainsString( '<li>foo:bar</li>', $html );
+		$this->assertStringContainsString( '<li>bar:baz</li>', $html );
+		$this->assertStringNotContainsString( self::LOCAL_SETTINGS_MESSAGE, $html );
+	}
+
+	public function testHtmlContainsLocalSettingsAndWikiConfigPredicates(): void {
+		$presenter = new HtmlPredicatesPresenter();
+		$presenter->presentPredicates(
+			new PredicateList( [ new Predicate( 'foo:bar' ) ] ),
+			new PredicateList( [ new Predicate( 'bar:baz' ) ] )
+		);
+
+		$html = $presenter->getHtml();
+
+		$this->assertStringContainsString( '<li><span>foo:bar</span> <code>*</code></li>', $html );
+		$this->assertStringContainsString( '<li>bar:baz</li>', $html );
+		$this->assertStringContainsString( self::LOCAL_SETTINGS_MESSAGE, $html );
 	}
 
 	public function testHtmlContainsMessageIfNoPredicatesAreConfigured(): void {
-		$mappingList = new PredicateList();
 		$presenter = new HtmlPredicatesPresenter();
-		$presenter->presentPredicates( $mappingList );
+		$presenter->presentPredicates( new PredicateList(), new PredicateList() );
 
 		$html = $presenter->getHtml();
 
@@ -36,6 +68,7 @@ class HtmlPredicatesPresenterTest extends TestCase {
 			'No predicates are defined.',
 			$html
 		);
+		$this->assertStringNotContainsString( self::LOCAL_SETTINGS_MESSAGE, $html );
 	}
 
 }
