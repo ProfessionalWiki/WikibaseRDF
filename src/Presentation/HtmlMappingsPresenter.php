@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseRDF\Presentation;
 
 use Html;
+use Message;
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;
 use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
 
@@ -38,8 +39,8 @@ class HtmlMappingsPresenter implements MappingsPresenter {
 
 	private function createHeader(): string {
 		return '<thead id="wikibase-rdf-header"><tr>'
-			. '<th class="wikibase-rdf-mappings-predicate-heading">' . wfMessage( 'wikibase-rdf-mappings-predicate-heading' ) . '</th>'
-			. '<th class="wikibase-rdf-mappings-object-heading">' . wfMessage( 'wikibase-rdf-mappings-object-heading' ) . '</th>'
+			. '<th class="wikibase-rdf-mappings-predicate-heading">' . $this->msg( 'wikibase-rdf-mappings-predicate-heading' )->escaped() . '</th>'
+			. '<th class="wikibase-rdf-mappings-object-heading">' . $this->msg( 'wikibase-rdf-mappings-object-heading' )->escaped() . '</th>'
 			. '<th class="wikibase-rdf-mappings-actions-heading"></th>'
 			. '</tr></thead>';
 	}
@@ -56,9 +57,9 @@ class HtmlMappingsPresenter implements MappingsPresenter {
 			. '<td class="wikibase-rdf-predicate">' . $this->createPredicateSelect() . '</td>'
 			. '<td class="wikibase-rdf-object"><input name="wikibase-rdf-object" value="" /></td>'
 			. '<td class="wikibase-rdf-actions">'
-			. '<a href="#" class="wikibase-rdf-action-save"><span class="icon"></span>' . wfMessage( 'wikibase-rdf-mappings-action-save' ) . '</a> '
-			. '<a href="#" class="wikibase-rdf-action-remove"><span class="icon"></span>' . wfMessage( 'wikibase-rdf-mappings-action-remove' ) . '</a> '
-			. '<a href="#" class="wikibase-rdf-action-cancel"><span class="icon"></span>' . wfMessage( 'wikibase-rdf-mappings-action-cancel' ) . '</a>'
+			. '<a href="#" class="wikibase-rdf-action-save"><span class="icon"></span>' . $this->msg( 'wikibase-rdf-mappings-action-save' )->escaped() . '</a> '
+			. '<a href="#" class="wikibase-rdf-action-remove"><span class="icon"></span>' . $this->msg( 'wikibase-rdf-mappings-action-remove' )->escaped() . '</a> '
+			. '<a href="#" class="wikibase-rdf-action-cancel"><span class="icon"></span>' . $this->msg( 'wikibase-rdf-mappings-action-cancel' )->escaped() . '</a>'
 			. '</td>'
 			. '</tr>';
 	}
@@ -103,7 +104,7 @@ class HtmlMappingsPresenter implements MappingsPresenter {
 		if ( !$canEdit ) {
 			return '';
 		}
-		return '<a href="#" class="wikibase-rdf-action-edit"><span class="icon"></span>' . wfMessage( 'wikibase-rdf-mappings-action-edit' ) . '</a>';
+		return '<a href="#" class="wikibase-rdf-action-edit"><span class="icon"></span>' . $this->msg( 'wikibase-rdf-mappings-action-edit' )->escaped() . '</a>';
 	}
 
 	private function createFooter( bool $canEdit ): string {
@@ -111,12 +112,16 @@ class HtmlMappingsPresenter implements MappingsPresenter {
 			return '';
 		}
 		return '<div class="wikibase-rdf-footer"><div class="wikibase-rdf-footer-actions">'
-			. '<a href="#" class="wikibase-rdf-action-add"><span class="icon"></span>' . wfMessage( 'wikibase-rdf-mappings-action-add' ) . '</a>'
+			. '<a href="#" class="wikibase-rdf-action-add"><span class="icon"></span>' . $this->msg( 'wikibase-rdf-mappings-action-add' )->escaped() . '</a>'
 			. '</div></div>';
 	}
 
 	public function getHtml(): string {
 		return $this->response;
+	}
+
+	private function msg( string $key, mixed ...$params ): Message {
+		return new Message( $key, $params );
 	}
 
 }
