@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseRDF\Presentation;
 
 use Html;
+use Message;
 use ProfessionalWiki\WikibaseRDF\Application\Predicate;
 use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
 
@@ -23,7 +24,7 @@ class HtmlPredicatesPresenter implements PredicatesPresenter {
 	}
 
 	private function createIntro(): string {
-		return Html::rawElement( 'p', [], wfMessage( 'wikibase-rdf-config-list-intro' )->text() );
+		return Html::rawElement( 'p', [], $this->msg( 'wikibase-rdf-config-list-intro' )->text() );
 	}
 
 	private function createList(): string {
@@ -32,10 +33,10 @@ class HtmlPredicatesPresenter implements PredicatesPresenter {
 		$count = count( $localSettingsPredicates ) + count( $wikiPredicates );
 
 		if ( $count === 0 ) {
-			return Html::element( 'p', [], wfMessage( 'wikibase-rdf-config-list-empty' )->text() );
+			return Html::element( 'p', [], $this->msg( 'wikibase-rdf-config-list-empty' )->text() );
 		}
 
-		return Html::element( 'p', [], wfMessage( 'wikibase-rdf-config-list-heading', $count )->text() )
+		return Html::element( 'p', [], $this->msg( 'wikibase-rdf-config-list-heading', $count )->text() )
 			. Html::rawElement(
 				'ul',
 				[],
@@ -77,12 +78,16 @@ class HtmlPredicatesPresenter implements PredicatesPresenter {
 		return Html::rawElement(
 			'p',
 			[],
-			self::ASTERISK . ' ' . wfMessage( 'wikibase-rdf-config-list-footer' )->text()
+			self::ASTERISK . ' ' . $this->msg( 'wikibase-rdf-config-list-footer' )->text()
 		);
 	}
 
 	public function getHtml(): string {
 		return $this->response;
+	}
+
+	private function msg( string $key, mixed ...$params ): Message {
+		return new Message( $key, $params );
 	}
 
 }
