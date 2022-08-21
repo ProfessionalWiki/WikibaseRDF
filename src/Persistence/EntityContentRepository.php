@@ -13,7 +13,7 @@ use Wikibase\DataModel\Entity\EntityId;
  */
 interface EntityContentRepository {
 
-	public function getContent( EntityId $entityId ): ?Content;
+	public function getContent( EntityId $entityId, int $revisionId = 0 ): ?Content;
 
 	/**
 	 * @throws Exception

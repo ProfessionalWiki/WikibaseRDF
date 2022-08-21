@@ -70,7 +70,8 @@ class WikibaseRdfExtension {
 			authority: $authority,
 			pageFactory: MediaWikiServices::getInstance()->getWikiPageFactory(),
 			entityTitleLookup: WikibaseRepo::getEntityTitleLookup(),
-			slotName: self::SLOT_NAME
+			slotName: self::SLOT_NAME,
+			revisionLookup: MediaWikiServices::getInstance()->getRevisionLookup()
 		);
 	}
 

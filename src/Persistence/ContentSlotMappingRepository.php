@@ -18,8 +18,8 @@ class ContentSlotMappingRepository implements MappingRepository {
 	) {
 	}
 
-	public function getMappings( EntityId $entityId ): MappingList {
-		$content = $this->contentRepository->getContent( $entityId );
+	public function getMappings( EntityId $entityId, int $revisionId = 0 ): MappingList {
+		$content = $this->contentRepository->getContent( $entityId, $revisionId );
 
 		if ( $content instanceof JsonContent ) {
 			return $this->serializer->fromJson( $content->getText() );
