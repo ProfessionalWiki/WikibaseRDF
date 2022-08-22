@@ -68,4 +68,23 @@ class PredicateListTest extends TestCase {
 		$this->assertFalse( $list->contains( 'foo:bar' ) );
 	}
 
+	public function testFiltersDuplicates(): void {
+		$list = new PredicateList( [
+			new Predicate( 'foo:bar' ),
+			new Predicate( 'owl:sameAs' ),
+			new Predicate( 'rdfs:subClassOf' ),
+			new Predicate( 'owl:sameAs' ),
+			new Predicate( 'owl:sameAs' ),
+		] );
+
+		$this->assertEquals(
+			[
+				new Predicate( 'foo:bar' ),
+				new Predicate( 'owl:sameAs' ),
+				new Predicate( 'rdfs:subClassOf' ),
+			],
+			$list->asArray()
+		);
+	}
+
 }

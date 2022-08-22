@@ -7,11 +7,23 @@ namespace ProfessionalWiki\WikibaseRDF\Application;
 class PredicateList {
 
 	/**
+	 * @var Predicate[]
+	 */
+	private array $predicates = [];
+
+	/**
 	 * @param Predicate[] $predicates
 	 */
 	public function __construct(
-		private array $predicates = []
+		array $predicates = []
 	) {
+		array_walk( $predicates, [ $this, 'addPredicate' ] ); // PHP 8.1: use first class callable
+	}
+
+	private function addPredicate( Predicate $predicate ): void {
+		if ( !in_array( $predicate, $this->predicates ) ) {
+			$this->predicates[] = $predicate;
+		}
 	}
 
 	public function plus( self $predicates ): self {
