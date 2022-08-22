@@ -18,7 +18,7 @@
 	"wikibase-rdf-save-mappings-invalid-mappings": "This is an error message.",
 	"wikibase-rdf-save-mappings-save-failed": "This is an error message.",
 	"wikibase-rdf-entity-id-invalid": "This is an error message.",
-	"wikibase-rdf-permission-denied": "This is an error message.",
+	"wikibase-rdf-permission-denied": "This is an error message. Mappings as in RDF mappings.",
 	"wikibase-rdf-config-intro": "This is the text shown at the top of the form on \"MediaWiki:MappingPredicates\" when editing.",
 	"wikibase-rdf-config-invalid": "Error message shown when attempting to save invalid configuration on \"MediaWiki:MappingPredicates\"",
 	"wikibase-rdf-config-list-intro": "This is the text shown at the top of \"MediaWiki:MappingPredicates\" when viewing.",

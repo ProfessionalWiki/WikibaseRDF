@@ -15,5 +15,9 @@
 	"wikibase-rdf-mappings-action-add": "Zuordnung hinzufügen",
 	"wikibase-rdf-save-mappings-invalid-mappings": "Von Dir vorgenommene Zuordnungen sind ungültig",
 	"wikibase-rdf-save-mappings-save-failed": "Speichern fehlgeschlagen",
-	"wikibase-rdf-entity-id-invalid": "Die von Dir angegebene Entitätskennung ist ungültig"
+	"wikibase-rdf-entity-id-invalid": "Die von Dir angegebene Entitätskennung ist ungültig",
+	"wikibase-rdf-permission-denied": "Du bist nicht berechtigt, die RDF-Zuordnungen zu dieser Entität zu bearbeiten",
+	"wikibase-rdf-config-intro": "Das Entfernen von RDF-Prädikaten, die im Wiki genutzt werden, verursacht Probleme mit der Eingabemaske. Davon wird daher abgeraten.",
+	"wikibase-rdf-config-invalid": "{{PLURAL:$1|Ungültiges RDF-Prädikat|Ungültige RDF-Prädikate}}:\n$2. Die Änderungen wurden nicht gespeichert.",
+	"special-mapping-predicates": "RDF-Prädikate zuordnen"
 }
