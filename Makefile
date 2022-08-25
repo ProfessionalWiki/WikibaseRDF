@@ -7,6 +7,9 @@ cs: phpcs stan psalm
 phpunit:
 	php ../../tests/phpunit/phpunit.php -c phpunit.xml.dist
 
+perf:
+	php ../../tests/phpunit/phpunit.php -c phpunit.xml.dist --group Performance
+
 phpcs:
 	cd ../.. && vendor/bin/phpcs -p -s --standard=$(shell pwd)/phpcs.xml
 
