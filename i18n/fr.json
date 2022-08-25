@@ -19,7 +19,11 @@
 	"wikibase-rdf-save-mappings-save-failed": "Échec de la sauvegarde",
 	"wikibase-rdf-entity-id-invalid": "L’identifiant d’entité que vous avez spécifié n’est pas valide",
 	"wikibase-rdf-permission-denied": "Vous n’avez pas le droit de modifier les correspondances de cette entité",
-	"wikibase-rdf-config-intro": "Supprimer les prédicats utilisés dans votre wiki casse l’IHM de modification et n’est pas recommandé",
-	"wikibase-rdf-config-invalid": "Prédicats non valides :\n$1. Vos modifications n’ont pas été enregistrées.",
+	"wikibase-rdf-config-intro": "Supprimer les prédicats utilisés dans votre wiki casse l’IHM de modification et n’est pas recommandé.",
+	"wikibase-rdf-config-invalid": "Prédicat{{PLURAL:$1||s}} non valide{{PLURAL:$1||s}} :\n$2. Vos modifications n’ont pas été enregistrées.",
+	"wikibase-rdf-config-list-intro": "Cette page définit quels prédicats peuvent être utilisés dans les correspondances vers d’autres ontologies. Cette fonctionnalité fait partie de l’<a href=\"https://www.mediawiki.org/wiki/Extension:WikibaseRDF\">extension Wikibase RDF</a>.",
+	"wikibase-rdf-config-list-heading": "Prédicat{{PLURAL:$1||s}} autorisé{{PLURAL:$1||s}} :",
+	"wikibase-rdf-config-list-empty": "Aucun prédicat n’est défini.",
+	"wikibase-rdf-config-list-footer": "Défini dans « LocalSettings.php », ne peut pas être modifié via cette page.",
 	"special-mapping-predicates": "Prédicats de correspondance"
 }

@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Winston Sung"
+		]
+	},
+	"wikibase-rdf-mappings-object-heading": "URL",
+	"wikibase-rdf-mappings-action-save": "儲存",
+	"wikibase-rdf-mappings-action-remove": "移除",
+	"wikibase-rdf-mappings-action-cancel": "取消",
+	"wikibase-rdf-mappings-action-edit": "編輯",
+	"wikibase-rdf-save-mappings-save-failed": "儲存失敗"
+}
