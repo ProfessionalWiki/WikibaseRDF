@@ -13,11 +13,15 @@
 	"wikibase-rdf-mappings-action-cancel": "abbrechen",
 	"wikibase-rdf-mappings-action-edit": "bearbeiten",
 	"wikibase-rdf-mappings-action-add": "Zuordnung hinzufügen",
-	"wikibase-rdf-save-mappings-invalid-mappings": "Von Dir vorgenommene Zuordnungen sind ungültig",
+	"wikibase-rdf-save-mappings-invalid-mappings": "Von Dir vorgenommene Zuordnungen sind ungültig.",
 	"wikibase-rdf-save-mappings-save-failed": "Speichern fehlgeschlagen",
-	"wikibase-rdf-entity-id-invalid": "Die von Dir angegebene Entitätskennung ist ungültig",
-	"wikibase-rdf-permission-denied": "Du bist nicht berechtigt, die RDF-Zuordnungen zu dieser Entität zu bearbeiten",
+	"wikibase-rdf-entity-id-invalid": "Die von Dir angegebene Entitätskennung ist ungültig.",
+	"wikibase-rdf-permission-denied": "Du bist nicht berechtigt, die RDF-Zuordnungen zu dieser Entität zu bearbeiten.",
 	"wikibase-rdf-config-intro": "Das Entfernen von RDF-Prädikaten, die im Wiki genutzt werden, verursacht Probleme mit der Eingabemaske. Davon wird daher abgeraten.",
 	"wikibase-rdf-config-invalid": "{{PLURAL:$1|Ungültiges RDF-Prädikat|Ungültige RDF-Prädikate}}:\n$2. Die Änderungen wurden nicht gespeichert.",
+	"wikibase-rdf-config-list-intro": "Diese Seite gibt an, welche Prädikate für die Zuordnungen zu anderen Ontologien verwendet werden können. Diese Funktionalität ist Teil der <a href=\"https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:WikibaseRDF\">„Erweiterung Wikibase RDF“</a>.",
+	"wikibase-rdf-config-list-heading": "{{PLURAL:$1|Zulässiges RDF-Prädikat|Zulässige RDF-Prädikate}}:",
+	"wikibase-rdf-config-list-empty": "Es wurden bislang keine RDF-Prädikate festgelegt.",
+	"wikibase-rdf-config-list-footer": "Dies wird in der Konfigurationsdatei „LocalSettings.php“ festgelegt und kann nicht auf dieser Seite verändert werden.",
 	"special-mapping-predicates": "RDF-Prädikate zuordnen"
 }

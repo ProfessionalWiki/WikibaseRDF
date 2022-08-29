@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Yupik"
+		]
+	},
+	"wikibase-rdf-mappings-object-heading": "URL",
+	"wikibase-rdf-mappings-action-save": "ruõkk",
+	"wikibase-rdf-mappings-action-remove": "jaukkâd",
+	"wikibase-rdf-mappings-action-cancel": "jõõsk",
+	"wikibase-rdf-mappings-action-edit": "muuʹtt",
+	"wikibase-rdf-save-mappings-save-failed": "Ruõkkmõš ij oʹnnstam"
+}

@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hanna Tardos"
+		]
+	},
+	"wikibase-rdf-mappings-predicate-heading": "Kapcsolat",
+	"wikibase-rdf-mappings-object-heading": "URL",
+	"wikibase-rdf-mappings-action-save": "mentés",
+	"wikibase-rdf-mappings-action-remove": "eltávolítás",
+	"wikibase-rdf-mappings-action-cancel": "mégsem",
+	"wikibase-rdf-mappings-action-edit": "szerkesztés",
+	"wikibase-rdf-save-mappings-save-failed": "Sikertelen mentés"
+}
