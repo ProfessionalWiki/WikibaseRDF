@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"আজিজ"
+			"আজিজ",
+			"আফতাবুজ্জামান"
 		]
 	},
 	"wikibase-rdf-mappings-predicate-heading": "সম্পর্ক",
@@ -12,5 +13,5 @@
 	"wikibase-rdf-mappings-action-edit": "সম্পাদনা",
 	"wikibase-rdf-save-mappings-save-failed": "সংরক্ষণ ব্যর্থ হয়েছে",
 	"wikibase-rdf-permission-denied": "আপনার এই সত্তার মানচিত্রয়ন সম্পাদনা করার অনুমতি নেই",
-	"wikibase-rdf-config-invalid": "অবৈধ পূর্বাভাস:\n$1। পরিবর্তন সংরক্ষিত হয়নি।"
+	"wikibase-rdf-config-invalid": "{{PLURAL:$1|বিধেয়}} বৈধ নয়:\n$2। আপনার পরিবর্তন সংরক্ষিত হয়নি।"
 }
