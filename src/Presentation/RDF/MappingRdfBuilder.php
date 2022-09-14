@@ -51,7 +51,7 @@ class MappingRdfBuilder implements EntityRdfBuilder {
 	private function addMapping( Mapping $mapping ): void {
 		$this->writer
 			->say( $mapping->getPredicateBase(), $mapping->getPredicateLocal() )
-			->text( $mapping->object );
+			->is( $mapping->object );
 	}
 
 }
