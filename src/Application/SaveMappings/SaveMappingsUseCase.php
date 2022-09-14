@@ -112,7 +112,8 @@ class SaveMappingsUseCase {
 		return $predicate !== ''
 			&& $object !== ''
 			&& str_contains( $predicate, ':' )
-			&& $this->allowedPredicates->contains( $predicate );
+			&& $this->allowedPredicates->contains( $predicate )
+			&& filter_var( $object, FILTER_VALIDATE_URL ) !== false;
 	}
 
 }

@@ -99,7 +99,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$this->assertArrayHasKey( 'invalidMappings', $data );
 		$this->assertSame(
 			[
-				[ 'predicate' => '', 'object' => 'owl:subClassOf' ]
+				[ 'predicate' => '', 'object' => 'http://www.w3.org/2000/01/rdf-schema#subPropertyOf' ]
 			],
 			$data['invalidMappings']
 		);
@@ -145,7 +145,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$this->assertArrayHasKey( 'invalidMappings', $data );
 		$this->assertSame(
 			[
-				[ 'predicate' => '', 'object' => 'owl:subClassOf' ]
+				[ 'predicate' => '', 'object' => 'http://www.w3.org/2000/01/rdf-schema#subPropertyOf' ]
 			],
 			$data['invalidMappings']
 		);
@@ -191,7 +191,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$this->assertArrayHasKey( 'invalidMappings', $data );
 		$this->assertSame(
 			[
-				[ 'predicate' => '', 'object' => 'owl:subClassOf' ]
+				[ 'predicate' => '', 'object' => 'http://www.w3.org/2000/01/rdf-schema#subPropertyOf' ]
 			],
 			$data['invalidMappings']
 		);
@@ -261,6 +261,29 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		$this->assertSame(
 			[
 				[ 'predicate' => 'foo:bar', 'object' => 'http://example.com' ]
+			],
+			$data['invalidMappings']
+		);
+
+		$this->assertStringContainsString(
+			'wikibase-rdf-save-mappings-invalid-mappings',
+			$data['messageTranslations']['']
+		);
+	}
+
+	public function testObjectIsInvalid(): void {
+		$response = $this->doSaveMappingsRequest( 'Q1', $this->createInvalidObjectBody() );
+
+		$this->assertSame( 400, $response->getStatusCode() );
+		$this->assertSame( 'application/json', $response->getHeaderLine( 'Content-Type' ) );
+
+		$data = json_decode( $response->getBody()->getContents(), true );
+		$this->assertIsArray( $data );
+
+		$this->assertArrayHasKey( 'invalidMappings', $data );
+		$this->assertSame(
+			[
+				[ 'predicate' => 'rdf:sameAs', 'object' => 'notUrl' ]
 			],
 			$data['invalidMappings']
 		);
@@ -356,14 +379,14 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	private function createValidBody(): string {
 		return '[
 			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
-			{"predicate": "owl:sameAs", "object": "owl:subClassOf"}
+			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subPropertyOf"}
 		]';
 	}
 
 	private function createInvalidJsonBody(): string {
 		return '
 			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
-			{"predicate": "owl:sameAs", "object": "owl:subClassOf"}
+			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subPropertyOf"}
 		';
 	}
 
@@ -374,21 +397,21 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	private function createInvalidPredicateKeyBody(): string {
 		return '[
 			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
-			{"notPredicate": "owl:sameAs", "object": "owl:subClassOf"}
+			{"notPredicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subPropertyOf"}
 		]';
 	}
 
 	private function createInvalidObjectKeyBody(): string {
 		return '[
 			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
-			{"predicate": "owl:sameAs", "notObject": "owl:subClassOf"}
+			{"predicate": "owl:sameAs", "notObject": "http://www.w3.org/2000/01/rdf-schema#subPropertyOf"}
 		]';
 	}
 
 	private function createMissingPredicateBody(): string {
 		return '[
 			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
-			{"object": "owl:subClassOf"}
+			{"object": "http://www.w3.org/2000/01/rdf-schema#subPropertyOf"}
 		]';
 	}
 
@@ -416,7 +439,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 	private function createEmptyPredicateBody(): string {
 		return '[
 			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
-			{"predicate": "", "object": "owl:subClassOf"}
+			{"predicate": "", "object": "http://www.w3.org/2000/01/rdf-schema#subPropertyOf"}
 		]';
 	}
 
@@ -424,6 +447,13 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 		return '[
 			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
 			{"predicate": "owl:sameAs", "object": ""}
+		]';
+	}
+
+	private function createInvalidObjectBody(): string {
+		return '[
+			{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"},
+			{"predicate": "rdf:sameAs", "object": "notUrl"}
 		]';
 	}
 
