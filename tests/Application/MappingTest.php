@@ -37,15 +37,15 @@ class MappingTest extends TestCase {
 		new Mapping( 'notValid', 'http://www.w3.org/2000/01/rdf-schema#subClassOf' );
 	}
 
-	public function provideValidObject(): iterable {
+	public function provideValidObjects(): iterable {
 		yield 'Standard URL' => [ 'http://www.w3.org/2002/07/owl#sameAs' ];
-		yield 'Other protocol' => [ 'test://example.com' ];
+		yield 'Other protocol' => [ 'ftp://example.com' ];
 		yield 'Without TLD' => [ 'http://example' ];
 		yield 'Non-ASCII' => [ 'http://exåmple.com' ];
 	}
 
 	/**
-	 * @dataProvider provideValidObject
+	 * @dataProvider provideValidObjects
 	 */
 	public function testValidObject( string $object ): void {
 		$mapping = new Mapping( 'owl:sameAs', $object );

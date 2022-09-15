@@ -12,5 +12,8 @@
     <MixedArgumentTypeCoercion occurrences="1">
       <code>(array)$services-&gt;getMainConfig()-&gt;get( 'AvailableRights' )</code>
     </MixedArgumentTypeCoercion>
+    <MixedArrayAccess occurrences="1">
+      <code>WikibaseRepo::getSettings()-&gt;getSetting( 'string-limits' )['PT:url']</code>
+    </MixedArrayAccess>
   </file>
 </files>

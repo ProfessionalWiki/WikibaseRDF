@@ -19,7 +19,7 @@ class WikibaseUrlObjectValidator implements ObjectValidator {
 
 	public function isValid( string $object ): bool {
 		$value = new StringValue( $object );
-		foreach( $this->validators as $validator ) {
+		foreach ( $this->validators as $validator ) {
 			$result = $validator->validate( $value );
 			if ( !$result->isValid() ) {
 				return false;

@@ -222,13 +222,12 @@ class WikibaseRdfExtension {
 	 */
 	private function newUrlValidators(): array {
 		$factory = WikibaseRepo::getDefaultValidatorBuilders();
-		$constraints = WikibaseRepo::getSettings()
-			->getSetting( 'string-limits' )['PT:url'];
-		$maxLength = $constraints['length'];
+		$constraints = (array)WikibaseRepo::getSettings()->getSetting( 'string-limits' )['PT:url'];
+		$maxLength = (int)$constraints['length'];
 		return $factory->buildUrlValidators( $maxLength );
 	}
 
-	private function newObjectValidator(): WikibaseUrlObjectValidator {
+	public function newObjectValidator(): WikibaseUrlObjectValidator {
 		return new WikibaseUrlObjectValidator(
 			$this->newUrlValidators()
 		);
