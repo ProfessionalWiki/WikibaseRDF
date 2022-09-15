@@ -15,6 +15,10 @@ class Mapping {
 		if ( !str_contains( $this->predicate, ':' ) ) {
 			throw new InvalidArgumentException( 'Invalid predicate' );
 		}
+
+		if ( !str_contains( $this->object, '://' ) ) {
+			throw new InvalidArgumentException( 'Invalid object' );
+		}
 	}
 
 	public function getPredicateBase(): string {
