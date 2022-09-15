@@ -6,6 +6,7 @@ namespace ProfessionalWiki\WikibaseRDF\Application\SaveMappings;
 
 use ProfessionalWiki\WikibaseRDF\Application\EntityMappingsAuthorizer;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
+use ProfessionalWiki\WikibaseRDF\Application\ObjectValidator;
 use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
 use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
 use Throwable;
@@ -23,7 +24,8 @@ class SaveMappingsUseCase {
 		private PredicateList $allowedPredicates,
 		private EntityIdParser $entityIdParser,
 		private MappingListSerializer $mappingListSerializer,
-		private EntityMappingsAuthorizer $authorizer
+		private EntityMappingsAuthorizer $authorizer,
+		private ObjectValidator $objectValidator
 	) {
 	}
 
@@ -113,7 +115,7 @@ class SaveMappingsUseCase {
 			&& $object !== ''
 			&& str_contains( $predicate, ':' )
 			&& $this->allowedPredicates->contains( $predicate )
-			&& filter_var( $object, FILTER_VALIDATE_URL ) !== false;
+			&& $this->objectValidator->isValid( $object );
 	}
 
 }

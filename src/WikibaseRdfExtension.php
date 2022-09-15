@@ -10,6 +10,7 @@ use MediaWiki\Rest\ResponseFactory;
 use ProfessionalWiki\WikibaseRDF\Application\AllMappingsLookup;
 use ProfessionalWiki\WikibaseRDF\Application\EntityMappingsAuthorizer;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
+use ProfessionalWiki\WikibaseRDF\Application\WikibaseUrlObjectValidator;
 use ProfessionalWiki\WikibaseRDF\Application\PredicateList;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsUseCase;
@@ -35,6 +36,7 @@ use ProfessionalWiki\WikibaseRDF\Presentation\HtmlMappingsPresenter;
 use RequestContext;
 use Title;
 use User;
+use ValueValidators\ValueValidator;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\Repo\Store\EntityPermissionChecker;
@@ -153,7 +155,8 @@ class WikibaseRdfExtension {
 			$this->getAllowedPredicates(),
 			$this->newEntityIdParser(),
 			$this->newMappingListSerializer(),
-			$this->newEntityMappingsAuthorizer( $user )
+			$this->newEntityMappingsAuthorizer( $user ),
+			$this->newObjectValidator()
 		);
 	}
 
@@ -212,6 +215,23 @@ class WikibaseRdfExtension {
 
 	public function newHtmlPredicatesPresenter(): HtmlPredicatesPresenter {
 		return new HtmlPredicatesPresenter();
+	}
+
+	/**
+	 * @return ValueValidator[]
+	 */
+	private function newUrlValidators(): array {
+		$factory = WikibaseRepo::getDefaultValidatorBuilders();
+		$constraints = WikibaseRepo::getSettings()
+			->getSetting( 'string-limits' )['PT:url'];
+		$maxLength = $constraints['length'];
+		return $factory->buildUrlValidators( $maxLength );
+	}
+
+	private function newObjectValidator(): WikibaseUrlObjectValidator {
+		return new WikibaseUrlObjectValidator(
+			$this->newUrlValidators()
+		);
 	}
 
 }

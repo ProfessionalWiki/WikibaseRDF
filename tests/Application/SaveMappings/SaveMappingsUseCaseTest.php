@@ -12,9 +12,11 @@ use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsUseCase;
 use ProfessionalWiki\WikibaseRDF\MappingListSerializer;
 use ProfessionalWiki\WikibaseRDF\Persistence\InMemoryMappingRepository;
 use ProfessionalWiki\WikibaseRDF\Tests\TestDoubles\FailingEntityMappingsAuthorizer;
+use ProfessionalWiki\WikibaseRDF\Tests\TestDoubles\FailingObjectValidator;
 use ProfessionalWiki\WikibaseRDF\Tests\TestDoubles\PermissionDeniedMappingRepository;
 use ProfessionalWiki\WikibaseRDF\Tests\TestDoubles\SpySaveMappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Tests\TestDoubles\SucceedingEntityMappingsAuthorizer;
+use ProfessionalWiki\WikibaseRDF\Tests\TestDoubles\SucceedingObjectValidator;
 use ProfessionalWiki\WikibaseRDF\Tests\TestDoubles\ThrowingMappingRepository;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\DataModel\Entity\ItemId;
@@ -27,6 +29,7 @@ class SaveMappingsUseCaseTest extends TestCase {
 	private const VALID_PREDICATE = 'owl:sameAs';
 	private const INVALID_PREDICATE = 'invalid:predicate';
 	private const VALID_OBJECT = 'http://www.w3.org/2000/01/rdf-schema#subClassOf';
+	private const INVALID_OBJECT = 'owl:subClassOf';
 
 	private SpySaveMappingsPresenter $presenter;
 	private InMemoryMappingRepository $repository;
@@ -51,7 +54,8 @@ class SaveMappingsUseCaseTest extends TestCase {
 			new PredicateList( [ new Predicate( self::VALID_PREDICATE ) ] ),
 			new BasicEntityIdParser(),
 			new MappingListSerializer(),
-			$authorizer
+			$authorizer,
+			new SucceedingObjectValidator()
 		);
 	}
 
@@ -92,7 +96,7 @@ class SaveMappingsUseCaseTest extends TestCase {
 		);
 	}
 
-	public function testShouldShowInvalidMappings(): void {
+	public function testShouldShowInvalidMappingsWhenPredicateIsInvalid(): void {
 		$useCase = $this->newUseCase( $this->newSucceedingAuthorizer() );
 
 		$useCase->saveMappings(
@@ -115,6 +119,36 @@ class SaveMappingsUseCaseTest extends TestCase {
 		$this->assertFalse( $this->presenter->showedSaveFailed );
 	}
 
+	public function testShouldShowInvalidMappingsWhenObjectIsInvalid(): void {
+		$useCase = new SaveMappingsUseCase(
+			$this->presenter,
+			$this->repository,
+			new PredicateList( [ new Predicate( self::VALID_PREDICATE ) ] ),
+			new BasicEntityIdParser(),
+			new MappingListSerializer(),
+			$this->newSucceedingAuthorizer(),
+			new FailingObjectValidator()
+		);
+
+		$useCase->saveMappings(
+			'Q3',
+			[
+				[ 'predicate' => self::VALID_PREDICATE, 'object' => self::INVALID_OBJECT ],
+			]
+		);
+
+		$this->assertFalse( $this->presenter->showedSuccess );
+		$this->assertSame(
+			self::VALID_PREDICATE,
+			$this->presenter->invalidMappings[0]['predicate']
+		);
+		$this->assertSame(
+			self::INVALID_OBJECT,
+			$this->presenter->invalidMappings[0]['object']
+		);
+		$this->assertFalse( $this->presenter->showedSaveFailed );
+	}
+
 	public function testShouldShowSaveFailed(): void {
 		$useCase = new SaveMappingsUseCase(
 			$this->presenter,
@@ -122,7 +156,8 @@ class SaveMappingsUseCaseTest extends TestCase {
 			new PredicateList( [ new Predicate( self::VALID_PREDICATE ) ] ),
 			new BasicEntityIdParser(),
 			new MappingListSerializer(),
-			$this->newSucceedingAuthorizer()
+			$this->newSucceedingAuthorizer(),
+			new SucceedingObjectValidator()
 		);
 
 		$useCase->saveMappings(
@@ -144,7 +179,8 @@ class SaveMappingsUseCaseTest extends TestCase {
 			new PredicateList( [ new Predicate( self::VALID_PREDICATE ) ] ),
 			new BasicEntityIdParser(),
 			new MappingListSerializer(),
-			$this->newSucceedingAuthorizer()
+			$this->newSucceedingAuthorizer(),
+			new SucceedingObjectValidator()
 		);
 
 		$useCase->saveMappings(
@@ -164,7 +200,8 @@ class SaveMappingsUseCaseTest extends TestCase {
 			new PredicateList( [ new Predicate( self::VALID_PREDICATE ) ] ),
 			new BasicEntityIdParser(),
 			new MappingListSerializer(),
-			$this->newFailingAuthorizer()
+			$this->newFailingAuthorizer(),
+			new SucceedingObjectValidator()
 		);
 
 		$useCase->saveMappings(

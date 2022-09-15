@@ -37,10 +37,34 @@ class MappingTest extends TestCase {
 		new Mapping( 'notValid', 'http://www.w3.org/2000/01/rdf-schema#subClassOf' );
 	}
 
-	public function testInvalidObjectThrowsException(): void {
+	public function provideValidObject(): iterable {
+		yield 'Standard URL' => [ 'http://www.w3.org/2002/07/owl#sameAs' ];
+		yield 'Other protocol' => [ 'test://example.com' ];
+		yield 'Without TLD' => [ 'http://example' ];
+		yield 'Non-ASCII' => [ 'http://exåmple.com' ];
+	}
+
+	/**
+	 * @dataProvider provideValidObject
+	 */
+	public function testValidObject( string $object ): void {
+		$mapping = new Mapping( 'owl:sameAs', $object );
+
+		$this->assertSame( $object, $mapping->object );
+	}
+
+	public static function provideInvalidObjects(): iterable {
+		yield 'Missing protocol' => [ 'example.com' ];
+		yield 'Missing slash' => [ 'http:/example.com' ];
+	}
+
+	/**
+	 * @dataProvider provideInvalidObjects
+	 */
+	public function testInvalidObjectThrowsException( string $object ): void {
 		$this->expectException( InvalidArgumentException::class );
 
-		new Mapping( 'owl:sameAs', 'notValid' );
+		new Mapping( 'owl:sameAs', $object );
 	}
 
 }

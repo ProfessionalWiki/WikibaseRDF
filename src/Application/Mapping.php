@@ -16,7 +16,7 @@ class Mapping {
 			throw new InvalidArgumentException( 'Invalid predicate' );
 		}
 
-		if ( filter_var( $object, FILTER_VALIDATE_URL ) === false ) {
+		if ( !str_contains( $this->object, '://' ) ) {
 			throw new InvalidArgumentException( 'Invalid object' );
 		}
 	}
