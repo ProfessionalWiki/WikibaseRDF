@@ -29,10 +29,7 @@ class MappingListSerializer {
 	public function mappingListFromArray( array $mappings ): MappingList {
 		return new MappingList(
 			array_map(
-				fn( array $mapping ) => new Mapping(
-					predicate: $mapping[self::PREDICATE_KEY],
-					object: $mapping[self::OBJECT_KEY]
-				),
+				fn( array $mapping ) => $this->mappingFromArray( $mapping ),
 				$mappings
 			)
 		);
@@ -45,14 +42,21 @@ class MappingListSerializer {
 		$mappingObjects = [];
 		foreach ( $mappings as $mapping ) {
 			try {
-				$mappingObjects[] = new Mapping(
-					predicate: $mapping[self::PREDICATE_KEY],
-					object: $mapping[self::OBJECT_KEY]
-				);
+				$mappingObjects[] = $this->mappingFromArray( $mapping );
 			} catch ( InvalidArgumentException ) {
 			}
 		}
 		return new MappingList( $mappingObjects );
+	}
+
+	/**
+	 * @param array{predicate: string, object: string} $mapping
+	 */
+	private function mappingFromArray( array $mapping ): Mapping {
+		return new Mapping(
+			predicate: $mapping[self::PREDICATE_KEY],
+			object: $mapping[self::OBJECT_KEY]
+		);
 	}
 
 	public function toJson( MappingList $mappingList ): string {
