@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF;
 
+use InvalidArgumentException;
 use ProfessionalWiki\WikibaseRDF\Application\Mapping;
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;
 
@@ -16,7 +17,7 @@ class MappingListSerializer {
 		$array = json_decode( $json, true );
 
 		if ( is_array( $array ) ) {
-			return $this->mappingListFromArray( $array );
+			return $this->validMappingListFromArray( $array );
 		}
 
 		return new MappingList();
@@ -35,6 +36,23 @@ class MappingListSerializer {
 				$mappings
 			)
 		);
+	}
+
+	/**
+	 * @param array<int, array{predicate: string, object: string}> $mappings
+	 */
+	public function validMappingListFromArray( array $mappings ): MappingList {
+		$mappingObjects = [];
+		foreach ( $mappings as $mapping ) {
+			try {
+				$mappingObjects[] = new Mapping(
+					predicate: $mapping[self::PREDICATE_KEY],
+					object: $mapping[self::OBJECT_KEY]
+				);
+			} catch ( InvalidArgumentException ) {
+			}
+		}
+		return new MappingList( $mappingObjects );
 	}
 
 	public function toJson( MappingList $mappingList ): string {
