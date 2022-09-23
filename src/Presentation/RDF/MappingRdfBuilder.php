@@ -7,6 +7,7 @@ namespace ProfessionalWiki\WikibaseRDF\Presentation\RDF;
 use ProfessionalWiki\WikibaseRDF\Application\Mapping;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\Property;
 use Wikibase\Repo\Rdf\EntityRdfBuilder;
 use Wikimedia\Purtle\RdfWriter;
@@ -51,8 +52,14 @@ class MappingRdfBuilder implements EntityRdfBuilder {
 	 * @param Mapping[] $mappings
 	 */
 	private function addPropertyMappings( array $mappings, EntityDocument $entity ): void {
+		$id = $entity->getId();
+
+		if ( $id === null ) {
+			return;
+		}
+
 		foreach ( $mappings as $mapping ) {
-			$this->addPropertyMapping( $mapping, $entity );
+			$this->addPropertyMapping( $mapping, $id );
 		}
 	}
 
@@ -75,15 +82,9 @@ class MappingRdfBuilder implements EntityRdfBuilder {
 			->is( $mapping->object );
 	}
 
-	private function addPropertyMapping( Mapping $mapping, EntityDocument $entity ): void {
-		$id = $entity->getId();
-
-		if ( $id === null ) {
-			return;
-		}
-
+	private function addPropertyMapping( Mapping $mapping, EntityId $entityId ): void {
 		$this->writer
-			->about( 'wdt', $id->getLocalPart() )
+			->about( 'wdt', $entityId->getLocalPart() )
 			->a( 'owl', 'ObjectProperty' )
 			->say( $mapping->getPredicateBase(), $mapping->getPredicateLocal() )
 			->is( $mapping->object );
