@@ -7,6 +7,7 @@ namespace ProfessionalWiki\WikibaseRDF\Presentation\RDF;
 use ProfessionalWiki\WikibaseRDF\Application\Mapping;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Entity\Property;
 use Wikibase\Repo\Rdf\EntityRdfBuilder;
 use Wikimedia\Purtle\RdfWriter;
 
@@ -30,8 +31,28 @@ class MappingRdfBuilder implements EntityRdfBuilder {
 //			$this->vocabulary->getEntityLName( $entity->getId() )
 //		);
 
+		if ( $entity->getType() === Property::ENTITY_TYPE ) {
+			$this->addPropertyMappings( $mappings, $entity );
+		} else {
+			$this->addItemMappings( $mappings );
+		}
+	}
+
+	/**
+	 * @param Mapping[] $mappings
+	 */
+	private function addItemMappings( array $mappings ): void {
 		foreach ( $mappings as $mapping ) {
-			$this->addMapping( $mapping );
+			$this->addItemMapping( $mapping );
+		}
+	}
+
+	/**
+	 * @param Mapping[] $mappings
+	 */
+	private function addPropertyMappings( array $mappings, EntityDocument $entity ): void {
+		foreach ( $mappings as $mapping ) {
+			$this->addPropertyMapping( $mapping, $entity );
 		}
 	}
 
@@ -48,8 +69,22 @@ class MappingRdfBuilder implements EntityRdfBuilder {
 		return $this->repository->getMappings( $id )->asArray();
 	}
 
-	private function addMapping( Mapping $mapping ): void {
+	private function addItemMapping( Mapping $mapping ): void {
 		$this->writer
+			->say( $mapping->getPredicateBase(), $mapping->getPredicateLocal() )
+			->is( $mapping->object );
+	}
+
+	private function addPropertyMapping( Mapping $mapping, EntityDocument $entity ): void {
+		$id = $entity->getId();
+
+		if ( $id === null ) {
+			return;
+		}
+
+		$this->writer
+			->about( 'wdt', $id->getLocalPart() )
+			->a( 'owl', 'ObjectProperty' )
 			->say( $mapping->getPredicateBase(), $mapping->getPredicateLocal() )
 			->is( $mapping->object );
 	}
