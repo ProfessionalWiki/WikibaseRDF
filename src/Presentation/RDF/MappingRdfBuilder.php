@@ -16,7 +16,8 @@ class MappingRdfBuilder implements EntityRdfBuilder {
 
 	public function __construct(
 		private RdfWriter $writer,
-		private MappingRepository $repository
+		private MappingRepository $repository,
+		private PropertyMappingPrefixBuilder $propertyMappingPrefixBuilder
 	) {
 	}
 
@@ -84,7 +85,7 @@ class MappingRdfBuilder implements EntityRdfBuilder {
 
 	private function addPropertyMapping( Mapping $mapping, EntityId $entityId ): void {
 		$this->writer
-			->about( 'wdt', $entityId->getLocalPart() )
+			->about( $this->propertyMappingPrefixBuilder->getPrefix(), $entityId->getLocalPart() )
 			->a( 'owl', 'ObjectProperty' )
 			->say( $mapping->getPredicateBase(), $mapping->getPredicateLocal() )
 			->is( $mapping->object );

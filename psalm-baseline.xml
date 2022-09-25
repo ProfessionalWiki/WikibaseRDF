@@ -9,6 +9,9 @@
     </MixedAssignment>
   </file>
   <file src="src/WikibaseRdfExtension.php">
+    <MixedArgument occurrences="1">
+      <code>WikibaseRepo::getLocalEntitySource()-&gt;getRdfNodeNamespacePrefix()</code>
+    </MixedArgument>
     <MixedArgumentTypeCoercion occurrences="1">
       <code>(array)$services-&gt;getMainConfig()-&gt;get( 'AvailableRights' )</code>
     </MixedArgumentTypeCoercion>

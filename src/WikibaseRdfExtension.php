@@ -27,10 +27,10 @@ use ProfessionalWiki\WikibaseRDF\Persistence\SlotEntityContentRepository;
 use ProfessionalWiki\WikibaseRDF\Persistence\SqlAllMappingsLookup;
 use ProfessionalWiki\WikibaseRDF\Persistence\UserBasedEntityMappingsAuthorizer;
 use ProfessionalWiki\WikibaseRDF\Presentation\HtmlPredicatesPresenter;
-use ProfessionalWiki\WikibaseRDF\Presentation\MappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Presentation\RDF\MappingRdfBuilder;
 use ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\GetMappingsApi;
 use ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\SaveMappingsApi;
+use ProfessionalWiki\WikibaseRDF\Presentation\RDF\PropertyMappingPrefixBuilder;
 use ProfessionalWiki\WikibaseRDF\Presentation\RestSaveMappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Presentation\HtmlMappingsPresenter;
 use RequestContext;
@@ -91,7 +91,14 @@ class WikibaseRdfExtension {
 	public function newMappingRdfBuilder( RdfWriter $writer ): MappingRdfBuilder {
 		return new MappingRdfBuilder(
 			$writer,
-			$this->newMappingRepository( RequestContext::getMain()->getUser() )
+			$this->newMappingRepository( RequestContext::getMain()->getUser() ),
+			$this->newPropertyMappingPrefixBuilder()
+		);
+	}
+
+	private function newPropertyMappingPrefixBuilder(): PropertyMappingPrefixBuilder {
+		return new PropertyMappingPrefixBuilder(
+			WikibaseRepo::getLocalEntitySource()->getRdfNodeNamespacePrefix()
 		);
 	}
 
