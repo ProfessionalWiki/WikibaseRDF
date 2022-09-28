@@ -46,6 +46,19 @@ class HtmlMappingsPresenterTest extends TestCase {
 		$this->assertStringContainsString( $mapping2->object, $html );
 	}
 
+	public function testMappingUrlIsALink(): void {
+		$presenter = new HtmlMappingsPresenter( $this->getAllowedPredicates(), false );
+		$mapping = new Mapping( 'owl:sameAs', 'http://www.w3.org/2000/01/rdf-schema#subClassOf' );
+
+		$presenter->showMappings(
+			new MappingList( [ $mapping ] ),
+			true
+		);
+		$html = $presenter->getHtml();
+
+		$this->assertStringContainsString( '<a href="' . $mapping->object . '"', $html );
+	}
+
 	public function testEditActionsAreDisplayed(): void {
 		$presenter = new HtmlMappingsPresenter( $this->getAllowedPredicates(), false );
 		$mapping1 = new Mapping( 'owl:sameAs', 'http://www.w3.org/2000/01/rdf-schema#subClassOf' );
