@@ -95,9 +95,13 @@ class HtmlMappingsPresenter implements MappingsPresenter {
 			'tr',
 			[ 'class' => 'wikibase-rdf-row', 'data-predicate' => $relationship, 'data-object' => $url ],
 			Html::element( 'td', [ 'class' => 'wikibase-rdf-predicate' ], $relationship )
-				. Html::element( 'td', [ 'class' => 'wikibase-rdf-object' ], $url )
+				. Html::rawElement( 'td', [ 'class' => 'wikibase-rdf-object' ], $this->createObjectLink( $url ) )
 				. Html::rawElement( 'td', [ 'class' => 'wikibase-rdf-actions' ], $this->createEditButton( $canEdit ) )
 		);
+	}
+
+	private function createObjectLink( string $url ): string {
+		return Html::element( 'a', [ 'href' => $url, 'rel' => 'nofollow', 'class' => 'external' ], $url );
 	}
 
 	private function createEditButton( bool $canEdit ): string {

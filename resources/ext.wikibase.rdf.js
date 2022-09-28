@@ -56,6 +56,14 @@ $( function () {
 		$( '.wikibase-rdf-error' ).text( error ).show();
 	}
 
+	function createObjectLink( url ) {
+		const link = document.createElement( 'a' );
+		link.href = url;
+		link.text = url;
+		link.classList.add( 'external' );
+		return $( link );
+	}
+
 	function onSuccessfulSave( trigger ) {
 		console.log( 'onSuccessfulSave' );
 		const $row = findRow( trigger );
@@ -67,7 +75,7 @@ $( function () {
 
 		$row.html( $( '.wikibase-rdf-row-template' ).html() );
 		$row.find( '.wikibase-rdf-predicate' ).text( $row.data( 'predicate' ) );
-		$row.find( '.wikibase-rdf-object' ).text( $row.data( 'object' ) );
+		$row.find( '.wikibase-rdf-object' ).append( createObjectLink( $row.data( 'object' ) ) );
 	}
 
 	function onSuccessfulRemove( trigger ) {
