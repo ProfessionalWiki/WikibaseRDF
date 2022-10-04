@@ -23,8 +23,23 @@ It was conceived and funded by the [Wikibase Stakeholder Group].
 
 ## Usage
 
-TODO
+When the extension is enabled, Item and Property pages show a "Mapping to other ontologies" section.
+This section is located in between the "In more languages" and "Statements" sections.
 
+<img src="https://user-images.githubusercontent.com/146040/193851219-dc30080a-7cbb-4c1a-9800-e7c7d98ef644.png" style="border: 1px solid black" alt="Property page with a mapping">
+
+Users with editing permissions can add, edit or remove mappings.
+
+A mapping consists of a predicate and a URL. The predicate can only be one out of a preconfigured set of values. The URL has to be a valid URL.
+
+<img src="https://user-images.githubusercontent.com/146040/193851211-b4031ca1-4cc9-47ab-9160-658f4a38d979.png" style="border: 1px solid black" alt="Mapping editing UI">
+
+Mapping predicates can be configured via the `MediaWiki:MappingPredicates` page by anyone with interface-admin permissions.
+You can also configure mapping predicates via [PHP Configuration](#php-configuration).
+
+<img src="https://user-images.githubusercontent.com/146040/193851215-86b8ad05-0c1a-431c-ad4b-5750997fd642.png" style="border: 1px solid black" alt="Mapping predicates configuration page">
+
+<img src="https://user-images.githubusercontent.com/146040/193854181-af8b85f2-1444-4882-a0af-d8123331f30c.png" style="border: 1px solid black" alt="Editing mapping predicates via the configuration page">
 
 ### REST API
 
@@ -83,6 +98,8 @@ $wgWikibaseRdfPredicates = [
 ];
 ```
 
+You can also configure what predicates are allowed via the `MediaWiki:MappingPredicates` page.
+
 ## Development
 
 To ensure the dev dependencies get installed, have this in your `composer.local.json`:
@@ -120,7 +137,7 @@ Alternatively, you can execute commands from the MediaWiki root directory:
 
 ## Release notes
 
-### Version 1.0.0 - TBD
+### Version 1.0.0 - 2022-10-04
 
 Initial release for Wikibase 1.37 with these features:
 
