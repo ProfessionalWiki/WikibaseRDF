@@ -3,12 +3,13 @@
 		"authors": [
 			"Eihel",
 			"Gomoko",
-			"Verdy p"
+			"Verdy p",
+			"Wladek92"
 		]
 	},
 	"wikibase-rdf-description": "Extension Wikibase qui permet de définir des correspondances RDF pour les entités Wikibase",
 	"wikibase-rdf-mappings-toggler": "Correspondance vers d’autres ontologies",
-	"wikibase-rdf-mappings-predicate-heading": "Relation",
+	"wikibase-rdf-mappings-predicate-heading": "Prédicat",
 	"wikibase-rdf-mappings-object-heading": "URL",
 	"wikibase-rdf-mappings-action-save": "enregistrer",
 	"wikibase-rdf-mappings-action-remove": "retirer",
