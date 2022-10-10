@@ -6,7 +6,7 @@
 	},
 	"wikibase-rdf-description": "Wikibase-tillägg som gör det möjligt att definiera RDF-kartläggningar för Wikibase-entiteter",
 	"wikibase-rdf-mappings-toggler": "Kartläggning till andra ontologier",
-	"wikibase-rdf-mappings-predicate-heading": "Förhållande",
+	"wikibase-rdf-mappings-predicate-heading": "Predikat",
 	"wikibase-rdf-mappings-object-heading": "URL",
 	"wikibase-rdf-mappings-action-save": "spara",
 	"wikibase-rdf-mappings-action-remove": "ta bort",
@@ -15,5 +15,12 @@
 	"wikibase-rdf-mappings-action-add": "spara kartläggning",
 	"wikibase-rdf-save-mappings-invalid-mappings": "Vissa kartläggningar du angett är ogiltiga",
 	"wikibase-rdf-save-mappings-save-failed": "Kunde inte spara",
-	"wikibase-rdf-entity-id-invalid": "Entitets-ID:t du angett är ogiltigt"
+	"wikibase-rdf-entity-id-invalid": "Entitets-ID:t du angett är ogiltigt",
+	"wikibase-rdf-permission-denied": "Du har inte behörighet att redigera detta entitets kartläggningar",
+	"wikibase-rdf-config-invalid": "{{PLURAL:$1|Ogiltigt predikat|Ogiltiga predikat}}:\n$2. Dina ändringar sparades inte.",
+	"wikibase-rdf-config-list-intro": "Denna sida definierar vilka predikat som kan användas i kartläggningar till andra ontologier. Denna funktion är en del av <a href=\"https://www.mediawiki.org/wiki/Extension:WikibaseRDF\">tillägget Wikibase RDF</a>.",
+	"wikibase-rdf-config-list-heading": "{{PLURAL:$1|Tillåtet predikat|Tillåtna predikat}}:",
+	"wikibase-rdf-config-list-empty": "Inga predikat har definierats.",
+	"wikibase-rdf-config-list-footer": "Definierats i LocalSettings.php, kan inte ändras via den här sidan.",
+	"special-mapping-predicates": "Kartläggningspredikat"
 }

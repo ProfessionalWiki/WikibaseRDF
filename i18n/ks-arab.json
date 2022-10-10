@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Tajamul9"
+		]
+	},
+	"wikibase-rdf-mappings-predicate-heading": "پیشن گوئ کرٕنی",
+	"wikibase-rdf-mappings-object-heading": "URL",
+	"wikibase-rdf-mappings-action-save": "مَحفوٗظ",
+	"wikibase-rdf-mappings-action-remove": "ہَٹٲوِو",
+	"wikibase-rdf-mappings-action-cancel": "مَنسوٗخ",
+	"wikibase-rdf-mappings-action-edit": "اؠڈِٹ"
+}
