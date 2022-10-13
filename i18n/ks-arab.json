@@ -9,5 +9,6 @@
 	"wikibase-rdf-mappings-action-save": "مَحفوٗظ",
 	"wikibase-rdf-mappings-action-remove": "ہَٹٲوِو",
 	"wikibase-rdf-mappings-action-cancel": "مَنسوٗخ",
-	"wikibase-rdf-mappings-action-edit": "اؠڈِٹ"
+	"wikibase-rdf-mappings-action-edit": "اؠڈِٹ",
+	"wikibase-rdf-config-intro": "."
 }
