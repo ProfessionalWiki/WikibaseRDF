@@ -5,7 +5,7 @@
 		]
 	},
 	"wikibase-rdf-name": "Wikibase RDF",
-	"wikibase-rdf-description": "Wikibase extension that allows defining RDF mappings for Wikibase Entities",
+	"wikibase-rdf-description": "Allows defining RDF mappings for Wikibase Entities",
 
 	"wikibase-rdf-mappings-toggler": "Mapping to other ontologies",
 	"wikibase-rdf-mappings-predicate-heading": "Predicate",
