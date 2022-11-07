@@ -1,0 +1,26 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hamilton Abreu"
+		]
+	},
+	"wikibase-rdf-description": "Permite definir mapeamentos RDF para entidades Wikibase",
+	"wikibase-rdf-mappings-toggler": "Mapeamento para outras ontologias",
+	"wikibase-rdf-mappings-predicate-heading": "Predicado",
+	"wikibase-rdf-mappings-object-heading": "URL",
+	"wikibase-rdf-mappings-action-save": "gravar",
+	"wikibase-rdf-mappings-action-remove": "remover",
+	"wikibase-rdf-mappings-action-cancel": "cancelar",
+	"wikibase-rdf-mappings-action-edit": "editar",
+	"wikibase-rdf-mappings-action-add": "adicionar mapeamento",
+	"wikibase-rdf-save-mappings-invalid-mappings": "Alguns dos mapeamentos que especificou são inválidos",
+	"wikibase-rdf-save-mappings-save-failed": "A gravação falhou",
+	"wikibase-rdf-entity-id-invalid": "O identificador da entidade que especificou é inválido",
+	"wikibase-rdf-permission-denied": "Não tem permissão para editar os mapeamentos desta entidade",
+	"wikibase-rdf-config-invalid": "{{PLURAL:$1|Predicado inválido|Predicados inválidos}}:\n$2. As suas alterações não foram gravadas.",
+	"wikibase-rdf-config-list-intro": "Esta página define os predicados que podem ser usados em mapeamentos para outras ontologias. Esta funcionalidade faz parte da <a href=\"https://www.mediawiki.org/wiki/Extension:WikibaseRDF\">extensão Wikibase RDF</a> .",
+	"wikibase-rdf-config-list-heading": "{{PLURAL:$1|Predicado permitido|Predicados permitidos}}:",
+	"wikibase-rdf-config-list-empty": "Não está definido nenhum predicado.",
+	"wikibase-rdf-config-list-footer": "Definido em LocalSettings.php, não pode ser modificado através desta página.",
+	"special-mapping-predicates": "Predicados de mapeamento"
+}
