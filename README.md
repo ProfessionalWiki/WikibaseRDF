@@ -23,7 +23,7 @@ It was conceived and funded by the [Wikibase Stakeholder Group].
 
 ## Usage
 
-When the extension is enabled, Item and Property pages show a "Mapping to other entities" section.
+When the extension is enabled, Item and Property pages show a "Mapping to other ontologies" section.
 This section is located in between the "In more languages" and "Statements" sections.
 
 <img src="https://user-images.githubusercontent.com/146040/193851219-dc30080a-7cbb-4c1a-9800-e7c7d98ef644.png" style="border: 1px solid black" alt="Property page with a mapping">
