@@ -24,7 +24,6 @@ $( function () {
 	}
 
 	function clickAdd( event ) {
-		console.log( 'clickAdd' );
 		event.preventDefault();
 
 		const $row = $( '.wikibase-rdf-row-editing-template' ).clone();
@@ -36,7 +35,6 @@ $( function () {
 	}
 
 	function clickEdit( event ) {
-		console.log( 'clickEdit' );
 		event.preventDefault();
 
 		const $row = findRow( event.target );
@@ -47,12 +45,10 @@ $( function () {
 	}
 
 	function hideError() {
-		console.log( 'hideError' );
 		$( '.wikibase-rdf-error' ).hide();
 	}
 
 	function showError( error ) {
-		console.log( 'showError' );
 		$( '.wikibase-rdf-error' ).text( error ).show();
 	}
 
@@ -65,7 +61,6 @@ $( function () {
 	}
 
 	function onSuccessfulSave( trigger ) {
-		console.log( 'onSuccessfulSave' );
 		const $row = findRow( trigger );
 		$row.data( 'predicate', $row.find( '[name="wikibase-rdf-predicate"]' ).val() );
 		$row.data( 'object', $row.find( '[name="wikibase-rdf-object"]' ).val() );
@@ -79,22 +74,18 @@ $( function () {
 	}
 
 	function onSuccessfulRemove( trigger ) {
-		console.log( 'removed' );
 		findRow( trigger ).remove();
 	}
 
 	function disableActions() {
-		console.log( 'disableActions' );
 		$( '#wikibase-rdf' ).addClass( 'wikibase-rdf-disabled' );
 	}
 
 	function enableActions() {
-		console.log( 'enableActions' );
 		$( '#wikibase-rdf' ).removeClass( 'wikibase-rdf-disabled' );
 	}
 
 	function saveMappings( trigger ) {
-		console.log( 'saveMappings' );
 		disableActions();
 
 		const mappings = [];
@@ -147,13 +138,13 @@ $( function () {
 			.fail( function ( data, response ) {
 				const userLang = mw.config.get( 'wgUserLanguage' );
 				const siteLang = mw.config.get( 'wgContentLanguage' );
-				if ( response.xhr.responseJSON.hasOwnProperty( 'messageTranslations' ) ) {
+				if ( Object.prototype.hasOwnProperty.call( response.xhr.responseJSON, 'messageTranslations' ) ) {
 					if ( userLang in response.xhr.responseJSON.messageTranslations ) {
-						showError( response.xhr.responseJSON.messageTranslations[userLang] );
+						showError( response.xhr.responseJSON.messageTranslations[ userLang ] );
 					} else if ( siteLang in response.xhr.responseJSON.messageTranslations ) {
-						showError( response.xhr.responseJSON.messageTranslations[siteLang] );
+						showError( response.xhr.responseJSON.messageTranslations[ siteLang ] );
 					} else {
-						showError( response.xhr.responseJSON.messageTranslations['en'] );
+						showError( response.xhr.responseJSON.messageTranslations.en );
 					}
 				} else {
 					// TOOD: Handle other message structures
@@ -164,19 +155,16 @@ $( function () {
 	}
 
 	function clickSave( event ) {
-		console.log( 'clickSave' );
 		event.preventDefault();
 		saveMappings( event.target );
 	}
 
 	function clickRemove( event ) {
-		console.log( 'clickRemove' );
 		event.preventDefault();
 		saveMappings( event.target );
 	}
 
 	function clickCancel( event ) {
-		console.log( 'clickCancel' );
 		event.preventDefault();
 
 		const $row = findRow( event.target );
