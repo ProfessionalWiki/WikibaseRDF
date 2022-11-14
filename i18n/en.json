@@ -29,7 +29,7 @@
 	"wikibase-rdf-config-list-empty": "No predicates are defined.",
 	"wikibase-rdf-config-list-footer": "Defined in LocalSettings.php, cannot be modified via this page.",
 
-	"wikibase-rdf-property-edit-warning": "By clicking \"$1\" you are creating a permanent statement in the triplestore. Please be advised that any subsequent edits or deletions of property mappings will require a reset of the triplestore in order to clear outdated mappings. This does not apply to item mappings",
+	"wikibase-rdf-property-edit-warning": "By clicking \"$1\" you are creating a permanent statement in the triplestore. Please be advised that any subsequent edits to the property will require a reset of the triplestore in order to clear outdated mappings. This does not apply to item mappings",
 	"wikibase-rdf-property-edit-warning-version": "wikibase-rdf-1",
 	"wikibase-rdf-property-edit-warning-acknowledge": "Do not show this message again.",
 
