@@ -12,6 +12,7 @@
 	"rules": {
 		"no-jquery/no-parse-html-literal": "warn",
 		"no-jquery/no-global-selector": "warn",
+		"no-jquery/no-class-state": "warn",
 		"mediawiki/msg-doc": "warn"
 	}
 }
