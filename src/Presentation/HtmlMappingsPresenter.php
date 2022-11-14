@@ -20,9 +20,9 @@ class HtmlMappingsPresenter implements MappingsPresenter {
 	}
 
 	public function showMappings( MappingList $mappingList, bool $canEdit ): void {
-		$this->response = '<div id="wikibase-rdf" style="display: none;">'
-			. '<div id="wikibase-rdf-toggler"></div>'
-			. '<div class id="wikibase-rdf-mappings">'
+		$this->response = '<div class="wikibase-rdf" style="display: none;">'
+			. '<div class="wikibase-rdf-toggler"></div>'
+			. '<div class="wikibase-rdf-mappings">'
 			. '<table>'
 			. $this->createHeader()
 			. '<tbody class="wikibase-rdf-rows">'
@@ -38,7 +38,7 @@ class HtmlMappingsPresenter implements MappingsPresenter {
 	}
 
 	private function createHeader(): string {
-		return '<thead id="wikibase-rdf-header"><tr>'
+		return '<thead class="wikibase-rdf-header"><tr>'
 			. '<th class="wikibase-rdf-mappings-predicate-heading">' . $this->msg( 'wikibase-rdf-mappings-predicate-heading' )->escaped() . '</th>'
 			. '<th class="wikibase-rdf-mappings-object-heading">' . $this->msg( 'wikibase-rdf-mappings-object-heading' )->escaped() . '</th>'
 			. '<th class="wikibase-rdf-mappings-actions-heading"></th>'

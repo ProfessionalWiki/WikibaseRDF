@@ -7,13 +7,13 @@ $( function () {
 
 	function moveSection() {
 		// Move Mappings before Statements section.
-		$( '#wikibase-rdf' ).insertBefore( $( 'h2.wikibase-statements' ) ).show();
+		$( '.wikibase-rdf' ).insertBefore( $( 'h2.wikibase-statements' ) ).show();
 	}
 
 	function addToggler() {
 		// TODO: toggler state needs to be remembered.
-		const toggler = $( '#wikibase-rdf-toggler' ).toggler( {
-			$subject: $( '#wikibase-rdf-mappings' ),
+		const toggler = $( '.wikibase-rdf-toggler' ).toggler( {
+			$subject: $( '.wikibase-rdf-mappings' ),
 			visible: false
 		} );
 		toggler.find( '.ui-toggler-label' ).text( mw.msg( 'wikibase-rdf-mappings-toggler' ) );
@@ -141,11 +141,11 @@ $( function () {
 	}
 
 	function disableActions() {
-		$( '#wikibase-rdf' ).addClass( 'wikibase-rdf-disabled' );
+		$( '.wikibase-rdf' ).addClass( 'wikibase-rdf-disabled' );
 	}
 
 	function enableActions() {
-		$( '#wikibase-rdf' ).removeClass( 'wikibase-rdf-disabled' );
+		$( '.wikibase-rdf' ).removeClass( 'wikibase-rdf-disabled' );
 	}
 
 	function saveMappings( trigger ) {
@@ -247,7 +247,7 @@ $( function () {
 
 	function setupEvents() {
 		$( '.wikibase-rdf-action-add' ).on( 'click', clickAdd );
-		$( '#wikibase-rdf' )
+		$( '.wikibase-rdf' )
 			.on( 'click', '.wikibase-rdf-action-edit', clickEdit )
 			.on( 'click', '.wikibase-rdf-action-save', clickSave )
 			.on( 'click', '.wikibase-rdf-action-remove', clickRemove )
