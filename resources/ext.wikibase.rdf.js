@@ -23,6 +23,65 @@ $( function () {
 		return $( element ).parents( '.wikibase-rdf-row' );
 	}
 
+	function showPropertyEditWarning( $anchor ) {
+		if ( mw.config.get( 'wgCanonicalNamespace' ) !== 'Property' ) {
+			return;
+		}
+
+		const version = mw.msg( 'wikibase-rdf-property-edit-warning-version' ),
+			cookieKey = 'wikibase-rdf.acknowledge-property-edit',
+			optionsKey = 'wikibase-rdf-acknowledge-property-edit';
+
+		if ( mw.cookie.get( cookieKey ) === version ||
+			mw.user.options.get( optionsKey ) === version
+		) {
+			return;
+		}
+
+		const messageText = mw.msg( 'wikibase-rdf-property-edit-warning', mw.msg( 'wikibase-rdf-mappings-action-save' ) );
+
+		const $message = $( '<span><p>' + messageText + '</p></span>' )
+				.addClass( 'wikibase-rdf-property-edit-warning-container' ),
+			$hideMessage = $( '<a>' )
+				.text( mw.msg( 'wikibase-rdf-property-edit-warning-acknowledge' ) )
+				.appendTo( $message );
+
+		const $messageAnchor = $( '<span>' )
+			.appendTo( document.body )
+			.toolbaritem()
+			.wbtooltip( {
+				content: $message,
+				permanent: true,
+				gravity: 'sw',
+				$anchor: $anchor
+			} );
+
+		$hideMessage.on( 'click', function ( event ) {
+			event.preventDefault();
+			$messageAnchor.data( 'wbtooltip' ).degrade( true );
+			$( window ).off( '.wikibase-rdf-property-warning' );
+			if ( mw.user.isAnon() ) {
+				mw.cookie.set( cookieKey, version, { expires: 3 * 365 * 24 * 60 * 60, path: '/' } );
+			} else {
+				const api = new mw.Api();
+				api.saveOption( optionsKey, version );
+			}
+		} );
+
+		$messageAnchor.data( 'wbtooltip' ).show();
+
+		$( window ).one(
+			'scroll.wikibase-rdf-property-warning touchmove.wikibase-rdf-property-warning resize.wikibase-rdf-property-warning',
+			function () {
+				const tooltip = $messageAnchor.data( 'wbtooltip' );
+				if ( tooltip ) {
+					$messageAnchor.data( 'wbtooltip' ).hide();
+				}
+				$( '.wikibase-entityview' ).off( '.wikibase-rdf-property-warning' );
+			}
+		);
+	}
+
 	function clickAdd( event ) {
 		console.log( 'clickAdd' );
 		event.preventDefault();
@@ -33,6 +92,8 @@ $( function () {
 		$row.addClass( 'wikibase-rdf-row' );
 		$row.addClass( 'wikibase-rdf-row-editing-add' );
 		$row.appendTo( $( '.wikibase-rdf-rows' ) );
+
+		showPropertyEditWarning( $row.find( '.wikibase-rdf-action-save' ) );
 	}
 
 	function clickEdit( event ) {
@@ -44,6 +105,8 @@ $( function () {
 		$row.addClass( 'wikibase-rdf-row-editing-existing' );
 		$row.find( '[name="wikibase-rdf-predicate"]' ).val( $row.data( 'predicate' ) ).trigger( 'change' );
 		$row.find( '[name="wikibase-rdf-object"]' ).val( $row.data( 'object' ) ).trigger( 'change' );
+
+		showPropertyEditWarning( $row.find( '.wikibase-rdf-action-save' ) );
 	}
 
 	function hideError() {
