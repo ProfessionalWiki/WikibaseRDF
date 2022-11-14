@@ -15,6 +15,7 @@ use ProfessionalWiki\WikibaseRDF\DataAccess\PredicatesTextValidator;
 use ProfessionalWiki\WikibaseRDF\Presentation\RDF\MultiEntityRdfBuilder;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
 use Title;
+use User;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
 use Wikibase\Lib\EntityTypeDefinitions;
@@ -162,6 +163,15 @@ class MediaWikiHooks {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * @param array<string, mixed> $preferences
+	 */
+	public static function onGetPreferences( User $user, array &$preferences ): void {
+		$preferences['wikibase-rdf-acknowledge-property-edit'] = [
+			'type' => 'api'
+		];
 	}
 
 }

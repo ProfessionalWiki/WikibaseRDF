@@ -38,6 +38,7 @@
 		"ArticleRevisionViewCustom": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onArticleRevisionViewCustom",
 		"ContentHandlerDefaultModelFor": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onContentHandlerDefaultModelFor",
 		"EditFilter": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onEditFilter",
+		"GetPreferences": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onGetPreferences",
 		"MediaWikiServices": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onMediaWikiServices",
 		"OutputPageParserOutput": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onOutputPageParserOutput",
 		"WikibaseRepoEntityTypes": "ProfessionalWiki\\WikibaseRDF\\EntryPoints\\MediaWikiHooks::onWikibaseRepoEntityTypes"
@@ -86,7 +87,11 @@
 				"ext.wikibase.rdf.less"
 			],
 			"messages": [
-				"wikibase-rdf-mappings-toggler"
+				"wikibase-rdf-mappings-toggler",
+				"wikibase-rdf-mappings-action-save",
+				"wikibase-rdf-property-edit-warning",
+				"wikibase-rdf-property-edit-warning-version",
+				"wikibase-rdf-property-edit-warning-acknowledge"
 			]
 		}
 	},

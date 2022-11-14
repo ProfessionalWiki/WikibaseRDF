@@ -25,5 +25,8 @@
 	"wikibase-rdf-config-list-heading": "This is the text shown before the list of predicates on \"MediaWiki:MappingPredicates\".",
 	"wikibase-rdf-config-list-empty": "This is the text shown on \"MediaWiki:MappingPredicates\" when no predicates are defined.",
 	"wikibase-rdf-config-list-footer": "This is the text shown at the bottom of \"MediaWiki:MappingPredicates\" when viewing.",
+	"wikibase-rdf-property-edit-warning": "This is the text of the popup shown when editing a property mapping",
+	"wikibase-rdf-property-edit-warning-version": "{{notranslate}}The version of the property edit warning message. Used to indicate if a new message should be shown.",
+	"wikibase-rdf-property-edit-warning-acknowledge": "This is the text of the action to acknowledge the property edit warning",
 	"special-mapping-predicates": "This is the label on \"Special:SpecialPages\" linking to \"MediaWiki:MappingPredicates\"."
 }
