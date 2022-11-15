@@ -9,8 +9,9 @@
 
 [Wikibase] extension that allows defining RDF mappings for Wikibase Entities.
 
-[Professional.Wiki] created Wikibase RDF in 2022 for the [Wikibase Stakeholder Group].
-We provide [Wikibase hosting], [Wikibase development] and [Wikibase consulting].
+[Professional.Wiki] created and maintains Wikibase RDF. We provide [Wikibase hosting], [Wikibase development] and [Wikibase consulting].
+
+The [Wikibase Stakeholder Group] concieved and funded the extension.
 
 **Table of Contents**
 
