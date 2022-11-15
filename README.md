@@ -9,8 +9,8 @@
 
 [Wikibase] extension that allows defining RDF mappings for Wikibase Entities.
 
-Wikibase RDF has been created and is maintained by [Professional.Wiki].
-It was conceived and funded by the [Wikibase Stakeholder Group].
+[Professional.Wiki] created Wikibase RDF in 2022 for the [Wikibase Stakeholder Group].
+We provide [Wikibase hosting], [Wikibase development] and [Wikibase consulting].
 
 **Table of Contents**
 
@@ -151,10 +151,12 @@ Initial release for Wikibase 1.37 with these features:
 
 [Professional.Wiki]: https://professional.wiki
 [Wikibase]: https://wikibase.consulting/what-is-wikibase/
+[Wikibase hosting]: https://professional.wiki/en/hosting/wikibase
+[Wikibase development]: https://www.wikibase.consulting/about-the-wikibase-team/
+[Wikibase consulting]: https://wikibase.consulting/
 [MediaWiki]: https://www.mediawiki.org
 [PHP]: https://www.php.net
 [Composer]: https://getcomposer.org
 [Composer install]: https://professional.wiki/en/articles/installing-mediawiki-extensions-with-composer
-[LocalSettings.php]: https://www.mediawiki.org/wiki/Manual:LocalSettings.php
-[JSON Schema]: https://github.com/ProfessionalWiki/WikibaseRDF/blob/master/schema.json
+[LocalSettings.php]: https://www.pro.wiki/help/mediawiki-localsettings-php-guide
 [Wikibase Stakeholder Group]:https://wbstakeholder.group/
