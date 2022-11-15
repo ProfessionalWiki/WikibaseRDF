@@ -138,6 +138,10 @@ Alternatively, you can execute commands from the MediaWiki root directory:
 
 ## Release notes
 
+### Version 1.1.0 - 2022-11-TBD
+
+* Added notification about SPARQL store behavior that shows on first edit
+
 ### Version 1.0.0 - 2022-10-04
 
 Initial release for Wikibase 1.37 with these features:
