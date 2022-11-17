@@ -15,5 +15,6 @@
 	"wikibase-rdf-mappings-action-add": "追加マッピング",
 	"wikibase-rdf-save-mappings-invalid-mappings": "指定されたマッピングの一部が無効です。",
 	"wikibase-rdf-save-mappings-save-failed": "保存に失敗しました",
-	"wikibase-rdf-entity-id-invalid": "指定されたエンティティIDが無効です"
+	"wikibase-rdf-entity-id-invalid": "指定されたエンティティIDが無効です",
+	"wikibase-rdf-property-edit-warning-acknowledge": "今後このメッセージを表示しない"
 }

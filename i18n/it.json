@@ -8,5 +8,6 @@
 	"wikibase-rdf-mappings-action-save": "salva",
 	"wikibase-rdf-mappings-action-remove": "rimuovi",
 	"wikibase-rdf-mappings-action-cancel": "annulla",
-	"wikibase-rdf-mappings-action-edit": "modifica"
+	"wikibase-rdf-mappings-action-edit": "modifica",
+	"wikibase-rdf-property-edit-warning-acknowledge": "Non mostrare più questo messaggio."
 }

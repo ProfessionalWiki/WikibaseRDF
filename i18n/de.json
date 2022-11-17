@@ -23,5 +23,7 @@
 	"wikibase-rdf-config-list-heading": "{{PLURAL:$1|Zulässiges RDF-Prädikat|Zulässige RDF-Prädikate}}:",
 	"wikibase-rdf-config-list-empty": "Es wurden bislang keine RDF-Prädikate festgelegt.",
 	"wikibase-rdf-config-list-footer": "Dies wird in der Konfigurationsdatei „LocalSettings.php“ festgelegt und kann nicht auf dieser Seite verändert werden.",
+	"wikibase-rdf-property-edit-warning": "Wenn du auf \"$1\" klickst, erstellst du eine dauerhafte Aussage im Triplestore. Bitte beachte, dass alle nachfolgenden Änderungen an der Eigenschaft ein Zurücksetzen des Triplestore erfordern, um veraltete Zuordnungen zu löschen. Dies gilt nicht für Elementzuordnungen",
+	"wikibase-rdf-property-edit-warning-acknowledge": "Zeige diese Meldung nicht mehr an.",
 	"special-mapping-predicates": "RDF-Prädikate zuordnen"
 }

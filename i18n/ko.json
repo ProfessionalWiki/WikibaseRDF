@@ -10,5 +10,6 @@
 	"wikibase-rdf-mappings-action-remove": "제거",
 	"wikibase-rdf-mappings-action-cancel": "취소",
 	"wikibase-rdf-mappings-action-edit": "편집",
-	"wikibase-rdf-save-mappings-save-failed": "저장 실패"
+	"wikibase-rdf-save-mappings-save-failed": "저장 실패",
+	"wikibase-rdf-property-edit-warning-acknowledge": "이 메시지를 더 이상 보지 않습니다."
 }
