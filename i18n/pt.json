@@ -22,5 +22,8 @@
 	"wikibase-rdf-config-list-heading": "{{PLURAL:$1|Predicado permitido|Predicados permitidos}}:",
 	"wikibase-rdf-config-list-empty": "Não está definido nenhum predicado.",
 	"wikibase-rdf-config-list-footer": "Definido em LocalSettings.php, não pode ser modificado através desta página.",
+	"wikibase-rdf-property-edit-warning": "Ao clicar \"$1\" está a criar uma declaração permanente no repositório de triplas. Note que quaisquer edições subsequentes da propriedade exigirão uma reinicialização do repositório de triplas para limpar mapeamentos desatualizados. Isto não se aplica a mapeamentos de elementos",
+	"wikibase-rdf-property-edit-warning-version": "wikibase-rdf-1",
+	"wikibase-rdf-property-edit-warning-acknowledge": "Não voltar a mostrar esta mensagem.",
 	"special-mapping-predicates": "Predicados de mapeamento"
 }
