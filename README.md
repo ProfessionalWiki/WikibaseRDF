@@ -138,7 +138,7 @@ Alternatively, you can execute commands from the MediaWiki root directory:
 
 ## Release notes
 
-### Version 1.1.0 - 2022-11-TBD
+### Version 1.1.0 - 2022-11-25
 
 * Added translations for various languages
 * Added notification about SPARQL store behavior that shows on first edit
