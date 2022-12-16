@@ -1,6 +1,6 @@
 # Wikibase RDF
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ProfessionalWiki/WikibaseRDF/CI)](https://github.com/ProfessionalWiki/WikibaseRDF/actions?query=workflow%3ACI)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ProfessionalWiki/WikibaseRDF/ci.yml?branch=master)](https://github.com/ProfessionalWiki/WikibaseRDF/actions?query=workflow%3ACI)
 [![Type Coverage](https://shepherd.dev/github/ProfessionalWiki/WikibaseRDF/coverage.svg)](https://shepherd.dev/github/ProfessionalWiki/WikibaseRDF)
 [![Psalm level](https://shepherd.dev/github/ProfessionalWiki/WikibaseRDF/level.svg)](psalm.xml)
 [![Latest Stable Version](https://poser.pugx.org/professional-wiki/wikibase-rdf/version.png)](https://packagist.org/packages/professional-wiki/wikibase-rdf)
