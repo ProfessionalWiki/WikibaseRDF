@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eleassar"
+		]
+	},
+	"wikibase-rdf-description": "Omogoča opredelitev preslikav RDF za entitete Wikibase",
+	"wikibase-rdf-mappings-predicate-heading": "Povedek",
+	"wikibase-rdf-save-mappings-save-failed": "Shranjevanje ni uspelo",
+	"wikibase-rdf-property-edit-warning": "S klikom »$1« ustvarite v triplestore trajno izjavo. Upoštevajte, da bodo vsa poznejša urejanja lastnosti zahtevala ponastavitev triplestore, da se počistijo zastarele preslikave. To ne velja za preslikave predmetov.",
+	"wikibase-rdf-property-edit-warning-version": "wikibase-rdf-1",
+	"wikibase-rdf-property-edit-warning-acknowledge": "Tega sporočila ne prikaži več."
+}
