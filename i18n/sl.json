@@ -5,10 +5,25 @@
 		]
 	},
 	"wikibase-rdf-description": "Omogoča opredelitev preslikav RDF za entitete Wikibase",
+	"wikibase-rdf-mappings-toggler": "Preslikava v druge ontologije",
 	"wikibase-rdf-mappings-predicate-heading": "Povedek",
+	"wikibase-rdf-mappings-object-heading": "URL",
+	"wikibase-rdf-mappings-action-save": "shrani",
+	"wikibase-rdf-mappings-action-remove": "odstrani",
+	"wikibase-rdf-mappings-action-cancel": "prekliči",
+	"wikibase-rdf-mappings-action-edit": "uredi",
+	"wikibase-rdf-mappings-action-add": "dodaj preslikavo",
+	"wikibase-rdf-save-mappings-invalid-mappings": "Nekatere preslikave, ki ste jih določili, so neveljavne",
 	"wikibase-rdf-save-mappings-save-failed": "Shranjevanje ni uspelo",
+	"wikibase-rdf-entity-id-invalid": "ID entitete, ki ste ga navedli, je neveljaven",
+	"wikibase-rdf-permission-denied": "Nimate dovoljenja za urejanje preslikav te entitete",
+	"wikibase-rdf-config-invalid": "{{PLURAL:$1|Neveljaven predikat|Neveljavna predikata|Neveljavni predikati}}:\n$2 . Vaše spremembe niso bile shranjene.",
+	"wikibase-rdf-config-list-intro": "Ta stran določa, katere predikate je mogoče uporabiti pri preslikavah v druge ontologije. Ta funkcionalnost je del <a href=\"https://www.mediawiki.org/wiki/Extension:WikibaseRDF\">razširitve Wikibase RDF</a>.",
+	"wikibase-rdf-config-list-heading": "{{PLURAL:$1|Dovoljeni predikat|Dovoljena predikata|Dovoljeni predikati}}:",
 	"wikibase-rdf-config-list-empty": "Opredeljen ni noben predikat.",
+	"wikibase-rdf-config-list-footer": "Določeno v LocalSettings.php; na tej strani ni mogoče spreminjati.",
 	"wikibase-rdf-property-edit-warning": "S klikom »$1« ustvarite v triplestore trajno izjavo. Upoštevajte, da bodo vsa poznejša urejanja lastnosti zahtevala ponastavitev triplestore, da se počistijo zastarele preslikave. To ne velja za preslikave predmetov.",
 	"wikibase-rdf-property-edit-warning-version": "wikibase-rdf-1",
-	"wikibase-rdf-property-edit-warning-acknowledge": "Tega sporočila ne prikaži več."
+	"wikibase-rdf-property-edit-warning-acknowledge": "Tega sporočila ne prikaži več.",
+	"special-mapping-predicates": "Predikati preslikave"
 }
