@@ -1,11 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
+			"CyberOne25",
 			"Justman10000",
 			"Kghbln"
 		]
 	},
-	"wikibase-rdf-description": "Ermöglicht das Festlegen von RDF-Zuordnungen zu Wikibase-Entitäten",
+	"wikibase-rdf-description": "Ermöglicht das Festlegen von RDF-Zuordnungen für Wikibase-Entitäten",
 	"wikibase-rdf-mappings-toggler": "Zuordnungen zu anderen Ontologien",
 	"wikibase-rdf-mappings-predicate-heading": "Aussage",
 	"wikibase-rdf-mappings-object-heading": "URL",
