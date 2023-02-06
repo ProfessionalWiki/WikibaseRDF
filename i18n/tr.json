@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Hedda"
+			"Hedda",
+			"Rapsar"
 		]
 	},
 	"wikibase-rdf-description": "Wikibase Varlıkları için RDF eşlemelerinin tanımlanmasına izin veren Wikibase uzantısı",
@@ -10,7 +11,7 @@
 	"wikibase-rdf-mappings-action-save": "kaydet",
 	"wikibase-rdf-mappings-action-remove": "kaldır",
 	"wikibase-rdf-mappings-action-cancel": "iptal",
-	"wikibase-rdf-mappings-action-edit": "düzenle",
+	"wikibase-rdf-mappings-action-edit": "değiştir",
 	"wikibase-rdf-save-mappings-save-failed": "kayıt başarısız",
 	"wikibase-rdf-entity-id-invalid": "Belirttiğiniz varlık kimliği geçersiz"
 }
