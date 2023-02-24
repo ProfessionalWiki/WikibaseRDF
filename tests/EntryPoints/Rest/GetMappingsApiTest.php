@@ -86,7 +86,9 @@ class GetMappingsApiTest extends WikibaseRdfIntegrationTest {
 
 		$this->assertStringContainsString(
 			'wikibase-rdf-entity-id-invalid',
-			$data['messageTranslations']['']
+			$data['messageTranslations'][''] ??
+				// MediaWiki 1.39+
+				$data['messageTranslations']['qqx']
 		);
 	}
 
