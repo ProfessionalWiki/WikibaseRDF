@@ -67,7 +67,7 @@ class MediaWikiHooks {
 
 	private static function addMappingUi( OutputPage $page, EntityId $entityId ): void {
 		// TODO: load styles earlier because this causes the initial content to be unstyled
-		$page->addModules( 'ext.wikibase.rdf' );
+		$page->addModules( [ 'ext.wikibase.rdf' ] );
 
 		$presenter = WikibaseRdfExtension::getInstance()->newHtmlMappingsPresenter(
 			 $page->getRequest()->getCheck( 'diff' )
