@@ -24,6 +24,7 @@
 	"wikibase-rdf-config-list-empty": "Нема определено предикати.",
 	"wikibase-rdf-config-list-footer": "Определено во LocalSettings.php. Не може да се менуива преку оваа страница.",
 	"wikibase-rdf-property-edit-warning": "Стискајќи на „$1“ создавате трајна изјава во складот на тројки. Имајте на ум дека секоја понатамошна измена на својството бара препуштање на складот за да се исчистат застарените пресликувања. Ова не важи за пресликувања на предмети",
+	"wikibase-rdf-property-edit-warning-version": "wikibase-rdf-1",
 	"wikibase-rdf-property-edit-warning-acknowledge": "Повеќе не ја покажувај поракава.",
 	"special-mapping-predicates": "Предикати на пресликување"
 }
