@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"Amire80"
+		]
+	},
+	"wikibase-rdf-description": "אפשרות להגדיר מיפויי RDF לישויות ויקיבייס",
+	"wikibase-rdf-mappings-toggler": "מיפוי לאונטולוגיות אחרות",
+	"wikibase-rdf-mappings-predicate-heading": "פרדיקט",
+	"wikibase-rdf-mappings-object-heading": "כתובת URL",
+	"wikibase-rdf-mappings-action-save": "שמירה",
+	"wikibase-rdf-mappings-action-remove": "הסרה",
+	"wikibase-rdf-mappings-action-cancel": "ביטול",
+	"wikibase-rdf-mappings-action-edit": "עריכה",
+	"wikibase-rdf-mappings-action-add": "הוספת מיפוי",
+	"wikibase-rdf-save-mappings-invalid-mappings": "חלק מהמיפויים שציינת אינם תקינים",
+	"wikibase-rdf-save-mappings-save-failed": "השמירה נכשלה",
+	"wikibase-rdf-entity-id-invalid": "מזהה הישות שציינת אינו תקין",
+	"wikibase-rdf-permission-denied": "אין לך הרשאה לערוך את המיפויים של הישות הזאת",
+	"wikibase-rdf-config-invalid": "{{PLURAL:$1|פרדיקט בלתי־תקין|פרדיקטים בלתי־תקינים}}:\n$2. השינויים שלך לא נשמרו.",
+	"wikibase-rdf-config-list-intro": "הדף הזה מגדיר באילו פרדיקטים ניתן להשתמש במיפויים לאונטולוגיות אחרות. הפונקציונליות הזאת היא חלק מההרחבה <a href=\"https://www.mediawiki.org/wiki/Extension:WikibaseRDF\">Wikibase RDF</a>.",
+	"wikibase-rdf-config-list-heading": "{{PLURAL:$1|פרדיקט מותר|פרדיקטים מותרים}}:",
+	"wikibase-rdf-config-list-empty": "לא מוגדרים פרדיקטים.",
+	"wikibase-rdf-config-list-footer": "מוגדר ב־LocalSettings.php, לא ניתן לשנות דרך הדף הזה.",
+	"wikibase-rdf-property-edit-warning": "לחיצה על \"$1\" תגרום ליצירה של קביעה קבועה באחסון שלישיות. לידיעתך, כל עריכה למאפיין אחרי־כן תדרוש איפוס של אחסון השלישיות כדי לנקות מיפויים מיושנים. זה לא חל על מיפוי פריטים",
+	"wikibase-rdf-property-edit-warning-acknowledge": "לא להציג את ההודעה הזאת שוב.",
+	"special-mapping-predicates": "מיפוי פרדיקטים"
+}
