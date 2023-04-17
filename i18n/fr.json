@@ -26,7 +26,6 @@
 	"wikibase-rdf-config-list-empty": "Aucun prédicat n’est défini.",
 	"wikibase-rdf-config-list-footer": "Défini dans « LocalSettings.php », ne peut pas être modifié via cette page.",
 	"wikibase-rdf-property-edit-warning": "En cliquant sur « $1 », vous créez une déclaration permanente dans le stockage de triplets. Veuillez noter que toute modification ou suppression ultérieure des correspondances de propriétés nécessitera une réinitialisation du stockage de triplets afin d’effacer les correspondances obsolètes. Cela ne s’applique pas aux correspondances d'éléments.",
-	"wikibase-rdf-property-edit-warning-version": "wikibase-rdf-1",
 	"wikibase-rdf-property-edit-warning-acknowledge": "Ne plus afficher ce message",
 	"special-mapping-predicates": "Prédicats de correspondance"
 }

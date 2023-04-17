@@ -23,7 +23,6 @@
 	"wikibase-rdf-config-list-empty": "Nulle predicato es definite.",
 	"wikibase-rdf-config-list-footer": "Definite in LocalSettings.php, non pote esser modificate a transverso iste pagina.",
 	"wikibase-rdf-property-edit-warning": "Cliccante sur \"$1\", tu crea un declaration permanente in le immagazinage de triplettos. Nota ben que omne modificationes subsequente del proprietate necessitara un reinitialisation del immagazinage de triplettos a fin de rader le mappamentos obsolete. Isto non se applica al mappamentos de elementos.",
-	"wikibase-rdf-property-edit-warning-version": "wikibase-rdf-1",
 	"wikibase-rdf-property-edit-warning-acknowledge": "Non monstrar iste message de novo.",
 	"special-mapping-predicates": "Predicatos de mappamento"
 }

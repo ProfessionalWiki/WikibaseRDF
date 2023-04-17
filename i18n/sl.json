@@ -23,7 +23,6 @@
 	"wikibase-rdf-config-list-empty": "Opredeljen ni noben predikat.",
 	"wikibase-rdf-config-list-footer": "Določeno v LocalSettings.php; na tej strani ni mogoče spreminjati.",
 	"wikibase-rdf-property-edit-warning": "S klikom »$1« ustvarite v triplestore trajno izjavo. Upoštevajte, da bodo vsa poznejša urejanja lastnosti zahtevala ponastavitev triplestore, da se počistijo zastarele preslikave. To ne velja za preslikave predmetov.",
-	"wikibase-rdf-property-edit-warning-version": "wikibase-rdf-1",
 	"wikibase-rdf-property-edit-warning-acknowledge": "Tega sporočila ne prikaži več.",
 	"special-mapping-predicates": "Predikati preslikave"
 }

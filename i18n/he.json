@@ -15,7 +15,7 @@
 	"wikibase-rdf-mappings-action-add": "הוספת מיפוי",
 	"wikibase-rdf-save-mappings-invalid-mappings": "חלק מהמיפויים שציינת אינם תקינים",
 	"wikibase-rdf-save-mappings-save-failed": "השמירה נכשלה",
-	"wikibase-rdf-entity-id-invalid": "מזהה הישות שציינת אינו תקין",
+	"wikibase-rdf-entity-id-invalid": "מזהה הישות שנתת אינו תקין",
 	"wikibase-rdf-permission-denied": "אין לך הרשאה לערוך את המיפויים של הישות הזאת",
 	"wikibase-rdf-config-invalid": "{{PLURAL:$1|פרדיקט בלתי־תקין|פרדיקטים בלתי־תקינים}}:\n$2. השינויים שלך לא נשמרו.",
 	"wikibase-rdf-config-list-intro": "הדף הזה מגדיר באילו פרדיקטים ניתן להשתמש במיפויים לאונטולוגיות אחרות. הפונקציונליות הזאת היא חלק מההרחבה <a href=\"https://www.mediawiki.org/wiki/Extension:WikibaseRDF\">Wikibase RDF</a>.",
