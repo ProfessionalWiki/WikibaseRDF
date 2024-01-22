@@ -22,5 +22,6 @@
 	"wikibase-rdf-config-list-heading": "{{PLURAL:$1|Tillåtet predikat|Tillåtna predikat}}:",
 	"wikibase-rdf-config-list-empty": "Inga predikat har definierats.",
 	"wikibase-rdf-config-list-footer": "Definierats i LocalSettings.php, kan inte ändras via den här sidan.",
+	"wikibase-rdf-property-edit-warning-acknowledge": "Visa inte det här meddelandet igen.",
 	"special-mapping-predicates": "Kartläggningspredikat"
 }
