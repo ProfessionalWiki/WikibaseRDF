@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"沈澄心"
+		]
+	},
+	"wikibase-rdf-mappings-object-heading": "URL",
+	"wikibase-rdf-mappings-action-save": "保存",
+	"wikibase-rdf-mappings-action-remove": "移除",
+	"wikibase-rdf-mappings-action-cancel": "取消",
+	"wikibase-rdf-mappings-action-edit": "编辑",
+	"wikibase-rdf-save-mappings-save-failed": "保存失败"
+}
