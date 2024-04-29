@@ -4,10 +4,15 @@
 			"沈澄心"
 		]
 	},
+	"wikibase-rdf-description": "允许为Wikibase实体定义RDF映射",
+	"wikibase-rdf-mappings-toggler": "映射到其他本体",
+	"wikibase-rdf-mappings-predicate-heading": "谓词",
 	"wikibase-rdf-mappings-object-heading": "URL",
 	"wikibase-rdf-mappings-action-save": "保存",
 	"wikibase-rdf-mappings-action-remove": "移除",
 	"wikibase-rdf-mappings-action-cancel": "取消",
 	"wikibase-rdf-mappings-action-edit": "编辑",
-	"wikibase-rdf-save-mappings-save-failed": "保存失败"
+	"wikibase-rdf-mappings-action-add": "添加映射",
+	"wikibase-rdf-save-mappings-save-failed": "保存失败",
+	"special-mapping-predicates": "映射谓词"
 }
