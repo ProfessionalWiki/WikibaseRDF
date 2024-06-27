@@ -1,0 +1,26 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie",
+			"Romaine"
+		]
+	},
+	"wikibase-rdf-description": "Maakt het definiëren van RDF-toewijzingen voor Wikibase-entiteiten mogelijk",
+	"wikibase-rdf-mappings-toggler": "Toewijzing aan andere ontologieën",
+	"wikibase-rdf-mappings-predicate-heading": "Predikaat",
+	"wikibase-rdf-mappings-object-heading": "URL",
+	"wikibase-rdf-mappings-action-save": "opslaan",
+	"wikibase-rdf-mappings-action-remove": "verwijderen",
+	"wikibase-rdf-mappings-action-cancel": "annuleren",
+	"wikibase-rdf-mappings-action-edit": "bewerken",
+	"wikibase-rdf-mappings-action-add": "toewijzing toevoegen",
+	"wikibase-rdf-save-mappings-invalid-mappings": "Sommige van de door {{#FORMAL:u|jou}} opgegeven toewijzingen zijn ongeldig",
+	"wikibase-rdf-save-mappings-save-failed": "Opslaan mislukt",
+	"wikibase-rdf-entity-id-invalid": "De entiteits-ID die {{#FORMAL:u|je}} hebt opgegeven, is ongeldig",
+	"wikibase-rdf-permission-denied": "{{#FORMAL:U|Je}} hebt geen toestemming om de toewijzingen van deze entiteit te bewerken",
+	"wikibase-rdf-config-invalid": "{{PLURAL:$1|Ongeldig predicaat|Ongeldige predicaten}}: $2. De wijzigingen zijn niet opgeslagen.",
+	"wikibase-rdf-config-list-intro": "Deze pagina bepaalt welke predicaten kunnen worden gebruikt bij toewijzingen aan andere ontologieën. Deze functionaliteit maakt deel uit van de <a href=\"https://www.mediawiki.org/wiki/Extension:WikibaseRDF\">RDF-uitbreiding voor Wikibase</a>.",
+	"wikibase-rdf-config-list-heading": "{{PLURAL:$1|Toegestaan predicaat|Toegestane predicaten}}:",
+	"wikibase-rdf-config-list-empty": "Er zijn geen predikaten gedefinieerd.",
+	"wikibase-rdf-config-list-footer": "Gedefinieerd in LocalSettings.php, kan niet via deze pagina worden gewijzigd."
+}
