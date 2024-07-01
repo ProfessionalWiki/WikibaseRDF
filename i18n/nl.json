@@ -22,5 +22,8 @@
 	"wikibase-rdf-config-list-intro": "Deze pagina bepaalt welke predicaten kunnen worden gebruikt bij toewijzingen aan andere ontologieën. Deze functionaliteit maakt deel uit van de <a href=\"https://www.mediawiki.org/wiki/Extension:WikibaseRDF\">RDF-uitbreiding voor Wikibase</a>.",
 	"wikibase-rdf-config-list-heading": "{{PLURAL:$1|Toegestaan predicaat|Toegestane predicaten}}:",
 	"wikibase-rdf-config-list-empty": "Er zijn geen predikaten gedefinieerd.",
-	"wikibase-rdf-config-list-footer": "Gedefinieerd in LocalSettings.php, kan niet via deze pagina worden gewijzigd."
+	"wikibase-rdf-config-list-footer": "Gedefinieerd in LocalSettings.php, kan niet via deze pagina worden gewijzigd.",
+	"wikibase-rdf-property-edit-warning": "Door op “$1” te klikken maakt u een permanent overzicht aan in de ''triplestore''. Houd er rekening mee dat voor eventuele volgende bewerkingen aan de eigenschap de ''triplestore'' opnieuw moet worden opgebouwd om verouderde toewijzingen te verwijderen. Dit geldt niet voor toewijzingen aan items.",
+	"wikibase-rdf-property-edit-warning-acknowledge": "Dit bericht niet meer weergeven.",
+	"special-mapping-predicates": "Toewijzingspredicaten"
 }

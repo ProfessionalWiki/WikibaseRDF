@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Lakejason0",
 			"沈澄心"
 		]
 	},
@@ -13,6 +14,11 @@
 	"wikibase-rdf-mappings-action-cancel": "取消",
 	"wikibase-rdf-mappings-action-edit": "编辑",
 	"wikibase-rdf-mappings-action-add": "添加映射",
+	"wikibase-rdf-save-mappings-invalid-mappings": "您指定的某些映射无效",
 	"wikibase-rdf-save-mappings-save-failed": "保存失败",
+	"wikibase-rdf-entity-id-invalid": "您指定的实体ID无效",
+	"wikibase-rdf-config-list-empty": "没有定义谓词。",
+	"wikibase-rdf-config-list-footer": "已在LocalSettings.php中定义，无法通过此页面修改。",
+	"wikibase-rdf-property-edit-warning-acknowledge": "不再显示此消息。",
 	"special-mapping-predicates": "映射谓词"
 }
