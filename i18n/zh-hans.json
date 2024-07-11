@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Lakejason0",
+			"MangoFanFanw",
 			"沈澄心"
 		]
 	},
@@ -17,6 +18,8 @@
 	"wikibase-rdf-save-mappings-invalid-mappings": "您指定的某些映射无效",
 	"wikibase-rdf-save-mappings-save-failed": "保存失败",
 	"wikibase-rdf-entity-id-invalid": "您指定的实体ID无效",
+	"wikibase-rdf-permission-denied": "您无权编辑此实体的映射",
+	"wikibase-rdf-config-invalid": "无效{{PLURAL:$1|predicate|predicates}}:$2 。您的更改未被保存。",
 	"wikibase-rdf-config-list-empty": "没有定义谓词。",
 	"wikibase-rdf-config-list-footer": "已在LocalSettings.php中定义，无法通过此页面修改。",
 	"wikibase-rdf-property-edit-warning-acknowledge": "不再显示此消息。",

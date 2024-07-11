@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Volvox"
+		]
+	},
+	"wikibase-rdf-mappings-object-heading": "URL",
+	"wikibase-rdf-mappings-action-save": "späicheren",
+	"wikibase-rdf-mappings-action-remove": "ewechhuelen",
+	"wikibase-rdf-mappings-action-cancel": "ofbriechen",
+	"wikibase-rdf-mappings-action-edit": "änneren",
+	"wikibase-rdf-property-edit-warning-acknowledge": "Dëse Message net méi weisen."
+}
