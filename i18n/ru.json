@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kareyac",
+			"Pacha Tchernof",
+			"Yurina Tatiana"
+		]
+	},
+	"wikibase-rdf-mappings-object-heading": "URL",
+	"wikibase-rdf-mappings-action-save": "сохранить",
+	"wikibase-rdf-mappings-action-remove": "удалить",
+	"wikibase-rdf-mappings-action-cancel": "отменить",
+	"wikibase-rdf-mappings-action-edit": "править",
+	"wikibase-rdf-save-mappings-save-failed": "Не удалось сохранить",
+	"wikibase-rdf-config-invalid": "{{PLURAL:$1|Недопустимый предикат|Недопустимые предикаты}}:\n$2. Ваши изменения не были сохранены."
+}
