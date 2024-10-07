@@ -1,13 +1,29 @@
 {
 	"@metadata": {
 		"authors": [
+			"Kly",
 			"Winston Sung"
 		]
 	},
+	"wikibase-rdf-description": "允許為 Wikibase 實體定義 RDF 對映",
+	"wikibase-rdf-mappings-toggler": "對映到其他本體",
+	"wikibase-rdf-mappings-predicate-heading": "述詞",
 	"wikibase-rdf-mappings-object-heading": "URL",
 	"wikibase-rdf-mappings-action-save": "儲存",
 	"wikibase-rdf-mappings-action-remove": "移除",
 	"wikibase-rdf-mappings-action-cancel": "取消",
 	"wikibase-rdf-mappings-action-edit": "編輯",
-	"wikibase-rdf-save-mappings-save-failed": "儲存失敗"
+	"wikibase-rdf-mappings-action-add": "新增對映",
+	"wikibase-rdf-save-mappings-invalid-mappings": "您指定的某些對映無效",
+	"wikibase-rdf-save-mappings-save-failed": "儲存失敗",
+	"wikibase-rdf-entity-id-invalid": "您指定的實體 ID 無效",
+	"wikibase-rdf-permission-denied": "您沒有編輯該實體對映的權限",
+	"wikibase-rdf-config-invalid": "{{PLURAL:$1|述詞}}無效：$2。未儲存您的更改。",
+	"wikibase-rdf-config-list-intro": "此頁面定義哪些述詞可用於對映到其他本體。該功能是 <a href=\"https://www.mediawiki.org/wiki/Extension:WikibaseRDF\">Wikibase RDF 擴充功能</a>的一部分。",
+	"wikibase-rdf-config-list-heading": "允許{{PLURAL:$1|述詞}}：",
+	"wikibase-rdf-config-list-empty": "沒有定義述詞。",
+	"wikibase-rdf-config-list-footer": "在 LocalSettings.php 中定義，無法透過此頁面變動。",
+	"wikibase-rdf-property-edit-warning": "透過點擊「$1」，您會在三元組儲存中建立永久聲明。請注意，對該屬性做出的任何後續編輯都需要重新設定三元組儲存，以清除過時的對映。另外這不適用於項目對映",
+	"wikibase-rdf-property-edit-warning-acknowledge": "不要再顯示此訊息。",
+	"special-mapping-predicates": "對映述詞"
 }
