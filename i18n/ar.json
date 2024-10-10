@@ -9,6 +9,7 @@
 	"wikibase-rdf-mappings-action-remove": "حذف",
 	"wikibase-rdf-mappings-action-cancel": "إلغاء",
 	"wikibase-rdf-mappings-action-edit": "عدّل",
+	"wikibase-rdf-mappings-action-add": "إضافة خريطة",
 	"wikibase-rdf-save-mappings-save-failed": "فشل الحفظ",
 	"wikibase-rdf-entity-id-invalid": "معرف الكيان الذي حددته غير صالح"
 }
