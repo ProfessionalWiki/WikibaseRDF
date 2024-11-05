@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Chimes",
 			"Corn Pig",
 			"Lakejason0",
 			"MangoFanFanw",
@@ -25,6 +26,7 @@
 	"wikibase-rdf-config-list-heading": "允许{{{{PLURAL:$1|predicate|predicates}}}}：",
 	"wikibase-rdf-config-list-empty": "没有定义谓词。",
 	"wikibase-rdf-config-list-footer": "已在LocalSettings.php中定义，无法通过此页面修改。",
+	"wikibase-rdf-property-edit-warning": "透過點擊「$1」，您會在三元組儲存中建立永久聲明。請注意，對該屬性做出的任何後續編輯都需要重新設定三元組儲存，以清除過時的對映。另外這不適用於項目對映",
 	"wikibase-rdf-property-edit-warning-acknowledge": "不再显示此消息。",
 	"special-mapping-predicates": "映射谓词"
 }
