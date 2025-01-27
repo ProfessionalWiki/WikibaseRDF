@@ -1,15 +1,29 @@
 {
 	"@metadata": {
 		"authors": [
+			"Meno25",
 			"Mohammed Qays"
 		]
 	},
+	"wikibase-rdf-description": "يسمح بتحديد تعيينات RDF لكيانات Wikibase",
+	"wikibase-rdf-mappings-toggler": "الربط مع الأنطولوجيات الأخرى",
+	"wikibase-rdf-mappings-predicate-heading": "مسند",
 	"wikibase-rdf-mappings-object-heading": "مسار",
 	"wikibase-rdf-mappings-action-save": "حفظ",
 	"wikibase-rdf-mappings-action-remove": "حذف",
 	"wikibase-rdf-mappings-action-cancel": "إلغاء",
 	"wikibase-rdf-mappings-action-edit": "عدّل",
 	"wikibase-rdf-mappings-action-add": "إضافة خريطة",
+	"wikibase-rdf-save-mappings-invalid-mappings": "بعض التعيينات التي حددتها غير صالحة",
 	"wikibase-rdf-save-mappings-save-failed": "فشل الحفظ",
-	"wikibase-rdf-entity-id-invalid": "معرف الكيان الذي حددته غير صالح"
+	"wikibase-rdf-entity-id-invalid": "معرف الكيان الذي حددته غير صالح",
+	"wikibase-rdf-permission-denied": "ليس لديك إذن لتحرير تعيينات هذا الكيان",
+	"wikibase-rdf-config-invalid": "{{PLURAL:$1|مستندات}} غير صالح:\n $2 . لم يتم حفظ التغييرات التي أجريتها.",
+	"wikibase-rdf-config-list-intro": "تحدد هذه الصفحة المسندات التي يمكن استخدامها في التعيينات إلى الأنطولوجيات الأخرى. هذه الوظيفة هي جزء من <a href=\"https://www.mediawiki.org/wiki/Extension:WikibaseRDF\">ملحق Wikibase RDF</a> .",
+	"wikibase-rdf-config-list-heading": "مسموح بـ {{PLURAL:$1|مستندات}}:",
+	"wikibase-rdf-config-list-empty": "لم يتم تعريف أي مسندات.",
+	"wikibase-rdf-config-list-footer": "تم تعريفه في LocalSettings.php، ولا يمكن تعديله عبر هذه الصفحة.",
+	"wikibase-rdf-property-edit-warning": "بالنقر فوق \"$1\" فإنك تقوم بإنشاء بيان دائم في المخزن الثلاثي. يرجى العلم بأن أي تعديلات لاحقة على الخاصية ستتطلب إعادة تعيين المخزن الثلاثي من أجل مسح التعيينات القديمة. لا ينطبق هذا على تعيينات العناصر",
+	"wikibase-rdf-property-edit-warning-acknowledge": "لا تظهر هذه الرسالة مرة أخرى.",
+	"special-mapping-predicates": "تعيين المسندات"
 }
