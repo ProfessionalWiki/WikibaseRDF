@@ -24,7 +24,7 @@ class HtmlPredicatesPresenter implements PredicatesPresenter {
 	}
 
 	private function createIntro(): string {
-		return Html::rawElement( 'p', [], $this->msg( 'wikibase-rdf-config-list-intro' )->text() );
+		return Html::rawElement( 'p', [], $this->msg( 'wikibase-rdf-config-list-intro' )->parse() );
 	}
 
 	private function createList(): string {
@@ -78,7 +78,7 @@ class HtmlPredicatesPresenter implements PredicatesPresenter {
 		return Html::rawElement(
 			'p',
 			[],
-			self::ASTERISK . ' ' . $this->msg( 'wikibase-rdf-config-list-footer' )->text()
+			self::ASTERISK . ' ' . $this->msg( 'wikibase-rdf-config-list-footer' )->escaped()
 		);
 	}
 
