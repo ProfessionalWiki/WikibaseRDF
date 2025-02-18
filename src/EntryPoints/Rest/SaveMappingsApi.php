@@ -42,19 +42,8 @@ class SaveMappingsApi extends SimpleHandler {
 		];
 	}
 
-	/**
-	 * @inheritDoc
-	 */
-	public function getBodyValidator( $contentType ): BodyValidator {
-		if ( $contentType !== 'application/json' ) {
-			throw new HttpException(
-				"Unsupported Content-Type",
-				415,
-				[ 'content_type' => $contentType ]
-			);
-		}
-
-		return new JsonBodyValidator( [] );
+	public function getBodyParamSettings(): array {
+		return [];
 	}
 
 }
