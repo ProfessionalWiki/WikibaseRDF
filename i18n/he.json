@@ -18,7 +18,7 @@
 	"wikibase-rdf-entity-id-invalid": "מזהה הישות שנתת אינו תקין",
 	"wikibase-rdf-permission-denied": "אין לך הרשאה לערוך את המיפויים של הישות הזאת",
 	"wikibase-rdf-config-invalid": "{{PLURAL:$1|פרדיקט בלתי־תקין|פרדיקטים בלתי־תקינים}}:\n$2. השינויים שלך לא נשמרו.",
-	"wikibase-rdf-config-list-intro": "הדף הזה מגדיר באילו פרדיקטים ניתן להשתמש במיפויים לאונטולוגיות אחרות. הפונקציונליות הזאת היא חלק מההרחבה <a href=\"https://www.mediawiki.org/wiki/Extension:WikibaseRDF\">Wikibase RDF</a>.",
+	"wikibase-rdf-config-list-intro": "הדף הזה מגדיר באילו פרדיקטים ניתן להשתמש במיפויים לאונטולוגיות אחרות. הפונקציונליות הזאת היא חלק מההרחבה [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Wikibase_RDF Wikibase RDF].",
 	"wikibase-rdf-config-list-heading": "{{PLURAL:$1|פרדיקט מותר|פרדיקטים מותרים}}:",
 	"wikibase-rdf-config-list-empty": "לא מוגדרים פרדיקטים.",
 	"wikibase-rdf-config-list-footer": "מוגדר ב־LocalSettings.php, לא ניתן לשנות דרך הדף הזה.",

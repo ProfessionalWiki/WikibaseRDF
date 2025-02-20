@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Eleassar"
+			"Eleassar",
+			"Kghbln"
 		]
 	},
 	"wikibase-rdf-description": "Omogoča opredelitev preslikav RDF za entitete Wikibase",
@@ -18,7 +19,7 @@
 	"wikibase-rdf-entity-id-invalid": "ID entitete, ki ste ga navedli, je neveljaven",
 	"wikibase-rdf-permission-denied": "Nimate dovoljenja za urejanje preslikav te entitete",
 	"wikibase-rdf-config-invalid": "{{PLURAL:$1|Neveljaven predikat|Neveljavna predikata|Neveljavni predikati}}:\n$2. Vaše spremembe niso bile shranjene.",
-	"wikibase-rdf-config-list-intro": "Ta stran določa, katere predikate je mogoče uporabiti pri preslikavah v druge ontologije. Ta funkcionalnost je del <a href=\"https://www.mediawiki.org/wiki/Extension:WikibaseRDF\">razširitve Wikibase RDF</a>.",
+	"wikibase-rdf-config-list-intro": "Ta stran določa, katere predikate je mogoče uporabiti pri preslikavah v druge ontologije. Ta funkcionalnost je del [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Wikibase_RDF razširitve Wikibase RDF].",
 	"wikibase-rdf-config-list-heading": "{{PLURAL:$1|Dovoljeni predikat|Dovoljena predikata|Dovoljeni predikati}}:",
 	"wikibase-rdf-config-list-empty": "Opredeljen ni noben predikat.",
 	"wikibase-rdf-config-list-footer": "Določeno v LocalSettings.php; na tej strani ni mogoče spreminjati.",

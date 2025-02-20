@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Kghbln",
 			"Sabelöga"
 		]
 	},
@@ -18,7 +19,7 @@
 	"wikibase-rdf-entity-id-invalid": "Entitets-ID:t du angett är ogiltigt",
 	"wikibase-rdf-permission-denied": "Du har inte behörighet att redigera detta entitets kartläggningar",
 	"wikibase-rdf-config-invalid": "{{PLURAL:$1|Ogiltigt predikat|Ogiltiga predikat}}:\n$2. Dina ändringar sparades inte.",
-	"wikibase-rdf-config-list-intro": "Denna sida definierar vilka predikat som kan användas i kartläggningar till andra ontologier. Denna funktion är en del av <a href=\"https://www.mediawiki.org/wiki/Extension:WikibaseRDF\">tillägget Wikibase RDF</a>.",
+	"wikibase-rdf-config-list-intro": "Denna sida definierar vilka predikat som kan användas i kartläggningar till andra ontologier. Denna funktion är en del av [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Wikibase_RDF tillägget Wikibase RDF].",
 	"wikibase-rdf-config-list-heading": "{{PLURAL:$1|Tillåtet predikat|Tillåtna predikat}}:",
 	"wikibase-rdf-config-list-empty": "Inga predikat har definierats.",
 	"wikibase-rdf-config-list-footer": "Definierats i LocalSettings.php, kan inte ändras via den här sidan.",

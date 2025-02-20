@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Kghbln",
 			"McDutchie",
 			"Romaine"
 		]
@@ -19,7 +20,7 @@
 	"wikibase-rdf-entity-id-invalid": "De entiteits-ID die {{#FORMAL:u|je}} hebt opgegeven, is ongeldig",
 	"wikibase-rdf-permission-denied": "{{#FORMAL:U|Je}} hebt geen toestemming om de toewijzingen van deze entiteit te bewerken",
 	"wikibase-rdf-config-invalid": "{{PLURAL:$1|Ongeldig predicaat|Ongeldige predicaten}}: $2. De wijzigingen zijn niet opgeslagen.",
-	"wikibase-rdf-config-list-intro": "Deze pagina bepaalt welke predicaten kunnen worden gebruikt bij toewijzingen aan andere ontologieën. Deze functionaliteit maakt deel uit van de <a href=\"https://www.mediawiki.org/wiki/Extension:WikibaseRDF\">RDF-uitbreiding voor Wikibase</a>.",
+	"wikibase-rdf-config-list-intro": "Deze pagina bepaalt welke predicaten kunnen worden gebruikt bij toewijzingen aan andere ontologieën. Deze functionaliteit maakt deel uit van de [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Wikibase_RDF RDF-uitbreiding voor Wikibase].",
 	"wikibase-rdf-config-list-heading": "{{PLURAL:$1|Toegestaan predicaat|Toegestane predicaten}}:",
 	"wikibase-rdf-config-list-empty": "Er zijn geen predikaten gedefinieerd.",
 	"wikibase-rdf-config-list-footer": "Gedefinieerd in LocalSettings.php, kan niet via deze pagina worden gewijzigd.",

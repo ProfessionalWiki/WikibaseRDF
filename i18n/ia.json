@@ -18,7 +18,7 @@
 	"wikibase-rdf-entity-id-invalid": "Le ID de entitate que tu ha specificate non es valide.",
 	"wikibase-rdf-permission-denied": "Tu non ha le permission de modificar le mappamentos de iste entitate.",
 	"wikibase-rdf-config-invalid": "Predicato{{PLURAL:$1||s}} non valide: $2. Tu cambiamentos non ha essite salveguardate.",
-	"wikibase-rdf-config-list-intro": "Iste pagina defini qual predicatos pote esser usate in mappamentos a altere ontologias. Iste functionalitate face parte del <a href=\"https://www.mediawiki.org/wiki/Extension:WikibaseRDF\">extension Wikibase RDF</a>.",
+	"wikibase-rdf-config-list-intro": "Iste pagina defini qual predicatos pote esser usate in mappamentos a altere ontologias. Iste functionalitate face parte del [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Wikibase_RDF extension Wikibase RDF].",
 	"wikibase-rdf-config-list-heading": "Predicato{{PLURAL:$1||s}} permittite:",
 	"wikibase-rdf-config-list-empty": "Nulle predicato es definite.",
 	"wikibase-rdf-config-list-footer": "Definite in LocalSettings.php, non pote esser modificate a transverso iste pagina.",
