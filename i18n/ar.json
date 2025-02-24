@@ -19,7 +19,7 @@
 	"wikibase-rdf-entity-id-invalid": "معرف الكيان الذي حددته غير صالح",
 	"wikibase-rdf-permission-denied": "ليس لديك إذن لتحرير تعيينات هذا الكيان",
 	"wikibase-rdf-config-invalid": "{{PLURAL:$1|مستندات}} غير صالح:\n $2 . لم يتم حفظ التغييرات التي أجريتها.",
-	"wikibase-rdf-config-list-intro": "تحدد هذه الصفحة التنبؤات التي يمكن استخدامها في التعيينات إلى الأنطولوجيات الأخرى. هذه الوظيفة هي جزء من <a href=\"https://www.mediawiki.org/wiki/Extension:WikibaseRDF\">ملحق Wikibase RDF</a> .",
+	"wikibase-rdf-config-list-intro": "تحدد هذه الصفحة المسندات التي يمكن استخدامها في التعيينات إلى الأنطولوجيات الأخرى. هذه الوظيفة جزء من [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Wikibase_RDF Wikibase RDF extension].",
 	"wikibase-rdf-config-list-heading": "مسموح بـ {{PLURAL:$1|مستندات}}:",
 	"wikibase-rdf-config-list-empty": "لم يتم تعريف أي مسندات.",
 	"wikibase-rdf-config-list-footer": "تم تعريفه في LocalSettings.php، ولا يمكن تعديله عبر هذه الصفحة.",
