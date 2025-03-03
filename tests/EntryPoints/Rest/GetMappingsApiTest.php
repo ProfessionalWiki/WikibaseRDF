@@ -15,6 +15,7 @@ use Wikibase\DataModel\Entity\ItemId;
 /**
  * @covers \ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\GetMappingsApi
  * @covers \ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension
+ * @group Database
  */
 class GetMappingsApiTest extends WikibaseRdfIntegrationTest {
 	use HandlerTestTrait;
