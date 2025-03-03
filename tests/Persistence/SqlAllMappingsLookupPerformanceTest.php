@@ -29,7 +29,7 @@ class SqlAllMappingsLookupPerformanceTest extends WikibaseRdfIntegrationTest {
 
 	private function newSqlAllMappingsLookup(): SqlAllMappingsLookup {
 		return new SqlAllMappingsLookup(
-			$this->db,
+			$this->getDb(),
 			WikibaseRdfExtension::SLOT_NAME,
 			WikibaseRepo::getEntityIdParser(),
 			WikibaseRdfExtension::getInstance()->newMappingListSerializer()

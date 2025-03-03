@@ -4,15 +4,14 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\Tests\EntryPoints\Rest;
 
-use MediaWiki\Permissions\Authority;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Rest\LocalizedHttpException;
 use MediaWiki\Rest\RequestData;
 use MediaWiki\Rest\ResponseInterface;
 use MediaWiki\Tests\Rest\Handler\HandlerTestTrait;
+use MediaWiki\User\User;
 use ProfessionalWiki\WikibaseRDF\Tests\WikibaseRdfIntegrationTest;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
-use RequestContext;
-use User;
 use Wikibase\DataModel\Entity\ItemId;
 
 /**
@@ -67,15 +66,12 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 
 		$this->assertStringContainsString(
 			'wikibase-rdf-save-mappings-invalid-mappings',
-			$data['messageTranslations'][''] ??
-				// MediaWiki 1.39+
-				$data['messageTranslations']['qqx']
+			$data['messageTranslations']['qqx']
 		);
 	}
 
 	/**
 	 * This result is the same as testJsonIsAnEmptyList() because it's decoded as an empty list.
-	 * @see JsonBodyValidator::validateBody()
 	 */
 	public function testJsonIsAnEmptyObject(): void {
 		$response = $this->doSaveMappingsRequest( 'Q1', '{}' );
@@ -108,9 +104,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 
 		$this->assertStringContainsString(
 			'wikibase-rdf-save-mappings-invalid-mappings',
-			$data['messageTranslations'][''] ??
-				// MediaWiki 1.39+
-				$data['messageTranslations']['qqx']
+			$data['messageTranslations']['qqx']
 		);
 	}
 
@@ -133,9 +127,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 
 		$this->assertStringContainsString(
 			'wikibase-rdf-save-mappings-invalid-mappings',
-			$data['messageTranslations'][''] ??
-				// MediaWiki 1.39+
-				$data['messageTranslations']['qqx']
+			$data['messageTranslations']['qqx']
 		);
 	}
 
@@ -158,9 +150,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 
 		$this->assertStringContainsString(
 			'wikibase-rdf-save-mappings-invalid-mappings',
-			$data['messageTranslations'][''] ??
-				// MediaWiki 1.39+
-				$data['messageTranslations']['qqx']
+			$data['messageTranslations']['qqx']
 		);
 	}
 
@@ -183,9 +173,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 
 		$this->assertStringContainsString(
 			'wikibase-rdf-save-mappings-invalid-mappings',
-			$data['messageTranslations'][''] ??
-				// MediaWiki 1.39+
-				$data['messageTranslations']['qqx']
+			$data['messageTranslations']['qqx']
 		);
 	}
 
@@ -208,9 +196,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 
 		$this->assertStringContainsString(
 			'wikibase-rdf-save-mappings-invalid-mappings',
-			$data['messageTranslations'][''] ??
-				// MediaWiki 1.39+
-				$data['messageTranslations']['qqx']
+			$data['messageTranslations']['qqx']
 		);
 	}
 
@@ -233,9 +219,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 
 		$this->assertStringContainsString(
 			'wikibase-rdf-save-mappings-invalid-mappings',
-			$data['messageTranslations'][''] ??
-				// MediaWiki 1.39+
-				$data['messageTranslations']['qqx']
+			$data['messageTranslations']['qqx']
 		);
 	}
 
@@ -258,9 +242,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 
 		$this->assertStringContainsString(
 			'wikibase-rdf-save-mappings-invalid-mappings',
-			$data['messageTranslations'][''] ??
-				// MediaWiki 1.39+
-				$data['messageTranslations']['qqx']
+			$data['messageTranslations']['qqx']
 		);
 	}
 
@@ -283,9 +265,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 
 		$this->assertStringContainsString(
 			'wikibase-rdf-save-mappings-invalid-mappings',
-			$data['messageTranslations'][''] ??
-				// MediaWiki 1.39+
-				$data['messageTranslations']['qqx']
+			$data['messageTranslations']['qqx']
 		);
 	}
 
@@ -308,9 +288,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 
 		$this->assertStringContainsString(
 			'wikibase-rdf-save-mappings-invalid-mappings',
-			$data['messageTranslations'][''] ??
-				// MediaWiki 1.39+
-				$data['messageTranslations']['qqx']
+			$data['messageTranslations']['qqx']
 		);
 	}
 
@@ -325,9 +303,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 
 		$this->assertStringContainsString(
 			'wikibase-rdf-entity-id-invalid',
-			$data['messageTranslations'][''] ??
-				// MediaWiki 1.39+
-				$data['messageTranslations']['qqx']
+			$data['messageTranslations']['qqx']
 		);
 	}
 

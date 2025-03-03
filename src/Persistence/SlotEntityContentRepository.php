@@ -4,10 +4,9 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\Persistence;
 
-use CommentStoreComment;
-use Content;
 use Exception;
-use MediaWiki\MediaWikiServices;
+use MediaWiki\CommentStore\CommentStoreComment;
+use MediaWiki\Content\Content;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Revision\RevisionAccessException;

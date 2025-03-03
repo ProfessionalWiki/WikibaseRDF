@@ -4,8 +4,8 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\Persistence;
 
-use Content;
 use Exception;
+use MediaWiki\Content\Content;
 use Wikibase\DataModel\Entity\EntityId;
 
 /**

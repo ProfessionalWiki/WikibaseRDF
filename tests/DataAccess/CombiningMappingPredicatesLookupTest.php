@@ -11,6 +11,7 @@ use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
 
 /**
  * @covers \ProfessionalWiki\WikibaseRDF\DataAccess\CombiningMappingPredicatesLookup
+ * @group Database
  */
 class CombiningMappingPredicatesLookupTest extends WikibaseRdfIntegrationTest {
 

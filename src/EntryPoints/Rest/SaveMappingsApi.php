@@ -4,14 +4,11 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\EntryPoints\Rest;
 
-use MediaWiki\Rest\HttpException;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
-use MediaWiki\Rest\Validator\BodyValidator;
-use MediaWiki\Rest\Validator\JsonBodyValidator;
+use MediaWiki\User\User;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
-use RequestContext;
-use User;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SaveMappingsApi extends SimpleHandler {
@@ -40,21 +37,6 @@ class SaveMappingsApi extends SimpleHandler {
 				ParamValidator::PARAM_REQUIRED => true,
 			],
 		];
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function getBodyValidator( $contentType ): BodyValidator {
-		if ( $contentType !== 'application/json' ) {
-			throw new HttpException(
-				"Unsupported Content-Type",
-				415,
-				[ 'content_type' => $contentType ]
-			);
-		}
-
-		return new JsonBodyValidator( [] );
 	}
 
 }
