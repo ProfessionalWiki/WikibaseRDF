@@ -23,14 +23,15 @@
 	"require-dev": {
 		"vimeo/psalm": "^4.22.0",
 		"phpstan/phpstan": "^1.4.8",
-		"mediawiki/mediawiki-codesniffer": "^39.0.0"
+		"mediawiki/mediawiki-codesniffer": "^46.0.0"
 	},
 	"extra": {
 		"installer-name": "WikibaseRDF"
 	},
 	"config": {
 		"allow-plugins": {
-			"composer/installers": true
+			"composer/installers": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
 	}
 }

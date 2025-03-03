@@ -4,18 +4,17 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\EntryPoints;
 
-use EditPage;
+use MediaWiki\EditPage\EditPage;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Output\OutputPage;
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRoleRegistry;
-use OutputPage;
-use ParserOutput;
-use ProfessionalWiki\WikibaseRDF\DataAccess\PredicatesDeserializer;
+use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use ProfessionalWiki\WikibaseRDF\DataAccess\PredicatesTextValidator;
 use ProfessionalWiki\WikibaseRDF\Presentation\RDF\MultiEntityRdfBuilder;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
-use Title;
-use User;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
 use Wikibase\Lib\EntityTypeDefinitions;
