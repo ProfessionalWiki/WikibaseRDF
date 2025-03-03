@@ -96,5 +96,9 @@
 		}
 	},
 
+	"ExtensionMessagesFiles": {
+		"WikibaseRdfAlias": "WikibaseRdf.alias.php"
+	},
+
 	"manifest_version": 2
 }

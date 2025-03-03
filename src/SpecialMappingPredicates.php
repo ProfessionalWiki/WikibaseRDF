@@ -4,7 +4,9 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF;
 
-use SpecialPage;
+use MediaWiki\Message\Message;
+use MediaWiki\SpecialPage\SpecialPage;
+use MediaWiki\Title\Title;
 
 class SpecialMappingPredicates extends SpecialPage {
 
@@ -15,9 +17,9 @@ class SpecialMappingPredicates extends SpecialPage {
 	public function execute( $subPage ): void {
 		parent::execute( $subPage );
 
-		$title = \Title::newFromText( 'MediaWiki:MappingPredicates' );
+		$title = Title::newFromText( 'MediaWiki:MappingPredicates' );
 
-		if ( $title instanceof \Title ) {
+		if ( $title instanceof Title ) {
 			$this->getOutput()->redirect( $title->getFullURL() );
 		}
 	}
@@ -26,8 +28,8 @@ class SpecialMappingPredicates extends SpecialPage {
 		return 'wikibase';
 	}
 
-	public function getDescription(): string {
-		return $this->msg( 'special-mapping-predicates' )->escaped();
+	public function getDescription(): Message {
+		return $this->msg( 'special-mapping-predicates' );
 	}
 
 }
