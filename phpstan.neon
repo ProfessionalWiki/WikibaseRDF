@@ -10,6 +10,8 @@ parameters:
 		- ../../tests/phpunit
 		- ../../vendor
 		- ../../extensions/Wikibase
+	bootstrapFiles:
+		- ../../includes/AutoLoader.php
 #	excludePaths:
 #		analyse:
 #			- src/AutomatedValuesFactory.php
