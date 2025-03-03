@@ -38,8 +38,7 @@ class SlotEntityContentRepository implements EntityContentRepository {
 
 		try {
 			return $revision?->getSlot( $this->slotName, RevisionRecord::FOR_PUBLIC, $this->authority )?->getContent();
-		}
-		catch ( RevisionAccessException ) {
+		} catch ( RevisionAccessException ) {
 			return null;
 		}
 	}
@@ -47,8 +46,7 @@ class SlotEntityContentRepository implements EntityContentRepository {
 	private function getWikiPage( EntityId $entityId ): ?WikiPage {
 		try {
 			$title = $this->entityTitleLookup->getTitleForId( $entityId );
-		}
-		catch ( Exception ) {
+		} catch ( Exception ) {
 			return null;
 		}
 

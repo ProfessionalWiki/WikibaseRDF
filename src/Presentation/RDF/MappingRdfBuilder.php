@@ -85,7 +85,7 @@ class MappingRdfBuilder implements EntityRdfBuilder {
 
 	private function addPropertyMapping( Mapping $mapping, EntityId $entityId ): void {
 		$this->writer
-			->about( $this->propertyMappingPrefixBuilder->getPrefix(), $entityId->getLocalPart() )
+			->about( $this->propertyMappingPrefixBuilder->getPrefix(), $entityId->getSerialization() )
 			->a( 'owl', 'ObjectProperty' )
 			->say( $mapping->getPredicateBase(), $mapping->getPredicateLocal() )
 			->is( $mapping->object );

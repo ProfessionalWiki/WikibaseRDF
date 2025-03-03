@@ -58,8 +58,7 @@ class MediaWikiHooks {
 
 		try {
 			return WikibaseRepo::getEntityIdParser()->parse( $title->getText() );
-		}
-		catch ( EntityIdParsingException ) {
+		} catch ( EntityIdParsingException ) {
 			return null;
 		}
 	}
@@ -95,7 +94,7 @@ class MediaWikiHooks {
 	}
 
 	private static function newEntityRdfBuilderFactoryFunction( callable $factoryFunction ): callable {
-		return fn(
+		return static fn (
 			int $flavorFlags,
 			RdfVocabulary $vocabulary,
 			RdfWriter $writer
@@ -127,7 +126,7 @@ class MediaWikiHooks {
 		$imploded = implode(
 			', ',
 			array_map(
-				fn( string $predicate ) => '"' . $predicate . '"',
+				static fn ( string $predicate ) => '"' . $predicate . '"',
 				$invalidPredicates
 			)
 		);
@@ -139,7 +138,7 @@ class MediaWikiHooks {
 	public static function onAlternateEdit( EditPage $editPage ): void {
 		if ( WikibaseRdfExtension::getInstance()->isConfigTitle( $editPage->getTitle() ) ) {
 			$editPage->suppressIntro = true;
-			$editPage->editFormTextBeforeContent = wfMessage( 'wikibase-rdf-config-intro' );
+			$editPage->editFormTextBeforeContent = wfMessage( 'wikibase-rdf-config-intro' )->parse();
 		}
 	}
 

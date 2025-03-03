@@ -6,6 +6,7 @@ namespace ProfessionalWiki\WikibaseRDF\Tests;
 
 use Article;
 use MediaWikiIntegrationTestCase;
+use MediaWiki\Title\Title;
 use ProfessionalWiki\WikibaseRDF\Application\MappingList;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
 use Wikibase\DataModel\Entity\EntityId;
@@ -19,14 +20,10 @@ class WikibaseRdfIntegrationTest extends MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
-		$this->tablesUsed[] = 'text';
-		$this->tablesUsed[] = 'slots';
-		$this->tablesUsed[] = 'slot_roles';
-		$this->tablesUsed[] = 'page';
 	}
 
 	protected function getPageHtml( string $pageTitle ): string {
-		$title = \Title::newFromText( $pageTitle );
+		$title = Title::newFromText( $pageTitle );
 
 		$article = new Article( $title, 0 );
 		$article->getContext()->getOutput()->setTitle( $title );

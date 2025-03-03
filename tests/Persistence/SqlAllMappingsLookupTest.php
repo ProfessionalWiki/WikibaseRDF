@@ -12,7 +12,6 @@ use ProfessionalWiki\WikibaseRDF\Tests\WikibaseRdfIntegrationTest;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\NumericPropertyId;
-use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
@@ -29,18 +28,11 @@ class SqlAllMappingsLookupTest extends WikibaseRdfIntegrationTest {
 
 	private function newSqlAllMappingsLookup(): SqlAllMappingsLookup {
 		return new SqlAllMappingsLookup(
-			$this->db,
+			$this->getDb(),
 			WikibaseRdfExtension::SLOT_NAME,
 			WikibaseRepo::getEntityIdParser(),
 			WikibaseRdfExtension::getInstance()->newMappingListSerializer()
 		);
-	}
-
-	private function createPropertyId( string $id ): PropertyId {
-		if ( class_exists( PropertyId::class ) ) {
-			return new PropertyId( $id );
-		}
-		return new NumericPropertyId( $id );
 	}
 
 	private function saveTestMappings(): void {
@@ -59,15 +51,15 @@ class SqlAllMappingsLookupTest extends WikibaseRdfIntegrationTest {
 				new Mapping( 'foo:baz', 'https://example.com/#baz1' )
 			] )
 		);
-		$this->createProperty( $this->createPropertyId( 'P99001' ) );
+		$this->createProperty( new NumericPropertyId( 'P99001' ) );
 		$this->createPropertyWithMappings(
-			$this->createPropertyId( 'P99002' ),
+			new NumericPropertyId( 'P99002' ),
 			new MappingList( [
 				new Mapping( 'foo:foo', 'https://example.com/#foo1' )
 			] )
 		);
 		$this->createPropertyWithMappings(
-			$this->createPropertyId( 'P99003' ),
+			new NumericPropertyId( 'P99003' ),
 			new MappingList( [
 				new Mapping( 'foo:foo', 'https://example.com/#foo1' ),
 				new Mapping( 'foo:bar', 'https://example.com/#bar1' ),
@@ -93,13 +85,13 @@ class SqlAllMappingsLookupTest extends WikibaseRdfIntegrationTest {
 				] )
 			),
 			new MappingListAndId(
-				$this->createPropertyId( 'P99002' ),
+				new NumericPropertyId( 'P99002' ),
 				new MappingList( [
 					new Mapping( 'foo:foo', 'https://example.com/#foo1' )
 				] )
 			),
 			new MappingListAndId(
-				$this->createPropertyId( 'P99003' ),
+				new NumericPropertyId( 'P99003' ),
 				new MappingList( [
 					new Mapping( 'foo:foo', 'https://example.com/#foo1' ),
 					new Mapping( 'foo:bar', 'https://example.com/#bar1' ),
@@ -138,7 +130,7 @@ class SqlAllMappingsLookupTest extends WikibaseRdfIntegrationTest {
 			] )
 		);
 		$this->setMappings(
-			$this->createPropertyId( 'P99002' ),
+			new NumericPropertyId( 'P99002' ),
 			new MappingList( [
 				new Mapping( 'foo:foo', 'https://example.com/#foo2' ),
 				new Mapping( 'foo:baz', 'https://example.com/#baz2' )
@@ -167,14 +159,14 @@ class SqlAllMappingsLookupTest extends WikibaseRdfIntegrationTest {
 					] )
 				),
 				new MappingListAndId(
-					$this->createPropertyId( 'P99002' ),
+					new NumericPropertyId( 'P99002' ),
 					new MappingList( [
 						new Mapping( 'foo:foo', 'https://example.com/#foo2' ),
 						new Mapping( 'foo:baz', 'https://example.com/#baz2' )
 					] )
 				),
 				new MappingListAndId(
-					$this->createPropertyId( 'P99003' ),
+					new NumericPropertyId( 'P99003' ),
 					new MappingList( [
 						new Mapping( 'foo:foo', 'https://example.com/#foo1' ),
 						new Mapping( 'foo:bar', 'https://example.com/#bar1' ),

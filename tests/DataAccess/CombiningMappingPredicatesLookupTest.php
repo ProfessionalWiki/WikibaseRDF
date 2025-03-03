@@ -43,7 +43,7 @@ class CombiningMappingPredicatesLookupTest extends WikibaseRdfIntegrationTest {
 	}
 
 	public function testValidLocalSettingsAndEmptyPageConfigGetsCombined(): void {
-		$this->setAllowedPredicates( [ 'owl:sameAs','owl:SymmetricProperty' ] );
+		$this->setAllowedPredicates( [ 'owl:sameAs', 'owl:SymmetricProperty' ] );
 		$this->createConfigPage( '' );
 
 		$lookup = WikibaseRdfExtension::getInstance()->newMappingPredicatesLookup();
@@ -58,7 +58,7 @@ class CombiningMappingPredicatesLookupTest extends WikibaseRdfIntegrationTest {
 	}
 
 	public function testInvalidLocalSettingsAreIgnored(): void {
-		$this->setAllowedPredicates( [ 'owl:sameAs','fooBar' ] );
+		$this->setAllowedPredicates( [ 'owl:sameAs', 'fooBar' ] );
 		$this->createConfigPage( '' );
 
 		$lookup = WikibaseRdfExtension::getInstance()->newMappingPredicatesLookup();
@@ -72,7 +72,7 @@ class CombiningMappingPredicatesLookupTest extends WikibaseRdfIntegrationTest {
 	}
 
 	public function testValidLocalSettingsAndValidPageConfigGetsCombined(): void {
-		$this->setAllowedPredicates( [ 'owl:sameAs','owl:SymmetricProperty' ] );
+		$this->setAllowedPredicates( [ 'owl:sameAs', 'owl:SymmetricProperty' ] );
 		$this->createConfigPage( "foo:bar\nbar:Baz" );
 
 		$lookup = WikibaseRdfExtension::getInstance()->newMappingPredicatesLookup();
