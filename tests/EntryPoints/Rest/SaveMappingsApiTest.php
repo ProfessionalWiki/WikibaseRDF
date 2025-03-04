@@ -462,7 +462,7 @@ class SaveMappingsApiTest extends WikibaseRdfIntegrationTest {
 				'method' => 'POST',
 				'pathParams' => [ 'entity_id' => $entityId ],
 				'headers' => [ 'Content-Type' => 'application/json' ],
-				'bodyContents' => $body
+				'bodyContents' => '{"mappings": ' . $body . '}'
 			] )
 		);
 	}

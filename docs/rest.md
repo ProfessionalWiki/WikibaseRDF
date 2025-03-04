@@ -99,7 +99,7 @@ Example for saving all RDF mappings for existing entity `Item:Q1`:
 
 ```shell
 curl -X POST -H 'Content-Type: application/json' "http://localhost:8484/rest.php/wikibase-rdf/v0/mappings/Q1" \
-  -d '[{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"}, {"predicate": "rdfs:subClassOf", "object": "foo:Bar"}]'
+  -d '{"mappings": [{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"}, {"predicate": "rdfs:subClassOf", "object": "foo:Bar"}]}'
 ```
 
 ### Request parameters

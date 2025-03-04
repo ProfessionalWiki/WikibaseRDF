@@ -16,7 +16,13 @@ class SaveMappingsApi extends SimpleHandler {
 	public function run( string $entityId ): Response {
 		$presenter = WikibaseRdfExtension::getInstance()->newRestSaveMappingsPresenter( $this->getResponseFactory() );
 		$useCase = WikibaseRdfExtension::getInstance()->newSaveMappingsUseCase( $presenter, $this->getUser() );
-		$useCase->saveMappings( $entityId, (array)$this->getValidatedBody() );
+
+		$body = $this->getValidatedBody();
+		$mappings = ( is_array( $body ) && isset( $body['mappings'] ) )
+			? $body['mappings']
+			: [];
+
+		$useCase->saveMappings( $entityId, $mappings );
 
 		return $presenter->getResponse();
 	}
@@ -35,6 +41,20 @@ class SaveMappingsApi extends SimpleHandler {
 				self::PARAM_SOURCE => 'path',
 				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_REQUIRED => true,
+			],
+		];
+	}
+
+	/**
+	 * @inheritDoc
+	 * @return array<string, array<string, mixed>>
+	 */
+	public function getBodyParamSettings(): array {
+		return [
+			'mappings' => [
+				self::PARAM_SOURCE => 'body',
+				ParamValidator::PARAM_TYPE => 'array',
+				ParamValidator::PARAM_REQUIRED => true
 			],
 		];
 	}
