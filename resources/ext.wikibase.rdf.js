@@ -184,7 +184,7 @@ $( function () {
 		const api = new mw.Rest();
 		api.post(
 			'/wikibase-rdf/v1/mappings/' + mw.config.get( 'wgTitle' ),
-			mappings,
+			{ mappings: mappings },
 			{ authorization: 'token' }
 		)
 			.done( function () {
