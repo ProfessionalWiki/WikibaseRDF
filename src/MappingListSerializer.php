@@ -68,7 +68,7 @@ class MappingListSerializer {
 	 */
 	public function mappingListToArray( MappingList $mappings ): array {
 		return array_map(
-			static fn ( Mapping $mapping ) => [
+			fn ( Mapping $mapping ) => [
 				self::PREDICATE_KEY => $mapping->predicate,
 				self::OBJECT_KEY => $mapping->object
 			],

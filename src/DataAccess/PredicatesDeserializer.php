@@ -22,7 +22,7 @@ class PredicatesDeserializer {
 		return new PredicateList(
 			array_values(
 				array_map(
-					static fn ( string $predicate ) => new Predicate( $predicate ),
+					fn ( string $predicate ) => new Predicate( $predicate ),
 					$this->validator->getValidPredicates()
 				)
 			)

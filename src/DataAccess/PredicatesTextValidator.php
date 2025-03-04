@@ -36,7 +36,7 @@ class PredicatesTextValidator {
 	private function normalizeLines( string $predicatesText ): array {
 		return array_filter(
 			array_map(
-				static fn ( string $predicate ) => trim( $predicate ),
+				fn ( string $predicate ) => trim( $predicate ),
 				explode( "\n", $predicatesText )
 			)
 		);

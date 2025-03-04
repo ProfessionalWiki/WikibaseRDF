@@ -94,7 +94,7 @@ class MediaWikiHooks {
 	}
 
 	private static function newEntityRdfBuilderFactoryFunction( callable $factoryFunction ): callable {
-		return static fn (
+		return fn (
 			int $flavorFlags,
 			RdfVocabulary $vocabulary,
 			RdfWriter $writer
@@ -126,7 +126,7 @@ class MediaWikiHooks {
 		$imploded = implode(
 			', ',
 			array_map(
-				static fn ( string $predicate ) => '"' . $predicate . '"',
+				fn ( string $predicate ) => '"' . $predicate . '"',
 				$invalidPredicates
 			)
 		);
