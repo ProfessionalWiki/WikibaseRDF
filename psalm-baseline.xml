@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.7.2@83a0325c0a95c0ab531d6b90c877068b464377b5">
+<files psalm-version="4.30.0@d0bc6e25d89f649e4f36a534f330f8bb4643dd69">
   <file src="src/MappingListSerializer.php">
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$array</code>
@@ -9,14 +9,14 @@
     </MixedAssignment>
   </file>
   <file src="src/WikibaseRdfExtension.php">
-    <MixedArgument occurrences="1">
-      <code>WikibaseRepo::getLocalEntitySource()-&gt;getRdfNodeNamespacePrefix()</code>
-    </MixedArgument>
     <MixedArgumentTypeCoercion occurrences="1">
       <code>(array)$services-&gt;getMainConfig()-&gt;get( 'AvailableRights' )</code>
     </MixedArgumentTypeCoercion>
     <MixedArrayAccess occurrences="1">
       <code>WikibaseRepo::getSettings()-&gt;getSetting( 'string-limits' )['PT:url']</code>
     </MixedArrayAccess>
+    <PossiblyFalseArgument occurrences="1">
+      <code>MediaWikiServices::getInstance()-&gt;getDBLoadBalancer()-&gt;getConnection( ILoadBalancer::DB_REPLICA )</code>
+    </PossiblyFalseArgument>
   </file>
 </files>
