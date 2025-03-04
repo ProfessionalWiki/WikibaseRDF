@@ -17,8 +17,10 @@ class SaveMappingsApi extends SimpleHandler {
 		$presenter = WikibaseRdfExtension::getInstance()->newRestSaveMappingsPresenter( $this->getResponseFactory() );
 		$useCase = WikibaseRdfExtension::getInstance()->newSaveMappingsUseCase( $presenter, $this->getUser() );
 
-		$body = is_array( $this->getValidatedBody() ) ? $this->getValidatedBody() : [];
-		$mappings = isset( $body['mappings'] ) ? (array)$body['mappings'] : [];
+		$body = $this->getValidatedBody();
+		$mappings = ( is_array( $body ) && isset( $body['mappings'] ) )
+			? $body['mappings']
+			: [];
 
 		$useCase->saveMappings( $entityId, $mappings );
 

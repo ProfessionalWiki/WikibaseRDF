@@ -21,7 +21,7 @@
 		"composer/installers": "^2|^1.0.1"
 	},
 	"require-dev": {
-		"vimeo/psalm": "^4.22.0",
+		"vimeo/psalm": "^4.30.0",
 		"phpstan/phpstan": "^1.4.8",
 		"mediawiki/mediawiki-codesniffer": "^46.0.0"
 	},
