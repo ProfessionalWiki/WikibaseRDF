@@ -35,11 +35,9 @@ class SqlAllMappingsLookup implements AllMappingsLookup {
 				'p.page_title',
 			] )
 			->from( 'text', 't' )
-			->joinConds( [
-				'slots' => [ 'INNER JOIN', 's.slot_content_id=t.old_id' ],
-				'slot_roles' => [ 'INNER JOIN', 'r.role_id=s.slot_role_id' ],
-				'page' => [ 'INNER JOIN', 'p.page_latest=s.slot_revision_id' ]
-			] )
+			->join( 'slots', 's', 's.slot_content_id=t.old_id' )
+			->join( 'slot_roles', 'r', 'r.role_id=s.slot_role_id' )
+			->join( 'page', 'p', 'p.page_latest=s.slot_revision_id' )
 			->where( [ 'r.role_name' => $this->slotName ] )
 			->caller( __METHOD__ )
 			->fetchResultSet();

@@ -8,6 +8,13 @@
       <code>$array</code>
     </MixedAssignment>
   </file>
+  <file src="src/Persistence/SqlAllMappingsLookup.php">
+    <InternalMethod occurrences="3">
+      <code>join</code>
+      <code>join</code>
+      <code>join</code>
+    </InternalMethod>
+  </file>
   <file src="src/WikibaseRdfExtension.php">
     <MixedArgumentTypeCoercion occurrences="1">
       <code>(array)$services-&gt;getMainConfig()-&gt;get( 'AvailableRights' )</code>
