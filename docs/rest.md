@@ -10,14 +10,14 @@
 
 Gets the mappings for a specific Wikibase entity.
 
-Route: `/wikibase-rdf/v0/mappings/{entity_id}`
+Route: `/wikibase-rdf/v1/mappings/{entity_id}`
 
 Method: `GET`
 
 Example for retrieving all RDF mappings for entity `Item:Q1`:
 
 ```shell
-curl "http://localhost:8484/rest.php/wikibase-rdf/v0/mappings/Q1"
+curl "http://localhost:8484/rest.php/wikibase-rdf/v1/mappings/Q1"
 ```
 
 ### Request parameters
@@ -91,14 +91,14 @@ The Entity ID format is invalid.
 
 Sets the mappings for a specific Wikibase entity.
 
-Route: `/wikibase-rdf/v0/mappings/{entity_id}`
+Route: `/wikibase-rdf/v1/mappings/{entity_id}`
 
 Method: `POST`
 
 Example for saving all RDF mappings for existing entity `Item:Q1`:
 
 ```shell
-curl -X POST -H 'Content-Type: application/json' "http://localhost:8484/rest.php/wikibase-rdf/v0/mappings/Q1" \
+curl -X POST -H 'Content-Type: application/json' "http://localhost:8484/rest.php/wikibase-rdf/v1/mappings/Q1" \
   -d '{"mappings": [{"predicate": "owl:sameAs", "object": "http://www.w3.org/2000/01/rdf-schema#subClassOf"}, {"predicate": "rdfs:subClassOf", "object": "foo:Bar"}]}'
 ```
 
@@ -112,12 +112,12 @@ curl -X POST -H 'Content-Type: application/json' "http://localhost:8484/rest.php
 
 **Body**
 
-The request body must be a JSON array with each item containing:
+The request body must be a JSON object with a "mappings" key containing an array. Each item in the array should contain:
 
 | key             | type   | description               |
 |-----------------|--------|---------------------------|
-| `[i].predicate` | string | Predicate for mapping `i` |
-| `[i].object`    | string | Object for mapping `i`    |
+| `mappings[i].predicate` | string | Predicate for mapping `i` |
+| `mappings[i].object`    | string | Object for mapping `i`    |
 
 ### Response
 
@@ -199,14 +199,14 @@ Requests containing invalid mappings will respond with the invalid mappings:
 
 Gets the mappings for all Wikibase entities.
 
-Route: `/wikibase-rdf/v0/mappings`
+Route: `/wikibase-rdf/v1/mappings`
 
 Method: `GET`
 
 Example for retrieving all RDF mappings for all entities:
 
 ```shell
-curl "http://localhost:8484/rest.php/wikibase-rdf/v0/mappings"
+curl "http://localhost:8484/rest.php/wikibase-rdf/v1/mappings"
 ```
 
 ### Request parameters
