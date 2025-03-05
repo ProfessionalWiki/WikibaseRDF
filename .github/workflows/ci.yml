@@ -290,5 +290,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - run: |
+          echo "::remove-matcher owner=eslint-compact::"
+          echo "::remove-matcher owner=eslint-stylish::"
       - run: npm install
       - run: npm run test
