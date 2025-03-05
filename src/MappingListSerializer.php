@@ -29,7 +29,7 @@ class MappingListSerializer {
 	public function mappingListFromArray( array $mappings ): MappingList {
 		return new MappingList(
 			array_map(
-				fn( array $mapping ) => $this->mappingFromArray( $mapping ),
+				fn ( array $mapping ) => $this->mappingFromArray( $mapping ),
 				$mappings
 			)
 		);
@@ -68,7 +68,7 @@ class MappingListSerializer {
 	 */
 	public function mappingListToArray( MappingList $mappings ): array {
 		return array_map(
-			fn( Mapping $mapping ) => [
+			fn ( Mapping $mapping ) => [
 				self::PREDICATE_KEY => $mapping->predicate,
 				self::OBJECT_KEY => $mapping->object
 			],

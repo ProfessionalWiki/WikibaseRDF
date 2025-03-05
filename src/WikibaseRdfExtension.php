@@ -4,9 +4,12 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF;
 
+use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Rest\ResponseFactory;
+use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use ProfessionalWiki\WikibaseRDF\Application\AllMappingsLookup;
 use ProfessionalWiki\WikibaseRDF\Application\EntityMappingsAuthorizer;
 use ProfessionalWiki\WikibaseRDF\Application\MappingRepository;
@@ -16,7 +19,6 @@ use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsUseCase;
 use ProfessionalWiki\WikibaseRDF\DataAccess\CombiningMappingPredicatesLookup;
 use ProfessionalWiki\WikibaseRDF\DataAccess\LocalSettingsMappingPredicatesLookup;
-use ProfessionalWiki\WikibaseRDF\DataAccess\MappingPredicatesLookup;
 use ProfessionalWiki\WikibaseRDF\DataAccess\PageContentFetcher;
 use ProfessionalWiki\WikibaseRDF\DataAccess\PredicatesDeserializer;
 use ProfessionalWiki\WikibaseRDF\DataAccess\PredicatesTextValidator;
@@ -33,9 +35,6 @@ use ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\SaveMappingsApi;
 use ProfessionalWiki\WikibaseRDF\Presentation\RDF\PropertyMappingPrefixBuilder;
 use ProfessionalWiki\WikibaseRDF\Presentation\RestSaveMappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Presentation\HtmlMappingsPresenter;
-use RequestContext;
-use Title;
-use User;
 use ValueValidators\ValueValidator;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParser;
@@ -141,7 +140,7 @@ class WikibaseRdfExtension {
 
 	private function newAllMappingsLookup(): AllMappingsLookup {
 		return new SqlAllMappingsLookup(
-			MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnectionRef( ILoadBalancer::DB_REPLICA ),
+			MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( ILoadBalancer::DB_REPLICA ),
 			self::SLOT_NAME,
 			$this->newEntityIdParser(),
 			$this->newMappingListSerializer()

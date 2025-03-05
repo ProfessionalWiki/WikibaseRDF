@@ -4,18 +4,17 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\EntryPoints;
 
-use EditPage;
+use MediaWiki\EditPage\EditPage;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Output\OutputPage;
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRoleRegistry;
-use OutputPage;
-use ParserOutput;
-use ProfessionalWiki\WikibaseRDF\DataAccess\PredicatesDeserializer;
+use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use ProfessionalWiki\WikibaseRDF\DataAccess\PredicatesTextValidator;
 use ProfessionalWiki\WikibaseRDF\Presentation\RDF\MultiEntityRdfBuilder;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
-use Title;
-use User;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
 use Wikibase\Lib\EntityTypeDefinitions;
@@ -59,8 +58,7 @@ class MediaWikiHooks {
 
 		try {
 			return WikibaseRepo::getEntityIdParser()->parse( $title->getText() );
-		}
-		catch ( EntityIdParsingException ) {
+		} catch ( EntityIdParsingException ) {
 			return null;
 		}
 	}
@@ -96,7 +94,7 @@ class MediaWikiHooks {
 	}
 
 	private static function newEntityRdfBuilderFactoryFunction( callable $factoryFunction ): callable {
-		return fn(
+		return fn (
 			int $flavorFlags,
 			RdfVocabulary $vocabulary,
 			RdfWriter $writer
@@ -128,7 +126,7 @@ class MediaWikiHooks {
 		$imploded = implode(
 			', ',
 			array_map(
-				fn( string $predicate ) => '"' . $predicate . '"',
+				fn ( string $predicate ) => '"' . $predicate . '"',
 				$invalidPredicates
 			)
 		);
@@ -140,7 +138,7 @@ class MediaWikiHooks {
 	public static function onAlternateEdit( EditPage $editPage ): void {
 		if ( WikibaseRdfExtension::getInstance()->isConfigTitle( $editPage->getTitle() ) ) {
 			$editPage->suppressIntro = true;
-			$editPage->editFormTextBeforeContent = wfMessage( 'wikibase-rdf-config-intro' );
+			$editPage->editFormTextBeforeContent = wfMessage( 'wikibase-rdf-config-intro' )->parse();
 		}
 	}
 

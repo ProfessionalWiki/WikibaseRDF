@@ -2,7 +2,7 @@
 	"name": "Wikibase RDF",
 	"type": "wikibase",
 
-	"version": "1.1.0",
+	"version": "2.0.0",
 
 	"author": [
 		"[https://Professional.Wiki/ Professional.Wiki]",
@@ -16,7 +16,7 @@
 	"descriptionmsg": "wikibase-rdf-description",
 
 	"requires": {
-		"MediaWiki": ">= 1.37.0",
+		"MediaWiki": ">= 1.43.0",
 		"extensions": {
 			"WikibaseRepository": "*"
 		}
@@ -46,17 +46,17 @@
 
 	"RestRoutes": [
 		{
-			"path": "/wikibase-rdf/v0/mappings/{entity_id}",
+			"path": "/wikibase-rdf/v1/mappings/{entity_id}",
 			"method": [ "GET" ],
 			"factory": "ProfessionalWiki\\WikibaseRDF\\WikibaseRdfExtension::getMappingsApiFactory"
 		},
 		{
-			"path": "/wikibase-rdf/v0/mappings/{entity_id}",
+			"path": "/wikibase-rdf/v1/mappings/{entity_id}",
 			"method": [ "POST" ],
 			"factory": "ProfessionalWiki\\WikibaseRDF\\WikibaseRdfExtension::saveMappingsApiFactory"
 		},
 		{
-			"path": "/wikibase-rdf/v0/mappings",
+			"path": "/wikibase-rdf/v1/mappings",
 			"method": [ "GET" ],
 			"factory": "ProfessionalWiki\\WikibaseRDF\\WikibaseRdfExtension::getAllMappingsApiFactory"
 		}
@@ -94,6 +94,10 @@
 				"wikibase-rdf-property-edit-warning-acknowledge"
 			]
 		}
+	},
+
+	"ExtensionMessagesFiles": {
+		"WikibaseRdfAlias": "WikibaseRdf.alias.php"
 	},
 
 	"manifest_version": 2

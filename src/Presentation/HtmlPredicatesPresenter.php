@@ -65,7 +65,7 @@ class HtmlPredicatesPresenter implements PredicatesPresenter {
 	 */
 	private function createWikiListItems(): array {
 		return array_map(
-			fn( Predicate $predicate ) => Html::element( 'li', [], $predicate->predicate ),
+			fn ( Predicate $predicate ) => Html::element( 'li', [], $predicate->predicate ),
 			$this->wikiPredicates->asArray()
 		);
 	}

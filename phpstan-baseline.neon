@@ -21,6 +21,11 @@ parameters:
 			path: src/WikibaseRdfExtension.php
 
 		-
+			message: "#^Parameter \\#1 \\$database of class ProfessionalWiki\\\\WikibaseRDF\\\\Persistence\\\\SqlAllMappingsLookup constructor expects Wikimedia\\\\Rdbms\\\\IDatabase, Wikimedia\\\\Rdbms\\\\IDatabase\\|false given\\.$#"
+			count: 1
+			path: src/WikibaseRdfExtension.php
+
+		-
 			message: "#^Parameter \\#4 \\$availableRights of class Wikibase\\\\Repo\\\\Store\\\\WikiPageEntityStorePermissionChecker constructor expects array\\<string\\>, array given\\.$#"
 			count: 1
 			path: src/WikibaseRdfExtension.php

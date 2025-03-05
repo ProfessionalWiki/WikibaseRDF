@@ -7,7 +7,6 @@ namespace ProfessionalWiki\WikibaseRDF\Presentation;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\ResponseFactory;
 use ProfessionalWiki\WikibaseRDF\Application\SaveMappings\SaveMappingsPresenter;
-use Throwable;
 use Wikimedia\Message\MessageValue;
 
 class RestSaveMappingsPresenter implements SaveMappingsPresenter {

@@ -4,14 +4,11 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\EntryPoints\Rest;
 
-use MediaWiki\Rest\HttpException;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
-use MediaWiki\Rest\Validator\BodyValidator;
-use MediaWiki\Rest\Validator\JsonBodyValidator;
+use MediaWiki\User\User;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
-use RequestContext;
-use User;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SaveMappingsApi extends SimpleHandler {
@@ -19,7 +16,13 @@ class SaveMappingsApi extends SimpleHandler {
 	public function run( string $entityId ): Response {
 		$presenter = WikibaseRdfExtension::getInstance()->newRestSaveMappingsPresenter( $this->getResponseFactory() );
 		$useCase = WikibaseRdfExtension::getInstance()->newSaveMappingsUseCase( $presenter, $this->getUser() );
-		$useCase->saveMappings( $entityId, (array)$this->getValidatedBody() );
+
+		$body = $this->getValidatedBody();
+		$mappings = ( is_array( $body ) && isset( $body['mappings'] ) )
+			? $body['mappings']
+			: [];
+
+		$useCase->saveMappings( $entityId, $mappings );
 
 		return $presenter->getResponse();
 	}
@@ -44,17 +47,16 @@ class SaveMappingsApi extends SimpleHandler {
 
 	/**
 	 * @inheritDoc
+	 * @return array<string, array<string, mixed>>
 	 */
-	public function getBodyValidator( $contentType ): BodyValidator {
-		if ( $contentType !== 'application/json' ) {
-			throw new HttpException(
-				"Unsupported Content-Type",
-				415,
-				[ 'content_type' => $contentType ]
-			);
-		}
-
-		return new JsonBodyValidator( [] );
+	public function getBodyParamSettings(): array {
+		return [
+			'mappings' => [
+				self::PARAM_SOURCE => 'body',
+				ParamValidator::PARAM_TYPE => 'array',
+				ParamValidator::PARAM_REQUIRED => true
+			],
+		];
 	}
 
 }

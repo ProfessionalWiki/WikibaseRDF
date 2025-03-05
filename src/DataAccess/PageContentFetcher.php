@@ -19,8 +19,7 @@ class PageContentFetcher {
 	public function getPageContent( string $pageTitle ): ?\Content {
 		try {
 			$title = $this->titleParser->parseTitle( $pageTitle );
-		}
-		catch ( \MalformedTitleException $e ) {
+		} catch ( \MalformedTitleException $e ) {
 			return null;
 		}
 

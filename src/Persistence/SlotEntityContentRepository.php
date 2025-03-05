@@ -4,10 +4,9 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseRDF\Persistence;
 
-use CommentStoreComment;
-use Content;
 use Exception;
-use MediaWiki\MediaWikiServices;
+use MediaWiki\CommentStore\CommentStoreComment;
+use MediaWiki\Content\Content;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Revision\RevisionAccessException;
@@ -39,8 +38,7 @@ class SlotEntityContentRepository implements EntityContentRepository {
 
 		try {
 			return $revision?->getSlot( $this->slotName, RevisionRecord::FOR_PUBLIC, $this->authority )?->getContent();
-		}
-		catch ( RevisionAccessException ) {
+		} catch ( RevisionAccessException ) {
 			return null;
 		}
 	}
@@ -48,8 +46,7 @@ class SlotEntityContentRepository implements EntityContentRepository {
 	private function getWikiPage( EntityId $entityId ): ?WikiPage {
 		try {
 			$title = $this->entityTitleLookup->getTitleForId( $entityId );
-		}
-		catch ( Exception ) {
+		} catch ( Exception ) {
 			return null;
 		}
 

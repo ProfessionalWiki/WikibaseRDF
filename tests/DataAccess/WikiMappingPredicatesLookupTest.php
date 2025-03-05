@@ -16,6 +16,7 @@ use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
 
 /**
  * @covers \ProfessionalWiki\WikibaseRDF\DataAccess\WikiMappingPredicatesLookup
+ * @group Database
  */
 class WikiMappingPredicatesLookupTest extends WikibaseRdfIntegrationTest {
 

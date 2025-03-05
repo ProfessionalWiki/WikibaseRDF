@@ -29,7 +29,7 @@ class SqlAllMappingsLookupPerformanceTest extends WikibaseRdfIntegrationTest {
 
 	private function newSqlAllMappingsLookup(): SqlAllMappingsLookup {
 		return new SqlAllMappingsLookup(
-			$this->db,
+			$this->getDb(),
 			WikibaseRdfExtension::SLOT_NAME,
 			WikibaseRepo::getEntityIdParser(),
 			WikibaseRdfExtension::getInstance()->newMappingListSerializer()
@@ -75,7 +75,7 @@ class SqlAllMappingsLookupPerformanceTest extends WikibaseRdfIntegrationTest {
 		$this->assertSame(
 			$items * $mappings,
 			array_sum(
-				array_map( fn( MappingListAndId $mapping ) => count( $mapping->mappingList->asArray() ), $allMappings )
+				array_map( fn ( MappingListAndId $mapping ) => count( $mapping->mappingList->asArray() ), $allMappings )
 			)
 		);
 		$this->assertLessThan( $expectedTime, $took );
@@ -84,7 +84,7 @@ class SqlAllMappingsLookupPerformanceTest extends WikibaseRdfIntegrationTest {
 	private function createBulkMappings( int $count, int $revision ): MappingList {
 		return new MappingList(
 			array_map(
-				fn( $i ) => new Mapping( 'foo:bar', "http://example.com/$i-$revision" ),
+				fn ( $i ) => new Mapping( 'foo:bar', "http://example.com/$i-$revision" ),
 				range( 0, $count - 1 )
 			)
 		);

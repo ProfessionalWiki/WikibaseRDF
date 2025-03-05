@@ -53,8 +53,8 @@ For more information, refer to the [REST API documentation](docs/rest.md).
 Platform requirements:
 
 * [PHP] 8.0 or later (tested up to 8.1)
-* [MediaWiki] 1.37 or later (tested up to 1.37)
-* [Wikibase] 1.37 or later (tested up to 1.37)
+* [MediaWiki] 1.43 or later (tested up to 1.43)
+* [Wikibase] 1.43 or later (tested up to 1.43)
 
 The recommended way to install Wikibase RDF is using [Composer] with
 [MediaWiki's built-in support for Composer][Composer install].

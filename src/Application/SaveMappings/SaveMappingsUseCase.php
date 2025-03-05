@@ -105,7 +105,7 @@ class SaveMappingsUseCase {
 		return array_values(
 			array_filter(
 				$mappings,
-				fn( array $mapping ) => !$this->mappingIsValid( $mapping[self::PREDICATE_KEY], $mapping[self::OBJECT_KEY] )
+				fn ( array $mapping ) => !$this->mappingIsValid( $mapping[self::PREDICATE_KEY], $mapping[self::OBJECT_KEY] )
 			)
 		);
 	}

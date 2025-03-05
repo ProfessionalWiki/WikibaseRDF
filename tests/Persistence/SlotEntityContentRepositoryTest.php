@@ -5,12 +5,13 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseRDF\Tests\Persistence;
 
 use Exception;
+use MediaWiki\Content\JsonContent;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionLookup;
+use MediaWiki\Title\Title;
 use ProfessionalWiki\WikibaseRDF\Persistence\SlotEntityContentRepository;
 use ProfessionalWiki\WikibaseRDF\Tests\WikibaseRdfIntegrationTest;
 use ProfessionalWiki\WikibaseRDF\WikibaseRdfExtension;
-use Title;
 use Wikibase\DataModel\Entity\ItemId;
 
 /**
@@ -48,13 +49,13 @@ class SlotEntityContentRepositoryTest extends WikibaseRdfIntegrationTest {
 
 		$repo->setContent(
 			new ItemId( 'Q100' ),
-			new \JsonContent( '{ "foo": 42 }' )
+			new JsonContent( '{ "foo": 42 }' )
 		);
 
 		$this->assertEquals(
-			new \JsonContent(
+			new JsonContent(
 '{
-    "foo": 42
+	"foo": 42
 }'
 			),
 			$repo->getContent( new ItemId( 'Q100' ) )
@@ -66,7 +67,7 @@ class SlotEntityContentRepositoryTest extends WikibaseRdfIntegrationTest {
 
 		$this->newRepo()->setContent(
 			new ItemId( 'Q404' ),
-			new \JsonContent( '{ "foo": 42 }' )
+			new JsonContent( '{ "foo": 42 }' )
 		);
 	}
 
@@ -75,19 +76,19 @@ class SlotEntityContentRepositoryTest extends WikibaseRdfIntegrationTest {
 
 		$repo->setContent(
 			new ItemId( 'Q100' ),
-			new \JsonContent( '{ "foo": 42, "bar": 9001, "baz": 1337 }' )
+			new JsonContent( '{ "foo": 42, "bar": 9001, "baz": 1337 }' )
 		);
 
 		$repo->setContent(
 			new ItemId( 'Q100' ),
-			new \JsonContent( '{ "foo": 1, "bah": 2 }' )
+			new JsonContent( '{ "foo": 1, "bah": 2 }' )
 		);
 
 		$this->assertEquals(
-			new \JsonContent(
-				'{
-    "foo": 1,
-    "bah": 2
+			new JsonContent(
+'{
+	"foo": 1,
+	"bah": 2
 }'
 			),
 			$repo->getContent( new ItemId( 'Q100' ) )
@@ -103,38 +104,38 @@ class SlotEntityContentRepositoryTest extends WikibaseRdfIntegrationTest {
 
 		$repo->setContent(
 			new ItemId( 'Q100' ),
-			new \JsonContent( '{ "foo": 42 }' )
+			new JsonContent( '{ "foo": 42 }' )
 		);
 		$firstRevisionId = $this->getRevisionLookup()->getRevisionByTitle( Title::newFromText( 'Item:Q100' ) )->getId();
 
 		$repo->setContent(
 			new ItemId( 'Q100' ),
-			new \JsonContent( '{ "foo": 84 }' )
+			new JsonContent( '{ "foo": 84 }' )
 		);
 		$latestRevisionId = $this->getRevisionLookup()->getRevisionByTitle( Title::newFromText( 'Item:Q100' ) )->getId();
 
 		$this->assertEquals(
-			new \JsonContent(
-				'{
-    "foo": 42
+			new JsonContent(
+'{
+	"foo": 42
 }'
 			),
 			$repo->getContent( new ItemId( 'Q100' ), $firstRevisionId )
 		);
 
 		$this->assertEquals(
-			new \JsonContent(
-				'{
-    "foo": 84
+			new JsonContent(
+'{
+	"foo": 84
 }'
 			),
 			$repo->getContent( new ItemId( 'Q100' ), $latestRevisionId )
 		);
 
 		$this->assertEquals(
-			new \JsonContent(
-				'{
-    "foo": 84
+			new JsonContent(
+'{
+	"foo": 84
 }'
 			),
 			$repo->getContent( new ItemId( 'Q100' ) )
