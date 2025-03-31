@@ -7,7 +7,7 @@
 		]
 	},
 	"wikibase-rdf-name": "{{notranslate}}",
-	"wikibase-rdf-description": "{{Desc|name=Wikibase RDF|url=https://professional.wiki/en/extension/wikibase-rdf}}",
+	"wikibase-rdf-description": "{{Desc|name=Wikibase RDF|url=https://github.com/ProfessionalWiki/WikibaseRDF}}",
 	"wikibase-rdf-mappings-toggler": "This is the text on a button.",
 	"wikibase-rdf-mappings-predicate-heading": "This is a section header.",
 	"wikibase-rdf-mappings-object-heading": "This is a section header.",
