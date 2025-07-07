@@ -52,7 +52,7 @@ For more information, refer to the [REST API documentation](docs/rest.md).
 
 Platform requirements:
 
-* [PHP] 8.0 or later (tested up to 8.1)
+* [PHP] 8.0 or later (tested up to 8.4)
 * [MediaWiki] 1.43 or later (tested up to 1.43)
 * [Wikibase] 1.43 or later (tested up to 1.43)
 
@@ -137,6 +137,10 @@ Alternatively, you can execute commands from the MediaWiki root directory:
 * Psalm: `php vendor/bin/psalm --config=extensions/WikibaseRDF/psalm.xml`
 
 ## Release notes
+
+### Version 2.0.0 - 2025-07-07
+
+* Raised minimum MediaWiki version to 1.43
 
 ### Version 1.1.0 - 2022-11-25
 
