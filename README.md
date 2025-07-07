@@ -9,9 +9,9 @@
 
 [Wikibase] extension that allows defining RDF mappings for Wikibase Entities.
 
-[Professional.Wiki] created and maintains Wikibase RDF. We provide [Wikibase hosting], [Wikibase development] and [Wikibase consulting].
+[Professional Wiki] created and maintains Wikibase RDF. We provide [Wikibase hosting], [Wikibase development] and [Wikibase consulting].
 
-The [Wikibase Stakeholder Group] concieved and funded the extension.
+The [Wikibase Stakeholder Group] conceived and funded the extension.
 
 **Table of Contents**
 
@@ -25,13 +25,13 @@ The [Wikibase Stakeholder Group] concieved and funded the extension.
 ## Usage
 
 When the extension is enabled, Item and Property pages show a "Mapping to other ontologies" section.
-This section is located in between the "In more languages" and "Statements" sections.
+This section is located between the "In more languages" and "Statements" sections.
 
 <img src="https://user-images.githubusercontent.com/146040/193851219-dc30080a-7cbb-4c1a-9800-e7c7d98ef644.png" style="border: 1px solid black" alt="Property page with a mapping">
 
-Users with editing permissions can add, edit or remove mappings.
+Users with editing permissions can add, edit, or remove mappings.
 
-A mapping consists of a predicate and a URL. The predicate can only be one out of a preconfigured set of values. The URL has to be a valid URL.
+A mapping consists of a predicate and a URL. The predicate can only be one out of a preconfigured set of values. The URL has to be valid.
 
 <img src="https://user-images.githubusercontent.com/146040/193851211-b4031ca1-4cc9-47ab-9160-658f4a38d979.png" style="border: 1px solid black" alt="Mapping editing UI">
 
@@ -52,17 +52,17 @@ For more information, refer to the [REST API documentation](docs/rest.md).
 
 Platform requirements:
 
-* [PHP] 8.0 or later (tested up to 8.4)
+* [PHP] 8.1 or later (tested up to 8.4)
 * [MediaWiki] 1.43 or later (tested up to 1.43)
 * [Wikibase] 1.43 or later (tested up to 1.43)
 
 The recommended way to install Wikibase RDF is using [Composer] with
 [MediaWiki's built-in support for Composer][Composer install].
 
-On the commandline, go to your wikis root directory. Then run these two commands:
+On the command line, go to your wiki's root directory. Then run these two commands:
 
 ```shell script
-COMPOSER=composer.local.json composer require --no-update professional-wiki/wikibase-rdf:~1.0
+COMPOSER=composer.local.json composer require --no-update professional-wiki/wikibase-rdf:~2.0
 ```
 ```shell script
 composer update professional-wiki/wikibase-rdf --no-dev -o
@@ -74,7 +74,7 @@ Then enable the extension by adding the following to the bottom of your wikis [L
 wfLoadExtension( 'WikibaseRDF' );
 ```
 
-You can verify the extension was enabled successfully by opening your wikis Special:Version page in your browser.
+You can verify the extension was enabled successfully by opening your wiki's Special:Version page in your browser.
 
 ## PHP Configuration
 
@@ -141,6 +141,7 @@ Alternatively, you can execute commands from the MediaWiki root directory:
 ### Version 2.0.0 - 2025-07-07
 
 * Raised minimum MediaWiki version to 1.43
+* Raised minimum PHP version to 8.1
 
 ### Version 1.1.0 - 2022-11-25
 
@@ -159,7 +160,7 @@ Initial release for Wikibase 1.37 with these features:
 * TranslateWiki integration
 * Support for PHP 8.0 and 8.1
 
-[Professional.Wiki]: https://professional.wiki
+[Professional Wiki]: https://professional.wiki
 [Wikibase]: https://wikibase.consulting/what-is-wikibase/
 [Wikibase hosting]: https://professional.wiki/en/hosting/wikibase
 [Wikibase development]: https://professional.wiki/en/wikibase-software-development
