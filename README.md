@@ -9,7 +9,7 @@
 
 [Wikibase] extension that allows defining RDF mappings for Wikibase Entities.
 
-[Professional Wiki] created and maintains Wikibase RDF. We provide [Wikibase hosting], [Wikibase development] and [Wikibase consulting].
+[Professional Wiki] created and maintains Wikibase RDF. We provide [Wikibase hosting], [Wikibase development], and [Wikibase consulting].
 
 The [Wikibase Stakeholder Group] conceived and funded the extension.
 
@@ -52,9 +52,9 @@ For more information, refer to the [REST API documentation](docs/rest.md).
 
 Platform requirements:
 
-* [PHP] 8.1 or later (tested up to 8.4)
-* [MediaWiki] 1.43 or later (tested up to 1.43)
-* [Wikibase] 1.43 or later (tested up to 1.43)
+- [PHP] 8.1 or later (tested up to 8.4)
+- [MediaWiki] 1.43 or later (tested up to 1.43)
+- [Wikibase] 1.43 or later (tested up to 1.43)
 
 The recommended way to install Wikibase RDF is using [Composer] with
 [MediaWiki's built-in support for Composer][Composer install].
@@ -140,26 +140,26 @@ Alternatively, you can execute commands from the MediaWiki root directory:
 
 ### Version 2.0.0 - 2025-07-07
 
-* Raised minimum MediaWiki version to 1.43
-* Raised minimum PHP version to 8.1
-* Translation updates for system messages (thanks @translatewiki and its translator community)
+- Raised minimum MediaWiki version to 1.43
+- Raised minimum PHP version to 8.1
+- Translation updates for system messages (thanks @translatewiki and its translator community)
 
 ### Version 1.1.0 - 2022-11-25
 
-* Added notification about SPARQL store behavior that shows on first edit
-* Translation updates for system messages (thanks @translatewiki and its translator community)
+- Added notification about SPARQL store behavior that shows on first edit
+- Translation updates for system messages (thanks @translatewiki and its translator community)
 
 ### Version 1.0.0 - 2022-10-04
 
 Initial release for Wikibase 1.37 with these features:
 
-* Ability to add mappings to Items and Properties via an on-page UI
-* Inclusion of mappings in the RDF output
-* Configurable relationships (predicates), including configuration UI on `MediaWiki:MappingPredicates`
-* API endpoint to retrieve or update the mappings for an Entity
-* API endpoint to retrieve all mappings defined on the wiki
-* TranslateWiki integration
-* Support for PHP 8.0 and 8.1
+- Ability to add mappings to Items and Properties via an on-page UI
+- Inclusion of mappings in the RDF output
+- Configurable relationships (predicates), including configuration UI on `MediaWiki:MappingPredicates`
+- API endpoint to retrieve or update the mappings for an Entity
+- API endpoint to retrieve all mappings defined on the wiki
+- TranslateWiki integration
+- Support for PHP 8.0 and 8.1
 
 [Professional Wiki]: https://professional.wiki
 [Wikibase]: https://wikibase.consulting/what-is-wikibase/
