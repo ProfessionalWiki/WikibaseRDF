@@ -142,11 +142,12 @@ Alternatively, you can execute commands from the MediaWiki root directory:
 
 * Raised minimum MediaWiki version to 1.43
 * Raised minimum PHP version to 8.1
+* Translation updates for system messages (thanks @translatewiki and its translator community)
 
 ### Version 1.1.0 - 2022-11-25
 
-* Added translations for various languages
 * Added notification about SPARQL store behavior that shows on first edit
+* Translation updates for system messages (thanks @translatewiki and its translator community)
 
 ### Version 1.0.0 - 2022-10-04
 
