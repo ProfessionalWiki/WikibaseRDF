@@ -4,11 +4,14 @@
 			"Умар"
 		]
 	},
+	"wikibase-rdf-mappings-toggler": "Кхечу онтологешца хӀоттор",
 	"wikibase-rdf-mappings-predicate-heading": "Предикат",
 	"wikibase-rdf-mappings-object-heading": "URL",
 	"wikibase-rdf-mappings-action-save": "Ӏалашйан",
 	"wikibase-rdf-mappings-action-remove": "дӀайаккха",
 	"wikibase-rdf-mappings-action-cancel": "йухайаккха",
 	"wikibase-rdf-mappings-action-edit": "нисйан",
-	"wikibase-rdf-save-mappings-save-failed": "Ӏалашйан аьтто ца баьлла"
+	"wikibase-rdf-mappings-action-add": "дустар тӀетоха",
+	"wikibase-rdf-save-mappings-save-failed": "Ӏалашйан аьтто ца баьлла",
+	"special-mapping-predicates": "Гайтаран предикаташ"
 }
