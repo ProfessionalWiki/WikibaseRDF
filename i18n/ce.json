@@ -4,6 +4,7 @@
 			"Умар"
 		]
 	},
+	"wikibase-rdf-description": "Wikibase духашна RDF картанаш къасто бакъо ло",
 	"wikibase-rdf-mappings-toggler": "Кхечу онтологешца хӀоттор",
 	"wikibase-rdf-mappings-predicate-heading": "Предикат",
 	"wikibase-rdf-mappings-object-heading": "URL",
@@ -12,6 +13,16 @@
 	"wikibase-rdf-mappings-action-cancel": "йухайаккха",
 	"wikibase-rdf-mappings-action-edit": "нисйан",
 	"wikibase-rdf-mappings-action-add": "дустар тӀетоха",
+	"wikibase-rdf-save-mappings-invalid-mappings": "Ахь билгалдаьхна цхьадолу дустарш нийса дац",
 	"wikibase-rdf-save-mappings-save-failed": "Ӏалашйан аьтто ца баьлла",
+	"wikibase-rdf-entity-id-invalid": "Ахь билгалйаьккхина объектан ID нийса йац",
+	"wikibase-rdf-permission-denied": "Хьан бакъо йац хӀокху духан дустаршш хийца",
+	"wikibase-rdf-config-invalid": "{{PLURAL:$1|Нийса йоцу предикат|Нийса йоцу предикаташ}}:\n$2. Хьан хийцамаш Ӏалаш ца бина.",
+	"wikibase-rdf-config-list-intro": "ХӀокху агӀоно билгалдоккху, муьлха предикаташ лело мегар ду кхечу онтологешца нисйан. ХӀара функционал йу [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Wikibase_RDF Wikibase RDF-шордар] дакъа.",
+	"wikibase-rdf-config-list-heading": "Магийна {{PLURAL:$1|алам|аламаш}}:",
+	"wikibase-rdf-config-list-empty": "Предикаташ билгалйаьхна йац.",
+	"wikibase-rdf-config-list-footer": "LocalSettings.php чохь билгалдаьккхина, хийца йиш йац хӀокху агӀонехула.",
+	"wikibase-rdf-property-edit-warning": "«$1» тӀетаӀийна ахь кхуллу гуттаренна а дӀахьедар триплсторийн чохь. Дехар до, тидам бе, муьлхха а тӀаьхьа хийцамаш бан беза триплсторан меттахӀотто, ширделла дустарш дӀадахархьама. Иза хьакхалуш дац элементийн дустаршца.",
+	"wikibase-rdf-property-edit-warning-acknowledge": "И хаам кхин ма гайта.",
 	"special-mapping-predicates": "Гайтаран предикаташ"
 }

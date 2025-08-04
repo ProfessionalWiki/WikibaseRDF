@@ -2,14 +2,15 @@
 	"@metadata": {
 		"authors": [
 			"Hamilton Abreu",
-			"Kghbln"
+			"Kghbln",
+			"Mansil alfalb"
 		]
 	},
 	"wikibase-rdf-description": "Permite definir mapeamentos RDF para entidades Wikibase",
 	"wikibase-rdf-mappings-toggler": "Mapeamento para outras ontologias",
 	"wikibase-rdf-mappings-predicate-heading": "Predicado",
 	"wikibase-rdf-mappings-object-heading": "URL",
-	"wikibase-rdf-mappings-action-save": "gravar",
+	"wikibase-rdf-mappings-action-save": "guardar",
 	"wikibase-rdf-mappings-action-remove": "remover",
 	"wikibase-rdf-mappings-action-cancel": "cancelar",
 	"wikibase-rdf-mappings-action-edit": "editar",
