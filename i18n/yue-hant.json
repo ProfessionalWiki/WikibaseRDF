@@ -1,7 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"JeffreyKim"
+			"JeffreyKim",
+			"Ktchankt",
+			"Yueman"
 		]
 	},
 	"wikibase-rdf-description": "允許為維基庫嘅實體嚟定義RDF嘅對應",
@@ -9,7 +11,7 @@
 	"wikibase-rdf-mappings-predicate-heading": "謂詞",
 	"wikibase-rdf-mappings-object-heading": "URL",
 	"wikibase-rdf-mappings-action-save": "儲存",
-	"wikibase-rdf-mappings-action-remove": "移除",
+	"wikibase-rdf-mappings-action-remove": "剷走",
 	"wikibase-rdf-mappings-action-cancel": "取消",
 	"wikibase-rdf-mappings-action-edit": "改",
 	"wikibase-rdf-mappings-action-add": "加對應",
@@ -17,7 +19,7 @@
 	"wikibase-rdf-save-mappings-save-failed": "儲存失敗咗",
 	"wikibase-rdf-entity-id-invalid": "你指定嘅實體ID係無效嘅",
 	"wikibase-rdf-permission-denied": "你冇權限編輯呢個實體嘅對應",
-	"wikibase-rdf-config-invalid": "無效嘅{{PLURAL:$1|述語}}:\n$2。你嘅變更未儲存。",
+	"wikibase-rdf-config-invalid": "無效嘅{{PLURAL:$1|述語}}：\n$2。你嘅改動未儲存。",
 	"wikibase-rdf-config-list-intro": "呢個頁面定義咗邊啲述語可以用嚟對應其他本體。呢個功能係[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Wikibase_RDF 維基庫嘅RDF擴充]嘅一部分。",
 	"wikibase-rdf-config-list-heading": "允許咗{{PLURAL:$1|述語}}:",
 	"wikibase-rdf-config-list-empty": "冇定義過啲述語。",
