@@ -20,7 +20,7 @@
 	"wikibase-rdf-entity-id-invalid": "Укажаната назнака на единицата е неважечка",
 	"wikibase-rdf-permission-denied": "Немате дозвола да ги менувате пресликувањата на оваа единица",
 	"wikibase-rdf-config-invalid": "Неважечки {{PLURAL:$1|предикат|предикати}}:\n$2. Промените не се зачувани.",
-	"wikibase-rdf-config-list-intro": "Страницава определува кои предикати ќе можат да се користат во пресликување во други онтологии. Оваа функција е дел од [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Wikibase_RDFдодадокот Викибаза RDF].",
+	"wikibase-rdf-config-list-intro": "Страницава определува кои предикати ќе можат да се користат во пресликување во други онтологии. Оваа функција е дел од [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Wikibase_RDF додадокот Викибаза RDF].",
 	"wikibase-rdf-config-list-heading": "{{PLURAL:$1|Дозволен предикат|Дозволени предикати}}:",
 	"wikibase-rdf-config-list-empty": "Нема определено предикати.",
 	"wikibase-rdf-config-list-footer": "Определено во LocalSettings.php. Не може да се менуива преку оваа страница.",
