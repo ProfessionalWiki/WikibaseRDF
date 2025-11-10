@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"Toliño"
+		]
+	},
+	"wikibase-rdf-description": "Permite definir correspondencias RDF para entidades de Wikibase",
+	"wikibase-rdf-mappings-toggler": "Correspondencia con outras ontoloxías",
+	"wikibase-rdf-mappings-predicate-heading": "Predicado",
+	"wikibase-rdf-mappings-object-heading": "URL",
+	"wikibase-rdf-mappings-action-save": "gardar",
+	"wikibase-rdf-mappings-action-remove": "eliminar",
+	"wikibase-rdf-mappings-action-cancel": "cancelar",
+	"wikibase-rdf-mappings-action-edit": "editar",
+	"wikibase-rdf-mappings-action-add": "engadir unha correspondencia",
+	"wikibase-rdf-save-mappings-invalid-mappings": "Algunhas das correspondencias que especificaches non son válidas",
+	"wikibase-rdf-save-mappings-save-failed": "Fallou o gardado",
+	"wikibase-rdf-entity-id-invalid": "O identificador de entidade que escribiches non é válido",
+	"wikibase-rdf-permission-denied": "Non tes permiso para editar as correspondencias desta entidade",
+	"wikibase-rdf-config-invalid": "{{PLURAL:$1|O predicado non é válido|Os predicados non son válidos}}:\n$2. Non se gardaron os cambios.",
+	"wikibase-rdf-config-list-intro": "Esta páxina define que predicados se poden usar nas correspondencias con outras ontoloxías. Esta funcionalidade forma parte da [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Wikibase_RDF extensión RDF de Wikibase].",
+	"wikibase-rdf-config-list-heading": "{{PLURAL:$1|Predicado permitido|Predicados permitidos}}:",
+	"wikibase-rdf-config-list-empty": "Non se definiu ningún predicado.",
+	"wikibase-rdf-config-list-footer": "Está definido en «LocalSettings.php». Non se pode modificar desde esta páxina.",
+	"wikibase-rdf-property-edit-warning": "Ao premeres en «$1», estás a crear unha declaración permanente no almacén de triplas. Ten en conta que calquera edición posterior na propiedade necesitará un restablecemento do almacén de triplas para borrar as correspondencias desactualizadas. Isto non se aplica ás correspondencias de elementos.",
+	"wikibase-rdf-property-edit-warning-acknowledge": "Non amosar esta mensaxe de novo.",
+	"special-mapping-predicates": "Predicados de correspondencia"
+}
