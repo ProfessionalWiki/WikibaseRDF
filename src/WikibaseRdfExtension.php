@@ -32,7 +32,6 @@ use ProfessionalWiki\WikibaseRDF\Presentation\HtmlPredicatesPresenter;
 use ProfessionalWiki\WikibaseRDF\Presentation\RDF\MappingRdfBuilder;
 use ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\GetMappingsApi;
 use ProfessionalWiki\WikibaseRDF\EntryPoints\Rest\SaveMappingsApi;
-use ProfessionalWiki\WikibaseRDF\Presentation\RDF\PropertyMappingPrefixBuilder;
 use ProfessionalWiki\WikibaseRDF\Presentation\RestSaveMappingsPresenter;
 use ProfessionalWiki\WikibaseRDF\Presentation\HtmlMappingsPresenter;
 use ValueValidators\ValueValidator;
@@ -91,12 +90,6 @@ class WikibaseRdfExtension {
 		return new MappingRdfBuilder(
 			$writer,
 			$this->newMappingRepository( RequestContext::getMain()->getUser() ),
-			$this->newPropertyMappingPrefixBuilder()
-		);
-	}
-
-	private function newPropertyMappingPrefixBuilder(): PropertyMappingPrefixBuilder {
-		return new PropertyMappingPrefixBuilder(
 			WikibaseRepo::getLocalEntitySource()->getRdfNodeNamespacePrefix()
 		);
 	}
