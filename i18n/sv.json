@@ -2,10 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Kghbln",
-			"Sabelöga"
+			"Sabelöga",
+			"Stefan2255"
 		]
 	},
-	"wikibase-rdf-description": "Wikibase-tillägg som gör det möjligt att definiera RDF-kartläggningar för Wikibase-entiteter",
+	"wikibase-rdf-description": "Tillåter att definiera RDF-mappningar för Wikibase-enheter",
 	"wikibase-rdf-mappings-toggler": "Kartläggning till andra ontologier",
 	"wikibase-rdf-mappings-predicate-heading": "Predikat",
 	"wikibase-rdf-mappings-object-heading": "URL",
@@ -19,10 +20,11 @@
 	"wikibase-rdf-entity-id-invalid": "Entitets-ID:t du angett är ogiltigt",
 	"wikibase-rdf-permission-denied": "Du har inte behörighet att redigera detta entitets kartläggningar",
 	"wikibase-rdf-config-invalid": "{{PLURAL:$1|Ogiltigt predikat|Ogiltiga predikat}}:\n$2. Dina ändringar sparades inte.",
-	"wikibase-rdf-config-list-intro": "Denna sida definierar vilka predikat som kan användas i kartläggningar till andra ontologier. Denna funktion är en del av [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Wikibase_RDF tillägget Wikibase RDF].",
+	"wikibase-rdf-config-list-intro": "Den här sidan definierar vilka predikat som kan användas i mappningar till andra ontologier. Denna funktion är en del av [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Wikibase_RDF Wikibase RDF-tillägget].",
 	"wikibase-rdf-config-list-heading": "{{PLURAL:$1|Tillåtet predikat|Tillåtna predikat}}:",
 	"wikibase-rdf-config-list-empty": "Inga predikat har definierats.",
 	"wikibase-rdf-config-list-footer": "Definierats i LocalSettings.php, kan inte ändras via den här sidan.",
+	"wikibase-rdf-property-edit-warning": "Genom att klicka på \"$1\" skapar du ett permanent uttalande i triplestore. Observera att alla efterföljande redigeringar av egenskapen kräver en återställning av triplestore för att rensa föråldrade mappningar. Detta gäller inte objektmappningar.",
 	"wikibase-rdf-property-edit-warning-acknowledge": "Visa inte det här meddelandet igen.",
 	"special-mapping-predicates": "Kartläggningspredikat"
 }
