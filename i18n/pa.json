@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Cabal"
+		]
+	},
+	"wikibase-rdf-mappings-action-save": "ਸਾਂਭੋ",
+	"wikibase-rdf-mappings-action-remove": "ਹਟਾਓ",
+	"wikibase-rdf-mappings-action-cancel": "ਰੱਦ ਕਰੋ",
+	"wikibase-rdf-mappings-action-edit": "ਸੋਧੋ",
+	"wikibase-rdf-mappings-action-add": "ਨਕਸ਼ਾ-ਉਲੀਕਣਾ ਜੋੜੋ",
+	"wikibase-rdf-save-mappings-save-failed": "ਸਾਂਭਣ ਵਿੱਚ ਅੜਿੱਕਾ ਆਇਆ"
+}
