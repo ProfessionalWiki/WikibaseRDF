@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Tensama0415",
 			"Ykhwong"
 		]
 	},
@@ -10,6 +11,7 @@
 	"wikibase-rdf-mappings-action-remove": "제거",
 	"wikibase-rdf-mappings-action-cancel": "취소",
 	"wikibase-rdf-mappings-action-edit": "편집",
+	"wikibase-rdf-mappings-action-add": "매핑 추가",
 	"wikibase-rdf-save-mappings-save-failed": "저장 실패",
 	"wikibase-rdf-property-edit-warning-acknowledge": "이 메시지를 더 이상 보지 않습니다."
 }
