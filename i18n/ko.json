@@ -5,7 +5,7 @@
 			"Ykhwong"
 		]
 	},
-	"wikibase-rdf-mappings-predicate-heading": "관계",
+	"wikibase-rdf-mappings-predicate-heading": "술어",
 	"wikibase-rdf-mappings-object-heading": "URL",
 	"wikibase-rdf-mappings-action-save": "저장",
 	"wikibase-rdf-mappings-action-remove": "제거",
@@ -13,5 +13,9 @@
 	"wikibase-rdf-mappings-action-edit": "편집",
 	"wikibase-rdf-mappings-action-add": "매핑 추가",
 	"wikibase-rdf-save-mappings-save-failed": "저장 실패",
-	"wikibase-rdf-property-edit-warning-acknowledge": "이 메시지를 더 이상 보지 않습니다."
+	"wikibase-rdf-config-invalid": "유효하지 않은 {{PLURAL:$1|술어}}:\n$2. 변경 사항이 저장되지 않았습니다.",
+	"wikibase-rdf-config-list-heading": "허용된 {{PLURAL:$1|술어|술어들}}:",
+	"wikibase-rdf-config-list-empty": "정의된 술어가 없습니다.",
+	"wikibase-rdf-property-edit-warning-acknowledge": "이 메시지를 더 이상 보지 않습니다.",
+	"special-mapping-predicates": "술어 맵핑"
 }
