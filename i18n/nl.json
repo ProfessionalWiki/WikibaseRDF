@@ -3,13 +3,14 @@
 		"authors": [
 			"Kghbln",
 			"McDutchie",
-			"Romaine"
+			"Romaine",
+			"Siebrand"
 		]
 	},
 	"wikibase-rdf-description": "Maakt het definiëren van RDF-toewijzingen voor Wikibase-entiteiten mogelijk",
 	"wikibase-rdf-mappings-toggler": "Toewijzing aan andere ontologieën",
 	"wikibase-rdf-mappings-predicate-heading": "Predikaat",
-	"wikibase-rdf-mappings-object-heading": "URL",
+	"wikibase-rdf-mappings-object-heading": "Url",
 	"wikibase-rdf-mappings-action-save": "opslaan",
 	"wikibase-rdf-mappings-action-remove": "verwijderen",
 	"wikibase-rdf-mappings-action-cancel": "annuleren",
