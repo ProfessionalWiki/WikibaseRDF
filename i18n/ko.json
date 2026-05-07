@@ -13,6 +13,7 @@
 	"wikibase-rdf-mappings-action-edit": "편집",
 	"wikibase-rdf-mappings-action-add": "매핑 추가",
 	"wikibase-rdf-save-mappings-save-failed": "저장 실패",
+	"wikibase-rdf-entity-id-invalid": "지정한 개체 ID가 유효하지 않습니다",
 	"wikibase-rdf-config-invalid": "유효하지 않은 {{PLURAL:$1|술어}}:\n$2. 변경 사항이 저장되지 않았습니다.",
 	"wikibase-rdf-config-list-heading": "허용된 {{PLURAL:$1|술어|술어들}}:",
 	"wikibase-rdf-config-list-empty": "정의된 술어가 없습니다.",
