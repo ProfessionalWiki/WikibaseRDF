@@ -1,18 +1,31 @@
 {
 	"@metadata": {
 		"authors": [
+			"HakanIST",
 			"Hedda",
 			"Rapsar",
 			"SaldırganSincap"
 		]
 	},
 	"wikibase-rdf-description": "Wikibase Varlıkları için RDF eşlemelerinin tanımlanmasına izin verir",
+	"wikibase-rdf-mappings-toggler": "Diğer ontolojilere eşleme",
 	"wikibase-rdf-mappings-predicate-heading": "Yüklem",
 	"wikibase-rdf-mappings-object-heading": "URL",
 	"wikibase-rdf-mappings-action-save": "kaydet",
 	"wikibase-rdf-mappings-action-remove": "kaldır",
 	"wikibase-rdf-mappings-action-cancel": "iptal",
 	"wikibase-rdf-mappings-action-edit": "değiştir",
+	"wikibase-rdf-mappings-action-add": "eşleme ekle",
+	"wikibase-rdf-save-mappings-invalid-mappings": "Belirttiğiniz eşlemelerden bazıları geçersiz",
 	"wikibase-rdf-save-mappings-save-failed": "kayıt başarısız",
-	"wikibase-rdf-entity-id-invalid": "Belirttiğiniz varlık kimliği geçersiz"
+	"wikibase-rdf-entity-id-invalid": "Belirttiğiniz varlık kimliği geçersiz",
+	"wikibase-rdf-permission-denied": "Bu varlığın eşlemelerini düzenleme izniniz yok",
+	"wikibase-rdf-config-invalid": "Geçersiz {{PLURAL:$1|yüklem|yüklemler}}:\n$2. Değişiklikleriniz kaydedilmedi.",
+	"wikibase-rdf-config-list-intro": "Bu sayfa, diğer ontolojilere yapılan eşlemelerde hangi yüklemlerin kullanılabileceğini tanımlar.",
+	"wikibase-rdf-config-list-heading": "İzin verilen {{PLURAL:$1|yüklem|yüklemler}}:",
+	"wikibase-rdf-config-list-empty": "Tanımlı yüklem yok.",
+	"wikibase-rdf-config-list-footer": "LocalSettings.php'de tanımlı, bu sayfa aracılığıyla değiştirilemez.",
+	"wikibase-rdf-property-edit-warning": "\"$1\" düğmesine tıklayarak üçlü depoda kalıcı bir ifade oluşturuyorsunuz. Sonraki düzenlemelerin etkili olmasının biraz zaman alabileceğini lütfen unutmayın.",
+	"wikibase-rdf-property-edit-warning-acknowledge": "Bu mesajı bir daha gösterme.",
+	"special-mapping-predicates": "Eşleme yüklemleri"
 }
