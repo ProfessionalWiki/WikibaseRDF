@@ -9,5 +9,6 @@
 	"wikibase-rdf-mappings-action-remove": "ewechhuelen",
 	"wikibase-rdf-mappings-action-cancel": "ofbriechen",
 	"wikibase-rdf-mappings-action-edit": "änneren",
+	"wikibase-rdf-entity-id-invalid": "D'Objets-ID, déi Dir uginn hutt, ass ongülteg",
 	"wikibase-rdf-property-edit-warning-acknowledge": "Dëse Message net méi weisen."
 }

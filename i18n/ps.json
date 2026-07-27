@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"شاه زمان پټان"
+		]
+	},
+	"wikibase-rdf-mappings-predicate-heading": "وړاندوينه",
+	"wikibase-rdf-mappings-object-heading": "وېبتړ",
+	"wikibase-rdf-mappings-action-save": "خوندي‌کول",
+	"wikibase-rdf-mappings-action-remove": "لرې‌کول",
+	"wikibase-rdf-mappings-action-cancel": "ناگارل",
+	"wikibase-rdf-mappings-action-edit": "سمول",
+	"wikibase-rdf-mappings-action-add": "نخشه‌کول ورگډول",
+	"wikibase-rdf-save-mappings-invalid-mappings": "ستاسو ځينې مشخصې کړې نخشې ناسمې دي",
+	"wikibase-rdf-save-mappings-save-failed": "خوندي‌کول نابرياله شول",
+	"wikibase-rdf-entity-id-invalid": "ستاسې ځانگړی شوی شتونتيا پېژند سم نه دی",
+	"wikibase-rdf-permission-denied": "تاسو د دې شتونتيا د نخشې سمولو اجازه نلرئ",
+	"wikibase-rdf-config-list-heading": "اجازه ورکړل‌شوې {{PLURAL:$1| وړاندوينه|وړاندوينې}}:",
+	"wikibase-rdf-property-edit-warning-acknowledge": "دا پيغام بيا مه راښکاره کوه.",
+	"special-mapping-predicates": "د نخشه‌کولو وړاندوينې"
+}
