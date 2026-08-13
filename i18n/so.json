@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"AhmedG612"
+		]
+	},
+	"wikibase-rdf-description": "Waxay oggolaanaysaa qeexidda khariidadaha RDF ee Sheeyada Wikibase",
+	"wikibase-rdf-mappings-toggler": "Khariidaynta ontolojiyada kale",
+	"wikibase-rdf-mappings-predicate-heading": "Saadaal",
+	"wikibase-rdf-mappings-object-heading": "URL-ka",
+	"wikibase-rdf-mappings-action-save": "keydi",
+	"wikibase-rdf-mappings-action-remove": "ka saar",
+	"wikibase-rdf-mappings-action-cancel": "jooji",
+	"wikibase-rdf-mappings-action-edit": "wax ka badal",
+	"wikibase-rdf-mappings-action-add": "ku dar khariidad",
+	"wikibase-rdf-save-mappings-invalid-mappings": "Qaar ka mid ah khariidadaha aad qeexday ma ansaxna",
+	"wikibase-rdf-save-mappings-save-failed": "Kaydintu way fashilantay",
+	"wikibase-rdf-entity-id-invalid": "Aqoonsiga sheyga aad qeexday ma ansaxna",
+	"wikibase-rdf-permission-denied": "Ma haysatid oggolaanshaha aad ku tafatiri karto khariidadaha sheygan",
+	"wikibase-rdf-config-invalid": "{{PLURAL:$1|Saadaasha|Saadaalaha}} aan ansax ahayn:\n$2. Isbeddelladaada lama kaydin.",
+	"wikibase-rdf-config-list-intro": "Boggan waxa uu qeexayaa saadaalaha loo adeegsan karo khariidaynta ontolojiyada kale. Shaqadani waa qayb ka mid ah [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Wikibase_RDF kordhinta Wikibase RDF].",
+	"wikibase-rdf-config-list-heading": "{{PLURAL:$1|Saadaasha|Saadaalaha}} la oggol yahay:",
+	"wikibase-rdf-config-list-empty": "Wax saadaal ah lama qeexin.",
+	"wikibase-rdf-config-list-footer": "Waxaa lagu qeexay LocalSettings.php, lagumana beddeli karo boggan.",
+	"wikibase-rdf-property-edit-warning": "Markaad gujiso \"$1\", waxaad ku abuuraysaa bayaan joogto ah dukaanka saddexleyda ah. Fadlan ogow in wax ka beddel kasta oo dambe oo lagu sameeyo hantida uu u baahan doono dib u dejin lagu sameeyo dukaanka saddexleyda si loo tirtiro khariidadaha duugoobay. Tani ma khusayso khariidadaha sheeyada.",
+	"wikibase-rdf-property-edit-warning-acknowledge": "Mar dambe ha muujin farriintan.",
+	"special-mapping-predicates": "Saadaalaha khariidaynta"
+}
