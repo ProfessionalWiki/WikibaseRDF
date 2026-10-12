@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"EmicraftNoob",
+			"Ovruni"
+		]
+	},
+	"wikibase-rdf-mappings-predicate-heading": "Predicado",
+	"wikibase-rdf-mappings-object-heading": "URL",
+	"wikibase-rdf-mappings-action-save": "guardar",
+	"wikibase-rdf-mappings-action-cancel": "cancelar",
+	"wikibase-rdf-mappings-action-edit": "editar",
+	"wikibase-rdf-property-edit-warning-acknowledge": "No volver a mostrar este mensaje."
+}
