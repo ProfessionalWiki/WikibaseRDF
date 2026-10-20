@@ -39,7 +39,7 @@ jobs:
           extensions: mbstring, intl
           tools: composer
 
-      - uses: ProfessionalWiki/setup-mediawiki@alistair3149/rewrite
+      - uses: alistair3149/setup-mediawiki@alistair3149/rewrite
         with:
           mw-version: ${{ matrix.mw }}
           extension: WikibaseRDF
@@ -89,7 +89,7 @@ jobs:
           extensions: mbstring
           tools: composer, cs2pr
 
-      - uses: ProfessionalWiki/setup-mediawiki@alistair3149/rewrite
+      - uses: alistair3149/setup-mediawiki@alistair3149/rewrite
         with:
           mw-version: ${{ matrix.mw }}
           extension: WikibaseRDF
@@ -130,7 +130,7 @@ jobs:
                 extensions: mbstring
                 tools: composer, cs2pr
 
-          - uses: ProfessionalWiki/setup-mediawiki@alistair3149/rewrite
+          - uses: alistair3149/setup-mediawiki@alistair3149/rewrite
             with:
                 mw-version: ${{ matrix.mw }}
                 extension: WikibaseRDF
@@ -171,7 +171,7 @@ jobs:
           extensions: mbstring, intl, php-ast
           tools: composer
 
-      - uses: ProfessionalWiki/setup-mediawiki@alistair3149/rewrite
+      - uses: alistair3149/setup-mediawiki@alistair3149/rewrite
         with:
           mw-version: ${{ matrix.mw }}
           extension: WikibaseRDF
