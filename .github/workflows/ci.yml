@@ -39,39 +39,14 @@ jobs:
           extensions: mbstring, intl
           tools: composer
 
-      - name: Cache MediaWiki
-        id: cache-mediawiki
-        uses: actions/cache@v4
+      - uses: ProfessionalWiki/setup-mediawiki@alistair3149/rewrite
         with:
-          path: |
-            mediawiki
-            !mediawiki/extensions/
-            !mediawiki/vendor/
-          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v4
-
-      - name: Cache Composer cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.composer/cache
-          key: composer-php${{ matrix.php }}
-
-      - uses: actions/checkout@v4
-        with:
-            path: EarlyCopy
-
-      - name: Install MediaWiki
-        if: steps.cache-mediawiki.outputs.cache-hit != 'true'
-        working-directory: ~
-        run: bash EarlyCopy/.github/workflows/installMediaWiki.sh ${{ matrix.mw }} WikibaseRDF
-
-      - uses: actions/checkout@v4
-        with:
-          path: mediawiki/extensions/WikibaseRDF
-
-      - name: Composer allow-plugins
-        run: composer config --no-plugins allow-plugins.composer/installers true
-
-      - run: composer update
+          mw-version: ${{ matrix.mw }}
+          extension: WikibaseRDF
+          dependencies: Wikibase
+          settings: |
+            wfLoadExtension( 'WikibaseRepository', __DIR__ . '/extensions/Wikibase/extension-repo.json' );
+            require_once __DIR__ . '/extensions/Wikibase/repo/ExampleSettings.php';
 
       - name: Run update.php
         run: php maintenance/update.php --quick
@@ -114,39 +89,14 @@ jobs:
           extensions: mbstring
           tools: composer, cs2pr
 
-      - name: Cache MediaWiki
-        id: cache-mediawiki
-        uses: actions/cache@v4
+      - uses: ProfessionalWiki/setup-mediawiki@alistair3149/rewrite
         with:
-          path: |
-            mediawiki
-            mediawiki/extensions/
-            mediawiki/vendor/
-          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v4
-
-      - name: Cache Composer cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.composer/cache
-          key: composer_static_analysis
-
-      - uses: actions/checkout@v4
-        with:
-            path: EarlyCopy
-
-      - name: Install MediaWiki
-        if: steps.cache-mediawiki.outputs.cache-hit != 'true'
-        working-directory: ~
-        run: bash EarlyCopy/.github/workflows/installMediaWiki.sh ${{ matrix.mw }} WikibaseRDF
-
-      - uses: actions/checkout@v4
-        with:
-          path: mediawiki/extensions/WikibaseRDF
-
-      - name: Composer allow-plugins
-        run: composer config --no-plugins allow-plugins.composer/installers true
-
-      - run: composer update
+          mw-version: ${{ matrix.mw }}
+          extension: WikibaseRDF
+          dependencies: Wikibase
+          settings: |
+            wfLoadExtension( 'WikibaseRepository', __DIR__ . '/extensions/Wikibase/extension-repo.json' );
+            require_once __DIR__ . '/extensions/Wikibase/repo/ExampleSettings.php';
 
       - name: Composer install
         run: cd extensions/WikibaseRDF && composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
@@ -180,39 +130,14 @@ jobs:
                 extensions: mbstring
                 tools: composer, cs2pr
 
-          - name: Cache MediaWiki
-            id: cache-mediawiki
-            uses: actions/cache@v4
+          - uses: ProfessionalWiki/setup-mediawiki@alistair3149/rewrite
             with:
-                path: |
-                    mediawiki
-                    mediawiki/extensions/
-                    mediawiki/vendor/
-                key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v4
-
-          - name: Cache Composer cache
-            uses: actions/cache@v4
-            with:
-                path: ~/.composer/cache
-                key: composer_static_analysis
-
-          - uses: actions/checkout@v4
-            with:
-                path: EarlyCopy
-
-          - name: Install MediaWiki
-            if: steps.cache-mediawiki.outputs.cache-hit != 'true'
-            working-directory: ~
-            run: bash EarlyCopy/.github/workflows/installMediaWiki.sh ${{ matrix.mw }} WikibaseRDF
-
-          - uses: actions/checkout@v4
-            with:
-                path: mediawiki/extensions/WikibaseRDF
-
-          - name: Composer allow-plugins
-            run: composer config --no-plugins allow-plugins.composer/installers true
-
-          - run: composer update
+                mw-version: ${{ matrix.mw }}
+                extension: WikibaseRDF
+                dependencies: Wikibase
+                settings: |
+                    wfLoadExtension( 'WikibaseRepository', __DIR__ . '/extensions/Wikibase/extension-repo.json' );
+                    require_once __DIR__ . '/extensions/Wikibase/repo/ExampleSettings.php';
 
           - name: Composer install
             run: cd extensions/WikibaseRDF && composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
@@ -246,34 +171,14 @@ jobs:
           extensions: mbstring, intl, php-ast
           tools: composer
 
-      - name: Cache MediaWiki
-        id: cache-mediawiki
-        uses: actions/cache@v4
+      - uses: ProfessionalWiki/setup-mediawiki@alistair3149/rewrite
         with:
-          path: |
-            mediawiki
-            !mediawiki/extensions/
-            !mediawiki/vendor/
-          key: mw_static_analysis
-
-      - name: Cache Composer cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.composer/cache
-          key: composer_static_analysis
-
-      - uses: actions/checkout@v4
-        with:
-            path: EarlyCopy
-
-      - name: Install MediaWiki
-        if: steps.cache-mediawiki.outputs.cache-hit != 'true'
-        working-directory: ~
-        run: bash EarlyCopy/.github/workflows/installMediaWiki.sh ${{ matrix.mw }} WikibaseRDF
-
-      - uses: actions/checkout@v4
-        with:
-          path: mediawiki/extensions/WikibaseRDF
+          mw-version: ${{ matrix.mw }}
+          extension: WikibaseRDF
+          dependencies: Wikibase
+          settings: |
+            wfLoadExtension( 'WikibaseRepository', __DIR__ . '/extensions/Wikibase/extension-repo.json' );
+            require_once __DIR__ . '/extensions/Wikibase/repo/ExampleSettings.php';
 
       - name: Composer install
         run: composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
