@@ -2,7 +2,7 @@
  * JavaScript for WikibaseRDF
  */
 
-$( function () {
+$( () => {
 	'use strict';
 
 	function moveSection() {
@@ -56,7 +56,7 @@ $( function () {
 				$anchor: $anchor
 			} );
 
-		$hideMessage.on( 'click', function ( event ) {
+		$hideMessage.on( 'click', ( event ) => {
 			event.preventDefault();
 			$messageAnchor.data( 'wbtooltip' ).degrade( true );
 			$( window ).off( '.wikibase-rdf-property-warning' );
@@ -72,7 +72,7 @@ $( function () {
 
 		$( window ).one(
 			'scroll.wikibase-rdf-property-warning touchmove.wikibase-rdf-property-warning resize.wikibase-rdf-property-warning',
-			function () {
+			() => {
 				const tooltip = $messageAnchor.data( 'wbtooltip' );
 				if ( tooltip ) {
 					$messageAnchor.data( 'wbtooltip' ).hide();
@@ -155,7 +155,7 @@ $( function () {
 
 		findRow( trigger ).addClass( 'wikibase-rdf-row-editing-saving' );
 
-		$( '.wikibase-rdf-rows .wikibase-rdf-row' ).each( function ( index, row ) {
+		$( '.wikibase-rdf-rows .wikibase-rdf-row' ).each( ( index, row ) => {
 			const mapping = { predicate: '', object: '' };
 
 			const $row = $( row );
@@ -187,7 +187,7 @@ $( function () {
 			{ mappings: mappings },
 			{ authorization: 'token' }
 		)
-			.done( function () {
+			.then( () => {
 				hideError();
 				const isSave = $( trigger ).hasClass( 'wikibase-rdf-action-save' );
 				const isRemove = $( trigger ).hasClass( 'wikibase-rdf-action-remove' );
@@ -197,8 +197,7 @@ $( function () {
 					onSuccessfulRemove( trigger );
 				}
 				enableActions();
-			} )
-			.fail( function ( data, response ) {
+			}, ( data, response ) => {
 				const userLang = mw.config.get( 'wgUserLanguage' );
 				const siteLang = mw.config.get( 'wgContentLanguage' );
 				if ( Object.prototype.hasOwnProperty.call( response.xhr.responseJSON, 'messageTranslations' ) ) {
